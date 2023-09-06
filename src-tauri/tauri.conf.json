@@ -2,13 +2,13 @@
   "build": {
     "beforeBuildCommand": "pnpm build",
     "beforeDevCommand": "pnpm dev",
-    "devPath": "http://localhost:6000",
+    "devPath": "http://localhost:5005",
     "distDir": "../dist",
     "withGlobalTauri": false
   },
   "package": {
     "productName": "Secops",
-    "version": "0.0.0"
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -23,7 +23,7 @@
       "appimage": {
         "bundleMediaFramework": true
       },
-      "copyright": "Kunal Singh <kunal@kunalsin9h.com>",
+      "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
