@@ -32,8 +32,8 @@
         "icons/icon.ico"
       ],
       "identifier": "com.secops.desktop",
-      "longDescription": "An Ubuntu Desktop Application for managing OS security.",
-      "shortDescription": "An Ubuntu Desktop Application for managing OS security.",
+      "longDescription": "An Ubuntu Desktop Application for managing security.",
+      "shortDescription": "An Ubuntu Desktop Application for managing security.",
       "targets": "all"
     },
     "security": {
