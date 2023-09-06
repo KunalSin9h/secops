@@ -8,6 +8,12 @@ Ubuntu Security Made Easy
 
 ## Local Setup
 
+### Requirements
+
+- Pnpm
+- Rust
+- GoLang
+
 Clone the repository
 
 ```bash

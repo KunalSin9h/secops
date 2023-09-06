@@ -1,5 +1,12 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+
+# For checking version validity and showing the current version 
+go run scripts/secops.go version
+
+# For checking the correct formatting on frontend (src)
 pnpm format:check
+
+# for Linting for fontend( src)
 pnpm lint
