@@ -1,0 +1,58 @@
+{
+  "build": {
+    "beforeBuildCommand": "pnpm build",
+    "beforeDevCommand": "pnpm dev",
+    "devPath": "http://localhost:6000",
+    "distDir": "../dist",
+    "withGlobalTauri": false
+  },
+  "package": {
+    "productName": "Secops",
+    "version": "0.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "shell": {
+        "all": false,
+        "open": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "appimage": {
+        "bundleMediaFramework": true
+      },
+      "copyright": "Kunal Singh <kunal@kunalsin9h.com>",
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.secops.desktop",
+      "longDescription": "An Ubuntu Desktop Application for managing OS security.",
+      "shortDescription": "An Ubuntu Desktop Application for managing OS security.",
+      "targets": "all"
+    },
+    "security": {
+      "csp": null
+    },
+    "windows": [
+      {
+        "center": true,
+        "decorations": true,
+        "fileDropEnabled": true,
+        "fullscreen": false,
+        "height": 725,
+        "minHeight": 500,
+        "minWidth": 768,
+        "resizable": true,
+        "title": "Secops",
+        "transparent": true,
+        "width": 1400
+      }
+    ]
+  }
+}
