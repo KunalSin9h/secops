@@ -2,7 +2,7 @@
 
 export type Procedures = {
     queries: 
-        { key: "get_all_users", input: never, result: string } | 
+        { key: "get_all_users", input: never, result: string[] } | 
         { key: "version", input: never, result: string },
     mutations: never,
     subscriptions: never
