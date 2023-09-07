@@ -19,6 +19,12 @@ impl RspcError {
             message: msg,
         }
     }
+    pub fn not_found(msg: String) -> Self {
+        RspcError {
+            code: rspc::ErrorCode::NotFound,
+            message: msg,
+        }
+    }
 }
 
 impl From<RspcError> for rspc::Error {

@@ -11,7 +11,7 @@ use crate::rspc::RspcError;
     if failed to execute the command then it will return an error message
 */
 #[tauri::command]
-pub fn get_all_users() -> Result<Vec<String>, rspc::Error> {
+pub fn get_all() -> Result<Vec<String>, rspc::Error> {
     let output = match Command::new("users").output() {
         Ok(output) => output,
         Err(err) => return Err(RspcError::internal_server_error(err.to_string()))?,
@@ -26,4 +26,25 @@ pub fn get_all_users() -> Result<Vec<String>, rspc::Error> {
     let logged_in_users: Vec<String> = all_user.into_iter().map(|user| user.to_string()).collect();
 
     Ok(logged_in_users)
+}
+
+#[tauri::command]
+pub fn get_icon(user: String) -> Result<String, rspc::Error> {
+    let raw_image =
+        match image::io::Reader::open(format!("/var/lib/AccountsService/icons/{}", user)) {
+            Ok(raw) => raw,
+            Err(e) => return Err(RspcError::internal_server_error(e.to_string()))?,
+        };
+
+    let image = match raw_image.decode() {
+        Ok(image) => image,
+        Err(e) => return Err(RspcError::internal_server_error(e.to_string()))?,
+    };
+
+    let image_blob = match String::from_utf8(image.as_bytes().into()) {
+        Ok(blob) => blob,
+        Err(err) => return Err(RspcError::internal_server_error(err.to_string()))?,
+    };
+
+    Ok(image_blob)
 }

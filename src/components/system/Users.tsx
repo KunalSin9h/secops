@@ -1,5 +1,5 @@
 import { rspc } from "@/context/rspc";
-import { Skeleton } from "../ui/skeleton";
+import User from "../user";
 
 export default function Users() {
   const { data, isLoading, error } = rspc.useQuery(["get_all_users"]);
@@ -9,6 +9,13 @@ export default function Users() {
     return <h1>Error</h1>;
   }
 
-  if (isLoading) return <Skeleton className="h-4 w-[50px]" />;
-  return <h1>{...data}</h1>;
+  if (isLoading) return <h1>Loading...</h1>;
+
+  return (
+    <div>
+      {data.map((user: string, index: number) => {
+        return <User key={index} name={user} />;
+      })}
+    </div>
+  );
 }
