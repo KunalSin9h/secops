@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.0.5"
+    "version": "0.0.6"
   },
   "tauri": {
     "allowlist": {
@@ -56,12 +56,12 @@
       },
       {
         "decorations": true,
+        "height": 400,
+        "label": "login",
         "resizable": false,
         "title": "Authenticate",
-        "height": 400,
-        "width": 400,
-        "label": "login",
-        "url": "login.html"
+        "url": "login.html",
+        "width": 400
       }
     ]
   }
