@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use secops::startup;
 use secops::users;
 
 #[tauri::command(async)]
@@ -11,8 +10,6 @@ async fn version() -> String {
 
 #[tokio::main]
 async fn main() -> tauri::Result<()> {
-    startup::setup_app().await;
-
     let router = <rspc::Router>::new()
         .config(rspc::Config::new().export_ts_bindings("../src/ts/bindings.d.ts"))
         .query("version", |t| t(|_, _: ()| version()))

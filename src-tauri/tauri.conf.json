@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.0.3"
+    "version": "0.0.4"
   },
   "tauri": {
     "allowlist": {
@@ -16,9 +16,6 @@
       "shell": {
         "all": false,
         "open": true
-      },
-      "fs": {
-        "scope": ["$HOME/.secops/*"]
       }
     },
     "bundle": {

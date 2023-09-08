@@ -4,7 +4,6 @@ features = []
 version = '1.4'
 
 [dependencies]
-image = '0.24.7'
 open = '5.0.0'
 serde_json = '1.0'
 
@@ -17,7 +16,7 @@ features = ['derive']
 version = '1.0'
 
 [dependencies.tauri]
-features = ['shell-open']
+features = ['fs-all', 'path-all', 'shell-open']
 version = '1.4'
 
 [dependencies.tokio]
@@ -34,7 +33,7 @@ edition = '2021'
 license = 'MIT'
 name = 'secops'
 repository = 'https://github.com/kunalsin9h/secops'
-version = '0.0.3'
+version = '0.0.4'
 
 [profile]
 [profile.release]
