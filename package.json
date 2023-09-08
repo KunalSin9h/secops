@@ -34,12 +34,14 @@
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^4.4.9",
+    "vite-plugin-static-copy": "^0.17.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "name": "secops",
   "private": true,
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc \u0026\u0026 vite build \u0026\u0026 copy_login_splash_screen",
+    "copy_login_splash_screen": "cp src/login.html dist/",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
@@ -49,5 +51,5 @@
     "preview": "vite preview",
     "tauri": "tauri"
   },
-  "version": "0.0.4"
+  "version": "0.0.5"
 }
