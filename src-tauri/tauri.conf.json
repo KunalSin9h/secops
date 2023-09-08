@@ -4,7 +4,7 @@
     "beforeDevCommand": "pnpm dev",
     "devPath": "http://localhost:5005",
     "distDir": "../dist",
-    "withGlobalTauri": false
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "Secops",
