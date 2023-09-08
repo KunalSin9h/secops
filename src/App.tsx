@@ -1,4 +1,4 @@
-import Users from "@/components/system/Users";
+import UserInfo from "./components/system/Users";
 import Version from "@/components/system/version";
 
 export default function App() {
@@ -11,9 +11,9 @@ export default function App() {
         </span>
       </div>
       <div className="flex items-center space-x-2">
-        <span>All users on this system are: </span>
+        <span>The Current user : </span>
         <span className="font-bold">
-          <Users />
+          <UserInfo />
         </span>
       </div>
     </div>
