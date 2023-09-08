@@ -40,8 +40,7 @@
   "name": "secops",
   "private": true,
   "scripts": {
-    "build": "tsc \u0026\u0026 vite build \u0026\u0026 copy_login_splash_screen",
-    "copy_login_splash_screen": "cp src/login.html dist/",
+    "build": "tsc \u0026\u0026 vite build \u0026\u0026",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
