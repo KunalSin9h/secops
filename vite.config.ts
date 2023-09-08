@@ -14,7 +14,7 @@ export default defineConfig(async () => ({
     viteStaticCopy({
       targets: [
         {
-          src: "login.html",
+          src: "src/login.html",
           dest: "./",
         },
       ],

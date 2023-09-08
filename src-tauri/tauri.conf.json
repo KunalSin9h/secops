@@ -55,11 +55,13 @@
         "width": 1400
       },
       {
-        "decorations": false,
+        "decorations": true,
+        "resizable": false,
+        "title": "Authenticate",
         "height": 400,
+        "width": 400,
         "label": "login",
-        "url": "login.html",
-        "width": 200
+        "url": "login.html"
       }
     ]
   }
