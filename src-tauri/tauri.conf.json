@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.0.6"
+    "version": "0.0.7"
   },
   "tauri": {
     "allowlist": {
@@ -24,6 +24,15 @@
         "bundleMediaFramework": true
       },
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
+      "deb": {
+        "depends": [
+          "pkexec",
+          "policykit-1"
+        ],
+        "files": {
+          "/usr/share/polkit-1/actions/com.ubuntu.pkexec.secops.policy": "../assets/deb/com.ubuntu.pkexec.secops.policy"
+        }
+      },
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -53,15 +62,6 @@
         "transparent": true,
         "visible": false,
         "width": 1400
-      },
-      {
-        "decorations": true,
-        "height": 400,
-        "label": "login",
-        "resizable": false,
-        "title": "Authenticate",
-        "url": "login.html",
-        "width": 400
       }
     ]
   }

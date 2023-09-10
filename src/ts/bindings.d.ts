@@ -2,7 +2,6 @@
 
 export type Procedures = {
     queries: 
-        { key: "get_current_user", input: never, result: string } | 
         { key: "version", input: never, result: string },
     mutations: never,
     subscriptions: never

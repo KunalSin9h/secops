@@ -2,7 +2,6 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import million from "million/compiler";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { viteStaticCopy } from "vite-plugin-static-copy";
 import path from "path";
 
 // https://vitejs.dev/config/
@@ -10,16 +9,7 @@ export default defineConfig(async () => ({
   plugins: [
     react(),
     tsconfigPaths(),
-    million.vite({ auto: true, mute: true }),
-    viteStaticCopy({
-      targets: [
-        {
-          src: "src/login.html",
-          dest: "./",
-        },
-      ],
-    }),
-  ],
+    million.vite({ auto: true, mute: true})],
 
   resolve: {
     alias: {

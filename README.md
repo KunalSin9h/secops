@@ -8,16 +8,20 @@ Ubuntu Security Made Easy
 
 ## Local Setup
 
-### Requirements
-
-- Pnpm
-- Rust
-- GoLang
-
 Clone the repository
 
 ```bash
 git clone https://github.com/KunalSin9h/secops
+```
+
+### Requirements
+
+#### Download All requirenments on Ubuntu for developing the project.
+
+```bash
+cd secops # go to project directory
+
+bash ./scripts/setup_host.sh
 ```
 
 Download Dependencies

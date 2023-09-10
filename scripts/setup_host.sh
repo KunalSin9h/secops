@@ -21,7 +21,8 @@ sudo apt-get install libwebkit2gtk-4.0-dev \
     file \
     libssl-dev \
     libgtk-3-dev \
-    libayatana-appindicator3-dev \
+    patchelf \
+    libappindicator3-dev \
     librsvg2-dev -y
 
 echo "Downloading npm"
@@ -57,5 +58,16 @@ else
     pnpm update
 fi
 
-echo "Installing frontend Dependencies"
-pnpm install
+echo "Downloading GoLang"
+if ! [ -x "$(command -v go)" ]; then
+    sudo snap install go --classic
+else 
+    echo "GoLang is already installed"
+fi
+
+
+echo "Finishing up..."
+source /home/$USER/.bashrc
+
+echo "Done!, installed all ther equirenments for this project"
+
