@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.1.2"
+    "version": "0.1.3"
   },
   "tauri": {
     "allowlist": {
@@ -25,9 +25,6 @@
       },
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
-        "depends": [
-          "pkexec"
-        ],
         "files": {
           "/usr/share/polkit-1/actions/com.ubuntu.pkexec.secops.policy": "../assets/deb/com.ubuntu.pkexec.secops.policy"
         }
