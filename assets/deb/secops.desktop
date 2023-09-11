@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name={{{name}}}
+Comment=Ubuntu Security Made Easy {{{comment}}}
+GenericName=OS Security
+Exec=pkexec /usr/bin/{{{exec}}}
+Categories=Security;{{{categories}}}
+Icon={{{icon}}}
+Terminal=false
+Keywords=secops;
+Type=Application

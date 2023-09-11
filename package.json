@@ -49,5 +49,5 @@
     "preview": "vite preview",
     "tauri": "tauri"
   },
-  "version": "0.1.4"
+  "version": "0.1.5"
 }

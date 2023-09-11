@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.1.4"
+    "version": "0.1.5"
   },
   "tauri": {
     "allowlist": {
@@ -28,6 +28,7 @@
         "depends": [
           "policykit-1"
         ],
+        "desktopTemplate": "../assets/deb/secops.desktop",
         "files": {
           "/usr/share/polkit-1/actions/com.ubuntu.pkexec.secops.policy": "../assets/deb/com.ubuntu.pkexec.secops.policy"
         }

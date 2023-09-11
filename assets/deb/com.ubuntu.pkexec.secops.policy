@@ -5,6 +5,7 @@
 <policyconfig>
 
   <action id="com.ubuntu.pkexec.secops">
+    <description>Access to the Secops Desktop Application</description>
     <message>Authentication is required to run the Secops Desktop Application</message>
     <icon_name>secops</icon_name>
     <defaults>
