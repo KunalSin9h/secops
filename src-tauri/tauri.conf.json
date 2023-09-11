@@ -26,8 +26,7 @@
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
         "depends": [
-          "pkexec",
-          "policykit-1"
+          "pkexec"
         ],
         "files": {
           "/usr/share/polkit-1/actions/com.ubuntu.pkexec.secops.policy": "../assets/deb/com.ubuntu.pkexec.secops.policy"
