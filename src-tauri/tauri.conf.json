@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.1.5"
+    "version": "0.1.6"
   },
   "tauri": {
     "allowlist": {
@@ -23,6 +23,7 @@
       "appimage": {
         "bundleMediaFramework": true
       },
+      "category": "Utility",
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
         "depends": [
@@ -40,7 +41,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.secops.desktop",
+      "identifier": "com.ubuntu.pkexec.secops",
       "longDescription": "An Ubuntu Desktop Application for managing security.",
       "shortDescription": "An Ubuntu Desktop Application for managing security.",
       "targets": "all"
