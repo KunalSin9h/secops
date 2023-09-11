@@ -1,5 +1,5 @@
-/// COMMANDS
-/// All the commands which are defined by Secops
 mod user;
+mod system;
 
 pub use user::*;
+pub use system::*;

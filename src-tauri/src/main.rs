@@ -1,4 +1,4 @@
-use secops::users;
+use secops::ipc;
 
 #[tauri::command(async)]
 async fn version() -> String {
@@ -10,7 +10,7 @@ async fn main() -> tauri::Result<()> {
     let router = <rspc::Router>::new()
         .config(rspc::Config::new().export_ts_bindings("../src/ts/bindings.d.ts"))
         .query("version", |t| t(|_, _: ()| version()))
-        .query("get_current_user", |t| t(|_, _: ()| users::get_current()))
+        .query("get_current_user", |t| t(|_, _: ()| ipc::ipc_get_current()))
         .build();
 
     tauri::Builder::default()

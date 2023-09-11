@@ -1,4 +1,4 @@
 pub mod commands;
 pub mod core;
 pub mod rspc;
-pub mod users;
+pub mod ipc;
