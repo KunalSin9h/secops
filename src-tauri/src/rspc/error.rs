@@ -1,3 +1,4 @@
+/// RspcError is a wrapper to rspc::Error for better error handling
 pub struct RspcError {
     pub code: rspc::ErrorCode,
     pub message: String,
@@ -27,6 +28,12 @@ impl RspcError {
     }
 }
 
+/// This is for converting  RspcError to rspc::Error
+/// so that we can use it in the tauri app
+///
+/// This helps us to rely on the question mark operator to convert it into an rspc::Error type.
+///
+/// See: https://www.rspc.dev/server/error-handling
 impl From<RspcError> for rspc::Error {
     fn from(value: RspcError) -> Self {
         rspc::Error::new(value.code, value.message)
