@@ -1,4 +1,4 @@
-use std::process::Command;
+use std::process::{Command, Stdio};
 
 pub struct Action {
     pub description: String,
@@ -26,14 +26,14 @@ impl Action {
         command: &str,
         root: bool,
         output: bool,
-        args: Vec<String>,
+        args: Vec<&str>,
     ) -> Self {
         Action {
             description: description.to_string(),
             command: command.to_string(),
             root,
             output,
-            args,
+            args: args.iter().map(|arg| arg.to_string()).collect(),
         }
     }
 
@@ -52,13 +52,17 @@ impl Action {
         args.append(&mut self.args.clone());
 
         if self.output {
-            let c = cmd.args(args).output().map_err(|e| e.to_string())?;
+            let out = cmd.args(args).output().map_err(|e| e.to_string())?;
 
-            let result = String::from_utf8(c.stdout).map_err(|e| e.to_string())?;
+            let result = String::from_utf8(out.stdout).map_err(|e| e.to_string())?;
 
             return Ok(Some(result));
         } else {
-            let c = cmd.args(args).status().map_err(|e| e.to_string())?;
+            let c = cmd
+                .args(args)
+                .stdout(Stdio::null())
+                .status()
+                .map_err(|e| e.to_string())?;
 
             if c.success() {
                 return Ok(None);

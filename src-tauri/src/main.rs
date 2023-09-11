@@ -1,17 +1,8 @@
-use secops::ipc;
-
-#[tauri::command(async)]
-async fn version() -> String {
-    env!["CARGO_PKG_VERSION"].into()
-}
+use secops::rspc::init_rspc;
 
 #[tokio::main]
 async fn main() -> tauri::Result<()> {
-    let router = <rspc::Router>::new()
-        .config(rspc::Config::new().export_ts_bindings("../src/ts/bindings.d.ts"))
-        .query("version", |t| t(|_, _: ()| version()))
-        .query("get_current_user", |t| t(|_, _: ()| ipc::ipc_get_current()))
-        .build();
+    let router = init_rspc();
 
     tauri::Builder::default()
         .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
