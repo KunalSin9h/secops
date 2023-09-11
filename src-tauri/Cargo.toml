@@ -33,7 +33,7 @@ edition = '2021'
 license = 'MIT'
 name = 'secops'
 repository = 'https://github.com/kunalsin9h/secops'
-version = '0.0.4'
+version = '0.1.0'
 
 [profile]
 [profile.release]
