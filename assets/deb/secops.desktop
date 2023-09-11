@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name={{{name}}}
-Comment=Ubuntu Security Made Easy {{{comment}}}
+Comment={{{comment}}}
 GenericName=OS Security
 Exec=pkexec /usr/bin/{{{exec}}}
-Categories=Security;{{{categories}}}
+Categories=Security
 Icon={{{icon}}}
 Terminal=false
 Keywords=secops;
