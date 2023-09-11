@@ -16,7 +16,7 @@ features = ['derive']
 version = '1.0'
 
 [dependencies.tauri]
-features = ['fs-all', 'path-all', 'shell-open']
+features = ['shell-open']
 version = '1.4'
 
 [dependencies.tokio]
