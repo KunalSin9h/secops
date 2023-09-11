@@ -39,21 +39,31 @@ impl Action {
 
     /// Execute as single action
     pub fn exec(&self) -> Result<Option<String>, String> {
-        let mut cmd = Command::new(self.command.as_str());
+        let mut cmd: Command;
+        let mut args: Vec<String> = vec![];
+
+        if self.root {
+            cmd = Command::new("pkexec");
+            args.push(self.command.clone());
+        } else {
+            cmd = Command::new(self.command.as_str());
+        }
+
+        args.append(&mut self.args.clone());
 
         if self.output {
-            let c = cmd.args(&self.args).output().map_err(|e| e.to_string())?;
+            let c = cmd.args(args).output().map_err(|e| e.to_string())?;
 
             let result = String::from_utf8(c.stdout).map_err(|e| e.to_string())?;
 
             return Ok(Some(result));
         } else {
-            let c = cmd.args(&self.args).status().map_err(|e| e.to_string())?;
+            let c = cmd.args(args).status().map_err(|e| e.to_string())?;
 
             if c.success() {
                 return Ok(None);
             } else {
-                return Err("non zero exit status".to_string());
+                return Err("get non zero exit status".to_string());
             }
         }
     }
