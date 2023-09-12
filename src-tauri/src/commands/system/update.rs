@@ -1,7 +1,7 @@
 use crate::core::Action;
 
 pub fn update() -> Result<String, String> {
-    let act = Action::new("update dependencies", "pacman", true, true, vec!["-Sy"]);
+    let act = Action::new("update dependencies", "apt-get", true, true, vec!["update"]);
 
     let result = act.exec()?;
 
