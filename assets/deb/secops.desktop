@@ -2,7 +2,7 @@
 Name={{{name}}}
 Comment={{{comment}}}
 GenericName=OS Security
-Exec=pkexec /usr/bin/{{{exec}}}
+Exec={{{exec}}}
 Categories=Security
 Icon={{{icon}}}
 Terminal=false

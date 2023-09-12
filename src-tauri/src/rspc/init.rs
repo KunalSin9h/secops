@@ -6,5 +6,6 @@ pub fn init_rspc() -> rspc::Router {
         .query("version", |t| t(|_, _: ()| ipc::ipc_version()))
         .query("get_current_user", |t| t(|_, _: ()| ipc::ipc_get_current()))
         .mutation("update_system", |t| t(|_, _: ()| ipc::ipc_update()))
+        .mutation("upgrade_system", |t| t(|_, _: ()| ipc::ipc_upgrade()))
         .build()
 }

@@ -5,6 +5,7 @@ import { client } from "./context/rspc";
 
 export default function App() {
   const [updateData, setUpdateData] = useState("");
+  const [upgradeData, setUpgradeData] = useState("");
   return (
     <div className="p-4 w-full">
       <div className="flex text-4xl font-bold space-x-4 items-center justify-center">
@@ -19,24 +20,42 @@ export default function App() {
           <UserInfo />
         </span>
       </div>
+      <div className="flex items-center space-x-4">
+        <button
+          className="p-2 rounded bg-black text-white text-lg my-8"
+          onClick={(e) => {
+            e.preventDefault();
+            setUpdateData("Updating...");
+            setUpgradeData("");
 
-      <button
-        className="p-4 rounded bg-black text-white text-lg my-8"
-        onClick={(e) => {
-          e.preventDefault();
-          setUpdateData("Updating...");
+            client
+              .mutation(["update_system"])
+              .then(setUpdateData)
+              .catch(console.log);
+          }}
+        >
+          Update your system (sudo apt update)
+        </button>
+        <button
+          className="p-2 rounded bg-green-300 text-white text-lg my-8"
+          onClick={(e) => {
+            e.preventDefault();
+            setUpgradeData("Upgrading...");
+            setUpdateData("");
 
-          client
-            .mutation(["update_system"])
-            .then(setUpdateData)
-            .catch(console.log);
-        }}
-      >
-        Update your system (sudo apt update)
-      </button>
+            client
+              .mutation(["upgrade_system"])
+              .then(setUpgradeData)
+              .catch(console.log);
+          }}
+        >
+          Upgrade your system (sudo apt upgrade)
+        </button>
+      </div>
       <div className="m-4">
         <pre>
           <code>{updateData}</code>
+          <code>{upgradeData}</code>
         </pre>
       </div>
     </div>

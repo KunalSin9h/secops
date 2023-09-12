@@ -5,6 +5,7 @@ export type Procedures = {
         { key: "get_current_user", input: never, result: string } | 
         { key: "version", input: never, result: string },
     mutations: 
-        { key: "update_system", input: never, result: string },
+        { key: "update_system", input: never, result: string } | 
+        { key: "upgrade_system", input: never, result: string },
     subscriptions: never
 };
