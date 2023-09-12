@@ -1,4 +1,4 @@
-use std::process::{Command, Stdio};
+use std::process::Command;
 
 pub struct Action {
     pub description: String,
@@ -37,37 +37,60 @@ impl Action {
         }
     }
 
+    pub fn script(&self) -> String {
+        let mut tokens: Vec<String> = vec![self.command.clone()];
+        tokens.append(&mut self.args.clone());
+
+        tokens.join(" ")
+    }
+
     /// Execute as single action
     pub fn exec(&self) -> Result<Option<String>, String> {
         let mut cmd: Command;
-        let mut args: Vec<String> = vec![];
 
         if self.root {
             cmd = Command::new("pkexec");
-            args.push(self.command.clone());
+            cmd.arg("sh").arg("-c").arg(self.script());
         } else {
-            cmd = Command::new(self.command.as_str());
+            cmd = Command::new("sh");
+            cmd.arg("-c").arg(self.script());
         }
 
-        args.append(&mut self.args.clone());
-
         if self.output {
-            let out = cmd.args(args).output().map_err(|e| e.to_string())?;
+            let out = match cmd.output() {
+                Ok(out) => out,
+                Err(e) => return Err(e.to_string()),
+            };
 
-            let result = String::from_utf8(out.stdout).map_err(|e| e.to_string())?;
+            let output = match String::from_utf8(out.stdout) {
+                Ok(output) => output,
+                Err(e) => return Err(e.to_string()),
+            };
 
-            return Ok(Some(result));
+            Ok(Some(output))
         } else {
-            let c = cmd
-                .args(args)
-                .stdout(Stdio::null())
-                .status()
-                .map_err(|e| e.to_string())?;
+            // TODO: make the stdout, stderr go to frontend
+            cmd.stdout(std::process::Stdio::inherit());
+            cmd.stderr(std::process::Stdio::inherit());
 
-            if c.success() {
-                return Ok(None);
+            let status = match cmd.status() {
+                Ok(status) => status,
+                Err(e) => {
+                    return Err(format!(
+                        "Error executing command: {}, with error: {}",
+                        &self.description,
+                        e.to_string()
+                    ));
+                }
+            };
+
+            if status.success() {
+                Ok(None)
             } else {
-                return Err("get non zero exit status".to_string());
+                Err(format!(
+                    "Command failed with exit code: {}",
+                    status.code().unwrap_or(-1)
+                ))
             }
         }
     }

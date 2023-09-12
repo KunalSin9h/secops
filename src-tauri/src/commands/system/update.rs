@@ -1,10 +1,13 @@
 use crate::core::Action;
 
-pub fn update() -> Result<String, String> {
-    let act = Action::new("update dependencies", "apt-get", true, true, vec!["update"]);
+pub fn update() -> Result<(), String> {
+    let act = Action::new("update dependencies", "pacman", true, true, vec!["-Sy"]);
 
-    let out = act.exec()?;
-    Ok(out.unwrap())
+    let result = act.exec()?;
+
+    assert_eq!(result, None);
+
+    Ok(())
 }
 
 pub fn upgrade() -> Result<(), String> {
@@ -16,6 +19,9 @@ pub fn upgrade() -> Result<(), String> {
         vec!["upgrade"],
     );
 
-    let _ = act.exec()?;
+    let result = act.exec()?;
+
+    assert_eq!(result, None);
+
     Ok(())
 }
