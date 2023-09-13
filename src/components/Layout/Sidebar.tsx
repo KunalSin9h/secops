@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { client } from "@/context/rspc";
 import {
   DASHBOARD_SIDEBAR_BOTTOM_LINKS,
   DASHBOARD_SIDEBAR_LINKS,
@@ -14,7 +16,7 @@ export default function Sidebar() {
           className="h-10 w-10"
           alt="User icon"
         />
-        <span className="text-lg">KunalSin9h</span>
+        <UserName />
       </div>
       <div className="flex-1 px-1 py-8">
         {DASHBOARD_SIDEBAR_LINKS.map((item) => (
@@ -31,7 +33,10 @@ export default function Sidebar() {
           <div className="flex items-center gap-2 p-4 align-center justify-center">
             <img src="/logo.png" alt="Secops Logo" className="h-8 w-8" />
             <span className="font-bold text-xl">
-              Secops <span className="text-sm pl-2 text-appdim">v1.2.0</span>
+              Secops{" "}
+              <span>
+                <AppVersion />{" "}
+              </span>
             </span>
           </div>
         </div>
@@ -56,4 +61,24 @@ function SidebarLink({
       </NavLink>
     </div>
   );
+}
+
+function AppVersion() {
+  const [version, setVersion] = useState("");
+
+  client.query(["version"]).then(setVersion).catch(console.log);
+
+  return (
+    <span className="text-sm pl-2 text-appdim">
+      <span>{version}</span>
+    </span>
+  );
+}
+
+function UserName() {
+  const [username, setUsername] = useState("");
+
+  client.query(["get_current_user"]).then(setUsername).catch(console.log);
+
+  return <span className="text-lg font-bold">{username}</span>;
 }
