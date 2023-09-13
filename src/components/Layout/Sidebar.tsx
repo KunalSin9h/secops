@@ -46,8 +46,11 @@ function SidebarLink({
   item: { key: string; path: string; label: string; icon: JSX.Element };
 }) {
   return (
-    <div>
-      <NavLink to={item.path} className="flex items-center gap-2 p-2 rounded">
+    <div className="">
+      <NavLink
+        to={item.path}
+        className="flex items-center gap-2 p-2 rounded hover:ml-2 transition-all hover:bg-[#1B1919]"
+      >
         {item.icon}
         {item.label}
       </NavLink>
