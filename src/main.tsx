@@ -1,13 +1,21 @@
 import * as React from "react";
 import * as ReactDom from "react-dom/client";
-import App from "@/App";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@/styles/global.css";
-import RspcProvider from "./context/rspc";
+import RspcProvider from "@/context/rspc";
+import Layout from "@/components/Layout/layout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+  },
+]);
 
 ReactDom.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <RspcProvider>
-      <App />
+      <RouterProvider router={router} />
     </RspcProvider>
   </React.StrictMode>,
 );
