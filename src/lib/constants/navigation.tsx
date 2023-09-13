@@ -1,4 +1,10 @@
-import { HelpAndSupport, HomeIcon, SSHIcon, Settings, TorIcon } from "../icons";
+import {
+  HelpAndSupport,
+  HomeIcon,
+  SSHIcon,
+  SettingsIcon,
+  TorIcon,
+} from "../icons";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
@@ -9,13 +15,13 @@ export const DASHBOARD_SIDEBAR_LINKS = [
   },
   {
     key: "ssh",
-    label: "SSH",
+    label: "SSH Blocking",
     path: "/ssh",
     icon: <SSHIcon />,
   },
   {
     key: "tor",
-    label: "TOR",
+    label: "TOR Blocking",
     path: "/tor",
     icon: <TorIcon />,
   },
@@ -26,12 +32,12 @@ export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
     key: "settings",
     label: "Settings",
     path: "/settings",
-    icon: <Settings />,
+    icon: <SettingsIcon />,
   },
   {
     key: "help_and_support",
     label: "Help & Support",
-    path: "/support",
+    path: "/help",
     icon: <HelpAndSupport />,
   },
 ];

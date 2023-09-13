@@ -5,6 +5,10 @@ import "@/styles/global.css";
 import RspcProvider from "@/context/rspc";
 import Layout from "@/components/Layout/Layout";
 import Home from "@/components/Home";
+import SSH from "./components/SSH";
+import TOR from "./components/TOR";
+import Settings from "./components/Settings";
+import Help from "./components/Help";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +19,13 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path: "/ssh",
+        element: <SSH />,
+      },
+      { path: "/tor", element: <TOR /> },
+      { path: "/settings", element: <Settings /> },
+      { path: "/help", element: <Help /> },
     ],
   },
 ]);
