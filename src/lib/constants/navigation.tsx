@@ -1,4 +1,4 @@
-import { HomeIcon, SSHIcon, Settings, TorIcon } from "../icons";
+import { HelpAndSupport, HomeIcon, SSHIcon, Settings, TorIcon } from "../icons";
 
 export const DASHBOARD_SIDEBAR_LINKS = [
   {
@@ -27,5 +27,11 @@ export const DASHBOARD_SIDEBAR_BOTTOM_LINKS = [
     label: "Settings",
     path: "/settings",
     icon: <Settings />,
+  },
+  {
+    key: "help_and_support",
+    label: "Help & Support",
+    path: "/support",
+    icon: <HelpAndSupport />,
   },
 ];

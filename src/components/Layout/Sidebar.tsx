@@ -23,13 +23,13 @@ export default function Sidebar() {
       </div>
       <div>
         <div className="bg-apphigh rounded">
-          <div className="border-b border-appbg mx-4">
+          <div className="border-b border-[#A59E9E] mx-4 py-2">
             {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => (
               <SidebarLink key={item.key} item={item} />
             ))}
           </div>
           <div className="flex items-center gap-2 p-4 align-center justify-center">
-            <img src="/logo.png" alt="Secops Logo" className="h-10 w-10" />
+            <img src="/logo.png" alt="Secops Logo" className="h-8 w-8" />
             <span className="font-bold text-xl">
               Secops <span className="text-sm pl-2 text-appdim">v1.2.0</span>
             </span>
@@ -46,7 +46,7 @@ function SidebarLink({
   item: { key: string; path: string; label: string; icon: JSX.Element };
 }) {
   return (
-    <div className="py-2 px-3">
+    <div>
       <NavLink to={item.path} className="flex items-center gap-2 p-2 rounded">
         {item.icon}
         {item.label}
