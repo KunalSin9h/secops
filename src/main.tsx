@@ -3,12 +3,19 @@ import * as ReactDom from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@/styles/global.css";
 import RspcProvider from "@/context/rspc";
-import Layout from "@/components/Layout/layout";
+import Layout from "@/components/Layout/Layout";
+import Home from "@/components/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+    ],
   },
 ]);
 

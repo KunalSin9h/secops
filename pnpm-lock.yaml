@@ -10,13 +10,13 @@ dependencies:
     version: 0.1.3
   '@rspc/react':
     specifier: ^0.1.3
-    version: 0.1.3(@tanstack/react-query@4.35.0)(react@18.2.0)
+    version: 0.1.3(@tanstack/react-query@4.35.3)(react@18.2.0)
   '@rspc/tauri':
     specifier: ^0.1.3
     version: 0.1.3(@tauri-apps/api@1.4.0)
   '@tanstack/react-query':
-    specifier: ^4.35.0
-    version: 4.35.0(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.35.3
+    version: 4.35.3(react-dom@18.2.0)(react@18.2.0)
   '@tauri-apps/api':
     specifier: ^1.4.0
     version: 1.4.0
@@ -661,14 +661,14 @@ packages:
     resolution: {integrity: sha512-3rsnmqm5G9fwtfV0HNPj4a70YTHUiw+hhC8RpyMPwOxn6pubCCVVbt58EN+eNaUICqs6DUAT/06SBNwVTRkkLg==}
     dev: false
 
-  /@rspc/react@0.1.3(@tanstack/react-query@4.35.0)(react@18.2.0):
+  /@rspc/react@0.1.3(@tanstack/react-query@4.35.3)(react@18.2.0):
     resolution: {integrity: sha512-JqdsM99QMZTTfrQHqhMAF98Qeuhym8G7DtABfb8F7a9iRjwGiF1eFqWtra3N85BOzr9vurbfwz7TmiTvg5HR7A==}
     peerDependencies:
       '@tanstack/react-query': ^4.26.0
       react: ^18.0.0
     dependencies:
       '@rspc/client': 0.1.3
-      '@tanstack/react-query': 4.35.0(react-dom@18.2.0)(react@18.2.0)
+      '@tanstack/react-query': 4.35.3(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
     dev: false
 
@@ -681,12 +681,12 @@ packages:
       '@tauri-apps/api': 1.4.0
     dev: false
 
-  /@tanstack/query-core@4.35.0:
-    resolution: {integrity: sha512-4GMcKQuLZQi6RFBiBZNsLhl+hQGYScRZ5ZoVq8QAzfqz9M7vcGin/2YdSESwl7WaV+Qzsb5CZOAbMBes4lNTnA==}
+  /@tanstack/query-core@4.35.3:
+    resolution: {integrity: sha512-PS+WEjd9wzKTyNjjQymvcOe1yg8f3wYc6mD+vb6CKyZAKvu4sIJwryfqfBULITKCla7P9C4l5e9RXePHvZOZeQ==}
     dev: false
 
-  /@tanstack/react-query@4.35.0(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-LLYDNnM9ewYHgjm2rzhk4KG/puN2rdoqCUD+N9+V7SwlsYwJk5ypX58rpkoZAhFyZ+KmFUJ7Iv2lIEOoUqydIg==}
+  /@tanstack/react-query@4.35.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-UgTPioip/rGG3EQilXfA2j4BJkhEQsR+KAbF+KIuvQ7j4MkgnTCJF01SfRpIRNtQTlEfz/+IL7+jP8WA8bFbsw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -697,7 +697,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.35.0
+      '@tanstack/query-core': 4.35.3
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
@@ -1068,7 +1068,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       get-intrinsic: 1.2.1
       is-string: 1.0.7
@@ -1084,7 +1084,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       es-shim-unscopables: 1.0.0
       get-intrinsic: 1.2.1
@@ -1095,7 +1095,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       es-shim-unscopables: 1.0.0
     dev: true
@@ -1105,7 +1105,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       es-shim-unscopables: 1.0.0
     dev: true
@@ -1114,7 +1114,7 @@ packages:
     resolution: {integrity: sha512-HuQCHOlk1Weat5jzStICBCd83NxiIMwqDg/dHEsoefabn/hJRj5pVdWcPUSpRrwhwxZOsQassMpgN/xRYFBMIg==}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       es-shim-unscopables: 1.0.0
       get-intrinsic: 1.2.1
@@ -1126,7 +1126,7 @@ packages:
     dependencies:
       array-buffer-byte-length: 1.0.0
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       get-intrinsic: 1.2.1
       is-array-buffer: 3.0.2
@@ -1147,7 +1147,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.10
-      caniuse-lite: 1.0.30001533
+      caniuse-lite: 1.0.30001534
       fraction.js: 4.3.6
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -1196,8 +1196,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001533
-      electron-to-chromium: 1.4.515
+      caniuse-lite: 1.0.30001534
+      electron-to-chromium: 1.4.519
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
 
@@ -1224,8 +1224,8 @@ packages:
     resolution: {integrity: sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==}
     engines: {node: '>= 6'}
 
-  /caniuse-lite@1.0.30001533:
-    resolution: {integrity: sha512-9aY/b05NKU4Yl2sbcJhn4A7MsGwR1EPfW/nrqsnqVA0Oq50wpmPaGI+R1Z0UKlUl96oxUkGEOILWtOHck0eCWw==}
+  /caniuse-lite@1.0.30001534:
+    resolution: {integrity: sha512-vlPVrhsCS7XaSh2VvWluIQEzVhefrUQcEsQWSS5A5V+dM07uv1qHeQzAOTGIMy9i3e9bH15+muvI/UHojVgS/Q==}
 
   /chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
@@ -1359,15 +1359,25 @@ packages:
       titleize: 3.0.0
     dev: true
 
+  /define-data-property@1.0.1:
+    resolution: {integrity: sha512-22M+6zEspQHx10bfFQl2ET39IvfuQ7+rZIH7+ard8fCC4hPmkOSy+8JhKxBRLaWUziJ0O63NTYT97LR8zUfPTw==}
+    engines: {node: '>= 0.4'}
+    dependencies:
+      get-intrinsic: 1.2.1
+      gopd: 1.0.1
+      has-property-descriptors: 1.0.0
+    dev: true
+
   /define-lazy-prop@3.0.0:
     resolution: {integrity: sha512-N+MeXYoqr3pOgn8xfyRPREN7gHakLYjhsHhWGT3fWAiL4IkAt0iDw14QiiEm2bE30c5XX5q0FtAA3CK5f9/BUg==}
     engines: {node: '>=12'}
     dev: true
 
-  /define-properties@1.2.0:
-    resolution: {integrity: sha512-xvqAVKGfT1+UAvPwKTVw/njhdQ8ZhXK4lI0bCIuCMrp2up9nPnaDftrLtmpTazqd1o+UY4zgzU+avtMbDP+ldA==}
+  /define-properties@1.2.1:
+    resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
     dependencies:
+      define-data-property: 1.0.1
       has-property-descriptors: 1.0.0
       object-keys: 1.1.1
     dev: true
@@ -1399,8 +1409,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /electron-to-chromium@1.4.515:
-    resolution: {integrity: sha512-VTq6vjk3kCfG2qdzQRd/i9dIyVVm0dbtZIgFzrLgfB73mXDQT2HPKVRc1EoZcAVUv9XhXAu08DWqJuababdGGg==}
+  /electron-to-chromium@1.4.519:
+    resolution: {integrity: sha512-kqs9oGYL4UFVkLKhqCTgBCYZv+wZ374yABDMqlDda9HvlkQxvSr7kgf4hfWVjMieDbX+1MwPHFBsOGCMIBaFKg==}
 
   /enhanced-resolve@5.15.0:
     resolution: {integrity: sha512-LXYT42KJ7lpIKECr2mAXIaMldcNCh/7E0KBKOu4KSfkHmP+mZmSs+8V5gBAqisWBy0OO4W5Oyys0GO1Y8KtdKg==}
@@ -1441,7 +1451,7 @@ packages:
       object-inspect: 1.12.3
       object-keys: 1.1.1
       object.assign: 4.1.4
-      regexp.prototype.flags: 1.5.0
+      regexp.prototype.flags: 1.5.1
       safe-array-concat: 1.0.1
       safe-regex-test: 1.0.0
       string.prototype.trim: 1.2.8
@@ -1460,7 +1470,7 @@ packages:
     dependencies:
       asynciterator.prototype: 1.0.0
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       es-set-tostringtag: 2.0.1
       function-bind: 1.1.1
@@ -1691,7 +1701,7 @@ packages:
       prop-types: 15.8.1
       resolve: 2.0.0-next.4
       semver: 6.3.1
-      string.prototype.matchall: 4.0.9
+      string.prototype.matchall: 4.0.10
     dev: true
 
   /eslint-scope@7.2.2:
@@ -1909,7 +1919,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       functions-have-names: 1.2.3
     dev: true
@@ -1998,7 +2008,7 @@ packages:
     resolution: {integrity: sha512-sFdI5LyBiNTHjRd7cGPWapiHWMOXKyuBNX/cWJ3NfzrZQVa8GI/8cofCl74AOVqq9W5kNmguTIzJ/1s2gyI9wA==}
     engines: {node: '>= 0.4'}
     dependencies:
-      define-properties: 1.2.0
+      define-properties: 1.2.1
     dev: true
 
   /globby@11.1.0:
@@ -2334,7 +2344,7 @@ packages:
   /iterator.prototype@1.1.1:
     resolution: {integrity: sha512-9E+nePc8C9cnQldmNl6bgpTY6zI4OPRZd97fhJ/iVZ1GifIUDVV5F6x1nEDqpe8KaMEZGT4xgrwKQDxXnjOIZQ==}
     dependencies:
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       get-intrinsic: 1.2.1
       has-symbols: 1.0.3
       reflect.getprototypeof: 1.0.4
@@ -2576,7 +2586,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       has-symbols: 1.0.3
       object-keys: 1.1.1
     dev: true
@@ -2586,7 +2596,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
     dev: true
 
@@ -2595,7 +2605,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
     dev: true
 
@@ -2603,7 +2613,7 @@ packages:
     resolution: {integrity: sha512-HqaQtqLnp/8Bn4GL16cj+CUYbnpe1bh0TtEaWvybszDG4tgxCJuRpV8VGuvNaI1fAnI4lUJzDG55MXcOH4JZcQ==}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       get-intrinsic: 1.2.1
     dev: true
@@ -2611,7 +2621,7 @@ packages:
   /object.hasown@1.1.3:
     resolution: {integrity: sha512-fFI4VcYpRHvSLXxP7yiZOMAd331cPfd2p7PFDVbgUsYOfCT3tICVqXWngbjr4m49OvsBwUBQ6O2uQoJvy3RexA==}
     dependencies:
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
     dev: true
 
@@ -2620,7 +2630,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
     dev: true
 
@@ -2890,20 +2900,20 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       get-intrinsic: 1.2.1
       globalthis: 1.0.3
       which-builtin-type: 1.1.3
     dev: true
 
-  /regexp.prototype.flags@1.5.0:
-    resolution: {integrity: sha512-0SutC3pNudRKgquxGoRGIz946MZVHqbNfPjBdxeOhBrdgDKlRoXmYLQN9xRbrR09ZXWeGAdPuif7egofn6v5LA==}
+  /regexp.prototype.flags@1.5.1:
+    resolution: {integrity: sha512-sy6TXMN+hnP/wMy+ISxg3krXx7BAtWVO4UouuCN/ziM9UEne0euamVNafDfvC83bRNr95y0V5iijeDQFUNpvrg==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
-      functions-have-names: 1.2.3
+      define-properties: 1.2.1
+      set-function-name: 2.0.0
     dev: true
 
   /resolve-from@4.0.0:
@@ -2998,6 +3008,14 @@ packages:
       lru-cache: 6.0.0
     dev: true
 
+  /set-function-name@2.0.0:
+    resolution: {integrity: sha512-WmS8UHojv5s1eSoRSmzO5zzgDq8PE1/X/ij0k+9fMYmINCc6+j+SF3Om8YyucKn2yjnK4ItNZOoQycNnHsZJTw==}
+    engines: {node: '>= 0.4'}
+    dependencies:
+      define-data-property: 1.0.1
+      has-property-descriptors: 1.0.0
+    dev: true
+
   /shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
     engines: {node: '>=8'}
@@ -3031,16 +3049,17 @@ packages:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
     engines: {node: '>=0.10.0'}
 
-  /string.prototype.matchall@4.0.9:
-    resolution: {integrity: sha512-6i5hL3MqG/K2G43mWXWgP+qizFW/QH/7kCNN13JrJS5q48FN5IKksLDscexKP3dnmB6cdm9jlNgAsWNLpSykmA==}
+  /string.prototype.matchall@4.0.10:
+    resolution: {integrity: sha512-rGXbGmOEosIQi6Qva94HUjgPs9vKW+dkG7Y8Q5O2OYkWL6wFaTRZO8zM4mhP94uX55wgyrXzfS2aGtGzUL7EJQ==}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
       get-intrinsic: 1.2.1
       has-symbols: 1.0.3
       internal-slot: 1.0.5
-      regexp.prototype.flags: 1.5.0
+      regexp.prototype.flags: 1.5.1
+      set-function-name: 2.0.0
       side-channel: 1.0.4
     dev: true
 
@@ -3049,7 +3068,7 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
     dev: true
 
@@ -3057,7 +3076,7 @@ packages:
     resolution: {integrity: sha512-Ni79DqeB72ZFq1uH/L6zJ+DKZTkOtPIHovb3YZHQViE+HDouuU4mBrLOLDn5Dde3RF8qw5qVETEjhu9locMLvA==}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
     dev: true
 
@@ -3065,7 +3084,7 @@ packages:
     resolution: {integrity: sha512-NGhtDFu3jCEm7B4Fy0DpLewdJQOZcQ0rGbwQ/+stjnrp2i+rlKeCvos9hOIeCmqwratM47OBxY7uFZzjxHXmrg==}
     dependencies:
       call-bind: 1.0.2
-      define-properties: 1.2.0
+      define-properties: 1.2.1
       es-abstract: 1.22.1
     dev: true
 

@@ -3,7 +3,7 @@
     "@rspc/client": "^0.1.3",
     "@rspc/react": "^0.1.3",
     "@rspc/tauri": "^0.1.3",
-    "@tanstack/react-query": "^4.35.0",
+    "@tanstack/react-query": "^4.35.3",
     "@tauri-apps/api": "^1.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
