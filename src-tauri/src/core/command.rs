@@ -1,4 +1,6 @@
 use super::Instruction;
+use std::io::BufRead;
+use std::io::BufReader;
 use std::process::Command;
 
 pub struct AppCommand {
@@ -26,23 +28,22 @@ impl AppCommand {
         }
     }
 
-    pub fn execute(&self) -> Result<(), String> {
+    pub fn execute(&self) -> Result<bool, String> {
         //  run = true
-        self.exec(true)
+        return self.exec(true);
     }
 
-    pub fn rollback(&self) -> Result<(), String> {
+    pub fn rollback(&self) -> Result<bool, String> {
         // run = false, means it will execute the undo command of all
         // instructions
-        self.exec(false)
+        return self.exec(false);
     }
 
-    fn exec(&self, run: bool) -> Result<(), String> {
+    fn exec(&self, run: bool) -> Result<bool, String> {
         let mut root_shell = Command::new("pkexec");
 
-        // TODO: make the stdout, stderr go to frontend
-        root_shell.stdout(std::process::Stdio::inherit());
-        root_shell.stderr(std::process::Stdio::inherit());
+        root_shell.stdout(std::process::Stdio::piped());
+        root_shell.stderr(std::process::Stdio::piped());
 
         let mut commands: Vec<String> = vec![];
 
@@ -58,23 +59,36 @@ impl AppCommand {
 
         root_shell.arg("sh").arg("-c").arg(commands.join(";"));
 
-        let status = match root_shell.status() {
-            Ok(status) => status,
-            Err(e) => {
-                return Err(format!(
-                    "Error executing command: {}, with error: {}",
-                    &self.name,
-                    e.to_string()
-                ));
-            }
+        let mut child = match root_shell.spawn() {
+            Ok(child) => child,
+            Err(err) => return Err(err.to_string()),
         };
 
-        if status.success() {
-            Ok(())
+        if let Some(child_stdout) = child.stdout.as_mut() {
+            let lines = BufReader::new(child_stdout).lines();
+            for line in lines {
+                println!("{}", line.unwrap());
+            }
+        }
+
+        if let Some(child_stderr) = child.stderr.as_mut() {
+            let lines = BufReader::new(child_stderr).lines();
+            for line in lines {
+                println!("{}", line.unwrap());
+            }
+        }
+
+        let finish = match child.wait() {
+            Ok(state) => state,
+            Err(e) => return Err(e.to_string()),
+        };
+
+        if finish.success() {
+            Ok(true)
         } else {
             Err(format!(
                 "Command failed with exit code: {}",
-                status.code().unwrap_or(-1)
+                finish.code().unwrap_or(-1)
             ))
         }
     }
