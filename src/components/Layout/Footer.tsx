@@ -10,7 +10,7 @@ import {
 } from "@/lib/icons";
 
 type ExecutionStatePayload = {
-  state: "running" | "failing" | "pass" | "failed";
+  state: "passing" | "failing" | "pass" | "fail";
   message: string;
 };
 
@@ -29,7 +29,7 @@ export default function Footer() {
         const payload = event.payload as ExecutionStatePayload;
 
         switch (payload.state) {
-          case "running":
+          case "passing":
             setIcon(<RunningIcon />);
             break;
 
@@ -41,7 +41,7 @@ export default function Footer() {
             setIcon(<PassIcon />);
             break;
 
-          case "failed":
+          case "fail":
             setIcon(<FailIcon />);
             break;
 

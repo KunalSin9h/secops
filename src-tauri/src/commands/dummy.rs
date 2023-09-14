@@ -21,14 +21,6 @@ fn get_instruction(name: String) -> Instruction {
     }
 }
 
-fn sleep() -> Instruction {
-    Instruction::new(
-        "sleep for 1 second",
-        Action::new("", "sleep", false, false, vec!["3"]),
-        None,
-    )
-}
-
 fn update() -> Instruction {
     Instruction::new(
         "",
@@ -40,18 +32,12 @@ fn update() -> Instruction {
 pub fn dummy_command(app: &AppHandle) -> Result<bool, String> {
     let cmd = AppCommand::new(
         "Echoing multiple names",
-        "",
         vec![
             get_instruction("A".to_string()),
-            sleep(),
             get_instruction("B".to_string()),
-            sleep(),
             get_instruction("C".to_string()),
-            sleep(),
             get_instruction("D".to_string()),
-            sleep(),
             get_instruction("E".to_string()),
-            sleep(),
             update(),
         ],
     );
