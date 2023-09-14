@@ -24,7 +24,7 @@ fn get_instruction(name: String) -> Instruction {
 fn update() -> Instruction {
     Instruction::new(
         "",
-        Action::new("", "pacman", true, false, vec!["-Sy"]),
+        Action::new("", "apt", true, false, vec!["update"]),
         None,
     )
 }
