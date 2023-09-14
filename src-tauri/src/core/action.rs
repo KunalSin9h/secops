@@ -1,5 +1,9 @@
 use std::process::Command;
 
+use tauri::AppHandle;
+
+use super::execution_manager;
+
 pub struct Action {
     pub description: String,
     pub command: String,
@@ -45,7 +49,7 @@ impl Action {
     }
 
     /// Execute as single action
-    pub fn exec(&self) -> Result<Option<String>, String> {
+    pub fn exec(&self, app: &AppHandle) -> Result<Option<String>, String> {
         let mut cmd: Command;
 
         if self.root {
@@ -69,28 +73,12 @@ impl Action {
 
             Ok(Some(output))
         } else {
-            // TODO: make the stdout, stderr go to frontend
-            cmd.stdout(std::process::Stdio::inherit());
-            cmd.stderr(std::process::Stdio::inherit());
+            cmd.stdout(std::process::Stdio::piped());
+            cmd.stderr(std::process::Stdio::piped());
 
-            let status = match cmd.status() {
-                Ok(status) => status,
-                Err(e) => {
-                    return Err(format!(
-                        "Error executing command: {}, with error: {}",
-                        &self.description,
-                        e.to_string()
-                    ));
-                }
-            };
-
-            if status.success() {
-                Ok(None)
-            } else {
-                Err(format!(
-                    "Command failed with exit code: {}",
-                    status.code().unwrap_or(-1)
-                ))
+            match execution_manager(&mut cmd, app, &self.description) {
+                Ok(_) => Ok(None),
+                Err(err) => Err(err.to_string()),
             }
         }
     }

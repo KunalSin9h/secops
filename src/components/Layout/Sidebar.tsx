@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { client } from "@/context/rspc";
+import { invoke } from "@tauri-apps/api";
 import {
   DASHBOARD_SIDEBAR_BOTTOM_LINKS,
   DASHBOARD_SIDEBAR_LINKS,
@@ -65,7 +65,11 @@ function SidebarLink({
 function AppVersion() {
   const [version, setVersion] = useState("");
 
-  client.query(["version"]).then(setVersion).catch(console.log);
+  invoke("ipc_version")
+    .then((version) => {
+      setVersion(version as string);
+    })
+    .catch(console.log);
 
   return (
     <span className="text-sm pl-2 text-appdim">
@@ -77,7 +81,9 @@ function AppVersion() {
 function UserName() {
   const [username, setUsername] = useState("");
 
-  client.query(["get_current_user"]).then(setUsername).catch(console.log);
+  invoke("ipc_get_current")
+    .then((user) => setUsername(user as string))
+    .catch(console.log);
 
   return <span className="text-lg font-bold">{username}</span>;
 }

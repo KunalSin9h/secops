@@ -7,8 +7,8 @@ use crate::{commands::get_user, rspc::RspcError};
 ///
 /// if failed to execute the command then it will return an error message
 #[tauri::command(async)]
-pub async fn ipc_get_current() -> Result<String, rspc::Error> {
-    match get_user() {
+pub async fn ipc_get_current(app: tauri::AppHandle) -> Result<String, rspc::Error> {
+    match get_user(&app) {
         Ok(user) => Ok(user),
         Err(err) => Err(RspcError::internal_server_error(err))?,
     }
