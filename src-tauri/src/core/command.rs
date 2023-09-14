@@ -1,3 +1,6 @@
+use tauri::AppHandle;
+use tauri::Manager;
+
 use super::Instruction;
 use std::io::BufRead;
 use std::io::BufReader;
@@ -19,6 +22,12 @@ impl Default for AppCommand {
     }
 }
 
+#[derive(Clone, serde::Serialize)]
+struct ExecutionState {
+    state: String,
+    message: String,
+}
+
 impl AppCommand {
     pub fn new(name: &str, description: &str, instructions: Vec<Instruction>) -> Self {
         AppCommand {
@@ -28,18 +37,18 @@ impl AppCommand {
         }
     }
 
-    pub fn execute(&self) -> Result<bool, String> {
+    pub fn execute(&self, app: &AppHandle) -> Result<bool, String> {
         //  run = true
-        return self.exec(true);
+        return self.exec(true, app);
     }
 
-    pub fn rollback(&self) -> Result<bool, String> {
+    pub fn rollback(&self, app: &AppHandle) -> Result<bool, String> {
         // run = false, means it will execute the undo command of all
         // instructions
-        return self.exec(false);
+        return self.exec(false, app);
     }
 
-    fn exec(&self, run: bool) -> Result<bool, String> {
+    fn exec(&self, run: bool, app: &AppHandle) -> Result<bool, String> {
         let mut root_shell = Command::new("pkexec");
 
         root_shell.stdout(std::process::Stdio::piped());
@@ -67,14 +76,28 @@ impl AppCommand {
         if let Some(child_stdout) = child.stdout.as_mut() {
             let lines = BufReader::new(child_stdout).lines();
             for line in lines {
-                println!("{}", line.unwrap());
+                app.emit_all(
+                    "execution_state",
+                    ExecutionState {
+                        message: line.unwrap(),
+                        state: "running".to_string(),
+                    },
+                )
+                .map_err(|err| err.to_string())?;
             }
         }
 
         if let Some(child_stderr) = child.stderr.as_mut() {
             let lines = BufReader::new(child_stderr).lines();
             for line in lines {
-                println!("{}", line.unwrap());
+                app.emit_all(
+                    "execution_state",
+                    ExecutionState {
+                        message: line.unwrap(),
+                        state: "failing".to_string(),
+                    },
+                )
+                .map_err(|err| err.to_string())?;
             }
         }
 
@@ -84,8 +107,24 @@ impl AppCommand {
         };
 
         if finish.success() {
+            app.emit_all(
+                "execution_state",
+                ExecutionState {
+                    message: "Done!".to_string(),
+                    state: "pass".to_string(),
+                },
+            )
+            .map_err(|err| err.to_string())?;
             Ok(true)
         } else {
+            app.emit_all(
+                "execution_state",
+                ExecutionState {
+                    message: "Failed!".to_string(),
+                    state: "failed".to_string(),
+                },
+            )
+            .map_err(|err| err.to_string())?;
             Err(format!(
                 "Command failed with exit code: {}",
                 finish.code().unwrap_or(-1)
