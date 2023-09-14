@@ -6,7 +6,6 @@ import {
   DASHBOARD_SIDEBAR_LINKS,
 } from "@/lib/constants/navigation";
 
-// million-ignore
 export default function Sidebar() {
   return (
     <div className="bg-appdark text-white flex flex-col w-80 p-4">

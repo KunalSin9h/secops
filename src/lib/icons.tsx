@@ -102,6 +102,7 @@ export const BellIcon = () => (
 
 export const RunningIcon = () => (
   <svg
+    className="animate-spin"
     width="18"
     height="18"
     viewBox="0 0 15 15"

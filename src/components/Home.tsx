@@ -1,3 +1,17 @@
+import { invoke } from "@tauri-apps/api/tauri";
+import { Button } from "./ui/button";
+
 export default function Home() {
-  return <h1>Home</h1>;
+  return (
+    <div>
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          invoke("ipc_dummy").then(console.log).catch(console.log);
+        }}
+      >
+        Run Dummy Command
+      </Button>
+    </div>
+  );
 }

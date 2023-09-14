@@ -15,35 +15,44 @@ type ExecutionStatePayload = {
 };
 
 export default function Footer() {
+  const initialTitle = "Every thing up to date!";
+
   const [icon, setIcon] = useState(<PassIcon />);
   const [expanded, setExpanded] = useState(false);
-  const [messages, setMessages] = useState<string[]>([""]);
+  const [title, setTitle] = useState(initialTitle);
 
   useEffect(() => {
+    const logList = document.getElementById("log-list") as HTMLElement;
+
     (async () => {
       await listen("execution_state", (event) => {
-        console.log("got it");
         const payload = event.payload as ExecutionStatePayload;
 
         switch (payload.state) {
           case "running":
             setIcon(<RunningIcon />);
             break;
+
           case "failing":
             setIcon(<WarnIcon />);
             break;
+
           case "pass":
             setIcon(<PassIcon />);
             break;
+
           case "failed":
             setIcon(<FailIcon />);
             break;
+
           default:
             console.log("not match any state");
             break;
         }
 
-        setMessages([...messages, payload.message]);
+        const listItem = document.createElement("li");
+        listItem.textContent = payload.message;
+        logList.appendChild(listItem);
       });
     })();
   }, []);
@@ -64,7 +73,7 @@ export default function Footer() {
         >
           <div className="flex gap-2 items-center">
             {icon}
-            Stdout an Stderr of any process or command will be shown here
+            {title}
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -79,13 +88,24 @@ export default function Footer() {
           >
             <AngleIcon />
           </div>
-          <div className="hover:bg-[#343131] rounded p-2">
+          <div
+            className="hover:bg-[#343131] rounded p-2"
+            onClick={(e) => {
+              e.preventDefault();
+              setTitle("Every thing up to date!");
+              const logList = document.getElementById(
+                "log-list",
+              ) as HTMLElement;
+
+              logList.innerHTML = "";
+            }}
+          >
             <DustbinIcon />
           </div>
         </div>
       </div>
       <div className="bg-applight h-full p-4 rounded overflow-y-scroll mt-4">
-        {messages}
+        <ul id="log-list"></ul>
       </div>
     </div>
   );
