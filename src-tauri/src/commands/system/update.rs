@@ -2,24 +2,18 @@ use tauri::AppHandle;
 
 use crate::core::Action;
 
-pub fn update(app: &AppHandle) -> Result<String, String> {
-    let act = Action::new("update dependencies", "apt-get", true, true, vec!["update"]);
+pub fn update(app: &AppHandle) -> Result<(), String> {
+    let act = Action::new("update dependencies", "apt", true, false, vec!["update"]);
 
-    let result = act.exec(app)?;
+    act.exec(app)?;
 
-    Ok(result.unwrap())
+    Ok(())
 }
 
-pub fn upgrade(app: &AppHandle) -> Result<String, String> {
-    let act = Action::new(
-        "upgrade dependencies",
-        "apt-get",
-        true,
-        true,
-        vec!["upgrade"],
-    );
+pub fn upgrade(app: &AppHandle) -> Result<(), String> {
+    let act = Action::new("upgrade dependencies", "apt", true, false, vec!["upgrade"]);
 
-    let result = act.exec(app)?;
+    act.exec(app)?;
 
-    Ok(result.unwrap())
+    Ok(())
 }

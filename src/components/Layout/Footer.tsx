@@ -10,6 +10,7 @@ import {
 } from "@/lib/icons";
 
 type ExecutionStatePayload = {
+  title: string;
   state: "passing" | "failing" | "pass" | "fail";
   message: string;
 };
@@ -50,6 +51,7 @@ export default function Footer() {
             break;
         }
 
+        setTitle(payload.title);
         const listItem = document.createElement("li");
         listItem.textContent = payload.message;
         logList.appendChild(listItem);

@@ -6,17 +6,17 @@ pub async fn ipc_version() -> String {
 }
 
 #[tauri::command(async)]
-pub async fn ipc_update(app: tauri::AppHandle) -> Result<String, rspc::Error> {
+pub async fn ipc_update(app: tauri::AppHandle) -> Result<(), rspc::Error> {
     match update(&app) {
-        Ok(output) => Ok(output),
+        Ok(()) => Ok(()),
         Err(e) => Err(RspcError::internal_server_error(e))?,
     }
 }
 
 #[tauri::command(async)]
-pub async fn ipc_upgrade(app: tauri::AppHandle) -> Result<String, rspc::Error> {
+pub async fn ipc_upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error> {
     match upgrade(&app) {
-        Ok(output) => Ok(output),
+        Ok(()) => Ok(()),
         Err(e) => Err(RspcError::internal_server_error(e))?,
     }
 }
