@@ -26,6 +26,7 @@ module.exports = {
         appdark: "#181717",
         apphigh: "#222121",
         appdim: "#C8B5B5",
+        applight: "#1B1919",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

@@ -54,7 +54,7 @@ function SidebarLink({
     <div className="">
       <NavLink
         to={item.path}
-        className="flex items-center gap-2 p-2 rounded hover:ml-2 transition-all hover:bg-[#1B1919]"
+        className="flex items-center gap-2 p-2 rounded hover:ml-2 transition-all hover:bg-applight"
       >
         {item.icon}
         {item.label}
