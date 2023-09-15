@@ -26,6 +26,13 @@ struct ExecutionState {
     message: String,
 }
 
+#[derive(Clone, serde::Serialize)]
+struct ProcessState {
+    title: String,
+    state: String,
+    pid: u32,
+}
+
 impl AppCommand {
     pub fn new(description: &str, instructions: Vec<Instruction>) -> Self {
         AppCommand {
@@ -79,10 +86,13 @@ pub fn execution_manager(
         Err(err) => return Err(err.to_string()),
     };
 
+    let pid = child.id();
+
     if let Some(child_stdout) = child.stdout.as_mut() {
         let lines = BufReader::new(child_stdout).lines();
         for line in lines {
             send_execution_state(app, desc, line.unwrap(), "passing")?;
+            send_process_state(app, pid, desc, "passing")?;
         }
     }
 
@@ -90,6 +100,7 @@ pub fn execution_manager(
         let lines = BufReader::new(child_stderr).lines();
         for line in lines {
             send_execution_state(app, desc, line.unwrap(), "failing")?;
+            send_process_state(app, pid, desc, "failing")?;
         }
     }
 
@@ -100,9 +111,11 @@ pub fn execution_manager(
 
     if finish.success() {
         send_execution_state(app, desc, "Done".into(), "pass")?;
+        send_process_state(app, pid, desc, "pass")?;
         Ok(true)
     } else {
         send_execution_state(app, desc, "Failed".into(), "fail")?;
+        send_process_state(app, pid, desc, "fail")?;
         Err(format!(
             "Command failed with exit code: {}",
             finish.code().unwrap_or(-1)
@@ -123,6 +136,26 @@ fn send_execution_state(
                 title: title.clone(),
                 message,
                 state: state.to_owned(),
+            },
+        )
+        .map_err(|e| e.to_string())?;
+
+    Ok(())
+}
+
+fn send_process_state(
+    app: &AppHandle,
+    pid: u32,
+    title: &String,
+    state: &str,
+) -> Result<(), String> {
+    let _ = app
+        .emit_all(
+            "process_state",
+            ProcessState {
+                title: title.clone(),
+                pid,
+                state: state.to_string(),
             },
         )
         .map_err(|e| e.to_string())?;
