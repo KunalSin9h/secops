@@ -63,7 +63,7 @@ impl AppCommand {
             }
         }
 
-        root_shell.arg("sh").arg("-c").arg(commands.join(";"));
+        root_shell.arg("sh").arg("-c").arg(commands.join(" && "));
 
         execution_manager(&mut root_shell, app, &self.description)
     }
