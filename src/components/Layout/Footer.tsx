@@ -58,6 +58,7 @@ export default function Footer() {
 
         setTitle(payload.title);
         const listItem = document.createElement("li");
+        listItem.classList.add("preserve-whitespace");
         listItem.textContent = payload.message;
         logList.appendChild(listItem);
         dummyLast.scrollIntoView();

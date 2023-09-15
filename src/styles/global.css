@@ -79,3 +79,7 @@
 .active {
   @apply bg-[#343131] font-bold;
 }
+
+.preserve-whitespace {
+  white-space: pre-wrap;
+}
