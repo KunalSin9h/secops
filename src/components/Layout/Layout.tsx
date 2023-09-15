@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Footer from "./Footer";
+import { ScrollArea } from "../ui/scroll-area";
 
 export default function Layout() {
   return (
@@ -9,9 +10,9 @@ export default function Layout() {
       <Sidebar />
       <div className="flex-1 relative">
         <Header />
-        <div className="h-[85vh] bg-white rounded p-4 mt-2 ml-4 mb-4 mr-4 overflow-y-scroll">
+        <ScrollArea className="h-[85vh] bg-white rounded p-4 mt-2 ml-4 mb-4 mr-4">
           <Outlet />
-        </div>
+        </ScrollArea>
         <Footer />
       </div>
     </div>

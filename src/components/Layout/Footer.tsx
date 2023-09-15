@@ -10,6 +10,7 @@ import {
   ExpandIcon,
   CollapsIcon,
 } from "@/lib/icons";
+import { ScrollArea } from "../ui/scroll-area";
 
 type ExecutionStatePayload = {
   title: string;
@@ -128,14 +129,14 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div
+      <ScrollArea
         className={`${
           full || half ? "" : "hidden"
-        } bg-applight h-full p-4 rounded overflow-y-scroll mt-4`}
+        } bg-applight h-full p-4 rounded mt-4`}
       >
         <ul id="log-list"></ul>
         <div id="dummy-last"></div>
-      </div>
+      </ScrollArea>
     </div>
   );
 }
