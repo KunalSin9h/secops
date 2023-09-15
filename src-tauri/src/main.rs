@@ -10,7 +10,8 @@ async fn main() -> tauri::Result<()> {
             ipc_get_current,
             ipc_update,
             ipc_upgrade,
-            ipc_version
+            ipc_version,
+            ipc_kill
         ])
         .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
         .run(tauri::generate_context!())
