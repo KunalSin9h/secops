@@ -128,7 +128,11 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="bg-applight h-full p-4 rounded overflow-y-scroll mt-4">
+      <div
+        className={`${
+          full || half ? "" : "hidden"
+        } bg-applight h-full p-4 rounded overflow-y-scroll mt-4`}
+      >
         <ul id="log-list"></ul>
         <div id="dummy-last"></div>
       </div>

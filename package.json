@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.4.0",
-    "@types/node": "^20.6.0",
+    "@types/node": "^20.6.1",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.0",
@@ -41,7 +41,7 @@
   "name": "secops",
   "private": true,
   "scripts": {
-    "build": "tsc \u0026\u0026 vite build",
+    "build": "tsc && vite build",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
@@ -51,5 +51,5 @@
     "preview": "vite preview",
     "tauri": "tauri"
   },
-  "version": "0.2.2"
+  "version": "0.2.3"
 }
