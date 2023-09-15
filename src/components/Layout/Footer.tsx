@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listen } from "@tauri-apps/api/event";
+import { invoke } from "@tauri-apps/api";
 import {
   PassIcon,
   AngleIcon,
@@ -16,6 +17,7 @@ type ExecutionStatePayload = {
   title: string;
   state: "passing" | "failing" | "pass" | "fail";
   message: string;
+  pid: number;
 };
 
 export default function Footer() {
@@ -26,6 +28,7 @@ export default function Footer() {
   const [full, setFull] = useState(false);
   const [fullIcon, setFullIcon] = useState(<ExpandIcon />);
   const [title, setTitle] = useState(initialTitle);
+  const [pid, setPid] = useState<number>();
 
   useEffect(() => {
     const logList = document.getElementById("log-list") as HTMLElement;
@@ -58,6 +61,8 @@ export default function Footer() {
         }
 
         setTitle(payload.title);
+        setPid(payload.pid);
+
         const listItem = document.createElement("li");
         listItem.classList.add("preserve-whitespace");
         listItem.textContent = payload.message;
@@ -83,7 +88,16 @@ export default function Footer() {
         >
           <div className="flex gap-2 items-center">
             {icon}
-            {title}
+            <div className="flex items-center">
+              <span
+                className={`${
+                  pid ? "" : "hidden"
+                } mx-2 my-1 text-xs font-mono tracking-wide px-1 py-[0.1rem] bg-[#332F2F] rounded`}
+              >
+                {pid}
+              </span>
+              {title}
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -126,6 +140,21 @@ export default function Footer() {
             }}
           >
             <DustbinIcon />
+          </div>
+          <div>
+            <button
+              className="font-bold px-2 py-1 text-xs font-mono tracking-widest bg-red-600 hover:bg-red-500 rounded ml-4"
+              onClick={(e) => {
+                e.preventDefault();
+                if (pid !== undefined) {
+                  invoke("ipc_kill", { pid }).catch(console.error);
+                } else {
+                  console.log("pid is undefined");
+                }
+              }}
+            >
+              KILL
+            </button>
           </div>
         </div>
       </div>
