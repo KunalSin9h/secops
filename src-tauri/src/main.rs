@@ -1,8 +1,8 @@
-use secops::ipc::*;
+use secops::{ipc::*, rspc::init_rspc};
 
 #[tokio::main]
 async fn main() -> tauri::Result<()> {
-    // let router = init_rspc();
+    let router = init_rspc();
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -12,7 +12,7 @@ async fn main() -> tauri::Result<()> {
             ipc_upgrade,
             ipc_version
         ])
-        // .plugin(rspc::integrations::tauri::plugin(router.into(), || ))
+        .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 

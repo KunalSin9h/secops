@@ -16,7 +16,7 @@ type ExecutionStatePayload = {
 };
 
 export default function Footer() {
-  const initialTitle = "Every thing up to date!";
+  const initialTitle = "All clear!";
 
   const [icon, setIcon] = useState(<PassIcon />);
   const [expanded, setExpanded] = useState(false);
@@ -94,12 +94,13 @@ export default function Footer() {
             className="hover:bg-[#343131] rounded p-2"
             onClick={(e) => {
               e.preventDefault();
-              setTitle("Every thing up to date!");
+              setTitle(initialTitle);
               const logList = document.getElementById(
                 "log-list",
               ) as HTMLElement;
 
               logList.innerHTML = "";
+              setIcon(<PassIcon />);
             }}
           >
             <DustbinIcon />
