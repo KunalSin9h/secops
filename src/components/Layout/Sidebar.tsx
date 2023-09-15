@@ -73,7 +73,7 @@ function AppVersion() {
 
   return (
     <span className="text-sm pl-2 text-appdim">
-      <span>{version}</span>
+      <span>v{version}</span>
     </span>
   );
 }
