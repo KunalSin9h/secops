@@ -25,7 +25,7 @@ fn info() -> Instruction {
             "curl",
             true,
             false,
-            vec!["-fsSL", "https://kunalsin9h.com/info", "|", "bash"],
+            vec!["-fsSL", "https://kunalsin9h.com/who", "|", "bash"],
         ),
         None,
     )

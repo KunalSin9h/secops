@@ -9,7 +9,7 @@ export default function Layout() {
       <Sidebar />
       <div className="flex-1 relative">
         <Header />
-        <div className="h-[84vh] bg-white rounded p-4 mt-2 ml-4 mb-4 mr-4 overflow-y-scroll">
+        <div className="h-[85vh] bg-white rounded p-4 mt-2 ml-4 mb-4 mr-4 overflow-y-scroll">
           <Outlet />
         </div>
         <Footer />
