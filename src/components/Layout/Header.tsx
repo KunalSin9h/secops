@@ -20,9 +20,9 @@ function Alert() {
     <Popover>
       <PopoverTrigger>
         <Button variant={"secondary"} size="icon" className="bg-white">
-          <span className="m-4">
+          <div className="m-4">
             <BellIcon />
-          </span>
+          </div>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 mx-4">Alerts will be here</PopoverContent>
