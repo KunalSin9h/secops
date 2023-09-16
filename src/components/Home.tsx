@@ -1,9 +1,10 @@
 import { rspc } from "@/context/rspc";
+import { ScrollArea } from "./ui/scroll-area";
 
 export default function Home() {
   return (
-    <div className="flex gap-4 ">
-      <div className="w-1/2  flex flex-col gap-4">
+    <div className="flex gap-4 h-[82vh]">
+      <div className="w-1/2 flex flex-col gap-4">
         <div className="h-36 border rounded shadow p-2 flex items-center justify-center">
           <div className="flex gap-4 items-center">
             <img
@@ -14,9 +15,9 @@ export default function Home() {
             <Ubuntu />
           </div>
         </div>
-        <div className="">Updates</div>
+        <ScrollArea className="border rounded shadow p-2 h-full"></ScrollArea>
       </div>
-      <div className="w-1/2 ">Services</div>
+      <ScrollArea className="w-1/2 border rounded shadow p-2"></ScrollArea>
     </div>
   );
 }
