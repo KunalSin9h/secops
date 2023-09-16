@@ -74,8 +74,8 @@ export default function Footer() {
 
   return (
     <div
-      className={`absolute bottom-0 left-0 ${half ? "h-96" : "h-16"} ${
-        full ? "h-full" : "h-16"
+      className={`bottom-0 left-0 ${half ? "h-96" : "h-16"} ${
+        full ? "h-full absolute" : "h-16"
       } bg-appdark text-white w-full p-4 flex flex-col transition-all`}
     >
       <div className="flex items-center justify-between">
