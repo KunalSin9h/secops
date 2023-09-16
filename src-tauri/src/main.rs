@@ -6,10 +6,7 @@ async fn main() -> tauri::Result<()> {
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
-            ipc_dummy,
             ipc_get_current,
-            ipc_update,
-            ipc_upgrade,
             ipc_version,
             ipc_kill
         ])

@@ -1,9 +1,3 @@
-mod dummy;
-mod kill;
-mod system;
-mod user;
+mod general;
 
-pub use dummy::*;
-pub use kill::*;
-pub use system::*;
-pub use user::*;
+pub use general::*;
