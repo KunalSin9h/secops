@@ -37,10 +37,14 @@ fn ps() -> Instruction {
     Instruction::new("", Action::new("", "ps", false, false, vec![]), None)
 }
 
+fn sleep() -> Instruction {
+    Instruction::new("", Action::new("", "sleep", false, false, vec!["5"]), None)
+}
+
 pub fn dummy_command(app: &AppHandle) -> Result<bool, String> {
     let cmd = AppCommand::new(
         "Running some dummy commands",
-        vec![hello(), dir(), env(), ps(), who()],
+        vec![hello(), dir(), env(), ps(), who(), sleep()],
     );
 
     return cmd.execute(app);

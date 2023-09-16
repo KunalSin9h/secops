@@ -125,7 +125,7 @@ fn send_execution_state(
             "execution_state",
             ExecutionState {
                 title: title.clone(),
-                message,
+                message: format!("{} >  {}", pid, message),
                 state: state.to_owned(),
                 pid,
             },
