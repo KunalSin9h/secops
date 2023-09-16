@@ -5,6 +5,7 @@ import {
   DASHBOARD_SIDEBAR_BOTTOM_LINKS,
   DASHBOARD_SIDEBAR_LINKS,
 } from "@/lib/constants/navigation";
+import { rspc } from "@/context/rspc";
 
 export default function Sidebar() {
   return (
@@ -79,11 +80,15 @@ function AppVersion() {
 }
 
 function UserName() {
-  const [username, setUsername] = useState("");
+  const { data, isLoading, error } = rspc.useQuery(["get_user"]);
 
-  invoke("ipc_get_current")
-    .then((user) => setUsername(user as string))
-    .catch(console.log);
+  if (error) {
+    return <span>Error: {error.message}</span>;
+  }
 
-  return <span className="text-lg font-bold">{username}</span>;
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  return <span className="text-lg font-bold">{data}</span>;
 }

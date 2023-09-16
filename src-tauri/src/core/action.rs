@@ -49,7 +49,7 @@ impl Action {
     }
 
     /// Execute as single action
-    pub fn exec(&self, app: &AppHandle) -> Result<Option<String>, String> {
+    pub fn exec(&self, app: Option<&AppHandle>) -> Result<Option<String>, String> {
         let mut cmd: Command;
 
         if self.root {
@@ -76,9 +76,12 @@ impl Action {
             cmd.stdout(std::process::Stdio::piped());
             cmd.stderr(std::process::Stdio::piped());
 
-            match execution_manager(&mut cmd, app, &self.description) {
-                Ok(_) => Ok(None),
-                Err(err) => Err(err.to_string()),
+            match app {
+                None => Ok(None),
+                Some(app) => match execution_manager(&mut cmd, app, &self.description) {
+                    Ok(_) => Ok(None),
+                    Err(err) => Err(err.to_string()),
+                },
             }
         }
     }

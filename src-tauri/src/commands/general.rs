@@ -1,6 +1,6 @@
 use tauri::AppHandle;
 
-use crate::core::Action;
+use crate::{core::Action, rspc::RspcError};
 
 /// Get User will return the current logged-in user on the system
 ///
@@ -8,17 +8,21 @@ use crate::core::Action;
 /// ```bash
 /// whoami
 /// ```
-pub fn get_user(app: &AppHandle) -> Result<String, String> {
-    let act = Action::new(
+pub fn get_user() -> Result<String, rspc::Error> {
+    let res = match Action::new(
         "Getting current logged-in user",
         "whoami",
         false,
         true,
         vec![],
-    );
-    let user = act.exec(app)?;
+    )
+    .exec(None)
+    {
+        Ok(res) => res,
+        Err(e) => return Err(RspcError::internal_server_error(e))?,
+    };
 
-    Ok(user.unwrap())
+    Ok(res.unwrap())
 }
 
 /// Kill Command for killing the process given the PID (process id)
@@ -36,7 +40,30 @@ pub fn kill(pid: u32, app: &AppHandle) -> Result<(), String> {
         vec!["-9", &pid.to_string()],
     );
 
-    let _ = kill_cmd.exec(app)?;
+    let _ = kill_cmd.exec(Some(app))?;
 
     Ok(())
+}
+
+/// Get Distribution Information
+///
+/// This will run
+/// ```bash
+/// cat /etc/lsb-release
+/// ```
+pub fn get_distro() -> Result<String, rspc::Error> {
+    let res = match Action::new(
+        "Get the linux distribution information",
+        "cat",
+        false,
+        true,
+        vec!["/etc/lsb-release"],
+    )
+    .exec(None)
+    {
+        Ok(res) => res,
+        Err(e) => return Err(RspcError::internal_server_error(e))?,
+    };
+
+    Ok(res.unwrap())
 }
