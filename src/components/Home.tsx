@@ -99,34 +99,49 @@ function AllServices() {
     return () => clearInterval(timer);
   }, []);
 
-  return <div className="flex justify-around mt-4">
-    <div className="w-1/2 px-6">
+  return (
+    <div className="flex justify-around mt-4">
+      <div className="w-1/2 px-6">
         <div className="flex items-center gap-2">
-            <AnimatePing />
-            <span className="font-semibold">Running</span>
+          <AnimatePing />
+          <span className="font-semibold">Running</span>
         </div>
-        <ul role="list" className="py-6 px-2 divide-y divide-slate-200">
-        {
-            running.map((service, idx) => {
-                return <li key={idx} data-service-name={service} className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
-                >{service}</li>;
-            })
-        }
+        <ul role="list" className="py-4 px-2 divide-y divide-slate-200">
+          {running.map((service, idx) => {
+            return (
+              <li
+                key={idx}
+                data-service-name={service}
+                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                {service}
+              </li>
+            );
+          })}
         </ul>
-    </div> 
-    <div className="w-1/2 px-6">
+      </div>
+      <div className="w-1/2 px-6">
         <div className="flex items-center gap-2">
-            <StoppedIcon />
-            <span className="font-semibold">Stopped</span>
+          <StoppedIcon />
+          <span className="font-semibold">Stopped</span>
         </div>
-        <ul role="list" className="py-6 px-2 divide-y divide-slate-200">
-        {
-            stopped.map((service, idx) => {
-                return <li key={idx} data-service-name={service} className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
-                >{service}</li>;
-            })
-        }
+        <ul role="list" className="py-4 px-2 divide-y divide-slate-200">
+          {stopped.map((service, idx) => {
+            return (
+              <li
+                key={idx}
+                data-service-name={service}
+                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
+              >
+                {service}
+              </li>
+            );
+          })}
         </ul>
-    </div> 
-  </div>;
+      </div>
+    </div>
+  );
 }
