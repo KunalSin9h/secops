@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
+import { invoke } from "@tauri-apps/api";
 import { client, rspc } from "@/context/rspc";
 import { ScrollArea } from "./ui/scroll-area";
 import { StoppedIcon } from "@/lib/icons";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "./ui/button";
 
 export default function Home() {
   return (
@@ -106,41 +113,82 @@ function AllServices() {
           <AnimatePing />
           <span className="font-semibold">Running</span>
         </div>
-        <ul role="list" className="py-4 px-2 divide-y divide-slate-200">
+        <div role="list" className="py-4 px-2 divide-y divide-slate-200">
           {running.map((service, idx) => {
             return (
-              <li
+              <div
                 key={idx}
-                data-service-name={service}
-                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
+                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
               >
-                {service}
-              </li>
+                <Popover>
+                  <PopoverTrigger className="w-full text-left">
+                    {service}
+                  </PopoverTrigger>
+                  <PopoverContent className="w-90">
+                    <div className="flex gap-2">
+                      <Button
+                        variant={"default"}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          invoke("ipc_get_status", { service }).catch(
+                            console.log,
+                          );
+                        }}
+                      >
+                        Status
+                      </Button>
+                      <Button variant={"secondary"}>Enable</Button>
+                      <Button variant={"secondary"}>Disable</Button>
+                      <Button variant={"destructive"}>Stop</Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </div>
       <div className="w-1/2 px-6">
         <div className="flex items-center gap-2">
           <StoppedIcon />
           <span className="font-semibold">Stopped</span>
         </div>
-        <ul role="list" className="py-4 px-2 divide-y divide-slate-200">
+        <div role="list" className="py-4 px-2 divide-y divide-slate-200">
           {stopped.map((service, idx) => {
             return (
-              <li
+              <div
                 key={idx}
-                data-service-name={service}
-                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
+                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
               >
-                {service}
-              </li>
+                <Popover>
+                  <PopoverTrigger className="w-full text-left">
+                    {service}
+                  </PopoverTrigger>
+                  <PopoverContent className="w-90">
+                    <div className="flex gap-2">
+                      <Button
+                        variant={"default"}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          invoke("ipc_get_status", { service }).catch(
+                            console.log,
+                          );
+                        }}
+                      >
+                        Status
+                      </Button>
+                      <Button variant={"secondary"}>Enable</Button>
+                      <Button variant={"secondary"}>Disable</Button>
+                      <Button variant={"default"} className="bg-green-500">
+                        Start
+                      </Button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
             );
           })}
-        </ul>
+        </div>
       </div>
     </div>
   );

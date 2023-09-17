@@ -86,3 +86,21 @@ pub async fn get_services() -> Result<String, rspc::Error> {
 
     Ok(res.unwrap())
 }
+
+/// Get systemctl services status
+pub async fn get_status(service: String, app: &AppHandle) -> Result<(), rspc::Error> {
+    let _ = match Action::new(
+        format!("Getting systemctl services status for {}", &service).as_str(),
+        "systemctl",
+        false,
+        false,
+        vec!["status", service.as_str()],
+    )
+    .exec(Some(app))
+    {
+        Ok(res) => res,
+        Err(e) => return Err(RspcError::internal_server_error(e))?,
+    };
+
+    Ok(())
+}

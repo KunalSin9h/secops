@@ -5,7 +5,11 @@ async fn main() -> tauri::Result<()> {
     let router = init_rspc();
 
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![ipc_version, ipc_kill])
+        .invoke_handler(tauri::generate_handler![
+            ipc_version,
+            ipc_kill,
+            ipc_get_status
+        ])
         .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

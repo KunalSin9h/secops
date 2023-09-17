@@ -137,6 +137,7 @@ export default function Footer() {
 
               logList.innerHTML = "";
               setIcon(<PassIcon />);
+              setPid(undefined);
             }}
           >
             <DustbinIcon />
