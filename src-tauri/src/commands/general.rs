@@ -8,7 +8,7 @@ use crate::{core::Action, rspc::RspcError};
 /// ```bash
 /// whoami
 /// ```
-pub fn get_user() -> Result<String, rspc::Error> {
+pub async fn get_user() -> Result<String, rspc::Error> {
     let res = match Action::new(
         "Getting current logged-in user",
         "whoami",
@@ -31,7 +31,7 @@ pub fn get_user() -> Result<String, rspc::Error> {
 /// ```bash
 /// kill -9 {pid}
 /// ```
-pub fn kill(pid: u32, app: &AppHandle) -> Result<(), String> {
+pub async fn kill(pid: u32, app: &AppHandle) -> Result<(), String> {
     let kill_cmd = Action::new(
         format!("Killing the running process: {}", pid).as_str(),
         "kill",
@@ -51,13 +51,32 @@ pub fn kill(pid: u32, app: &AppHandle) -> Result<(), String> {
 /// ```bash
 /// cat /etc/lsb-release
 /// ```
-pub fn get_distro() -> Result<String, rspc::Error> {
+pub async fn get_distro() -> Result<String, rspc::Error> {
     let res = match Action::new(
         "Get the linux distribution information",
         "cat",
         false,
         true,
         vec!["/etc/lsb-release"],
+    )
+    .exec(None)
+    {
+        Ok(res) => res,
+        Err(e) => return Err(RspcError::internal_server_error(e))?,
+    };
+
+    Ok(res.unwrap())
+}
+
+/// Get All services present on the device
+/// This will contain both running and stopped services
+pub async fn get_services() -> Result<String, rspc::Error> {
+    let res = match Action::new(
+        "Get All services present on the device",
+        "cat",
+        false,
+        true,
+        vec!["~/dummy.file"],
     )
     .exec(None)
     {

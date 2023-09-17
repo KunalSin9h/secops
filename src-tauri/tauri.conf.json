@@ -26,9 +26,7 @@
       "category": "Utility",
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
-        "depends": [
-          "policykit-1"
-        ],
+        "depends": ["policykit-1"],
         "desktopTemplate": "../assets/deb/secops.desktop"
       },
       "icon": [
@@ -51,14 +49,14 @@
         "center": true,
         "decorations": true,
         "fileDropEnabled": true,
-        "fullscreen": true,
-        "height": 725,
-        "minHeight": 500,
-        "minWidth": 768,
+        "fullscreen": false,
+        "height": 825,
+        "minHeight": 600,
+        "minWidth": 868,
         "resizable": true,
         "title": "Secops",
         "transparent": true,
-        "width": 1400
+        "width": 1500
       }
     ]
   }

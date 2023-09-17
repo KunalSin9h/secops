@@ -7,7 +7,7 @@ pub async fn ipc_version() -> String {
 
 #[tauri::command(async)]
 pub async fn ipc_kill(pid: u32, app: tauri::AppHandle) -> Result<(), rspc::Error> {
-    match kill(pid, &app) {
+    match kill(pid, &app).await {
         Ok(()) => Ok(()),
         Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
     }

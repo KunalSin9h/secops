@@ -1,11 +1,12 @@
-import { rspc } from "@/context/rspc";
+import { useEffect, useState } from "react";
+import { client, rspc } from "@/context/rspc";
 import { ScrollArea } from "./ui/scroll-area";
 import { StoppedIcon } from "@/lib/icons";
 
 export default function Home() {
   return (
     <div className="flex gap-4 h-[82vh]">
-      <div className="w-1/2 flex flex-col gap-4">
+      <div className="w-1/3 flex flex-col gap-4">
         <div className="h-36 border rounded shadow p-2 flex items-center justify-center">
           <div className="flex gap-4 items-center">
             <img
@@ -16,40 +17,16 @@ export default function Home() {
             <Ubuntu />
           </div>
         </div>
-        <ScrollArea className="border rounded shadow p-2 h-full"></ScrollArea>
-      </div>
-      <ScrollArea className="w-1/2 border rounded shadow p-2">
-        <div className="">
-          <p className="font-semibold text-2xl">Services</p>
-          <div className="flex justify-around mt-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <AnimatePing />
-                <span className="text-xl">Running</span>
-              </div>
-              <ul className="mt-4">
-                {new Array(10).fill(0).map((_, idx) => (
-                  <li key={idx} className="p-1 w-36 mb-2">
-                    Hello
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <StoppedIcon />
-                <span className="text-xl">Stopped</span>
-              </div>
-              <ul className="mt-4">
-                {new Array(5).fill(0).map((_, idx) => (
-                  <li key={idx} className="p-1 w-36 mb-2">
-                    Hello
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <ScrollArea className="border rounded shadow p-2 h-full">
+          <div className="">
+            <p className="font-semibold text-xl">Services</p>
+            <AllServices />
           </div>
-        </div>
+        </ScrollArea>
+      </div>
+
+      <ScrollArea className="w-2/3 border rounded shadow p-2">
+        <p className="font-bold text-2xl ">Updates</p>
       </ScrollArea>
     </div>
   );
@@ -92,4 +69,64 @@ function AnimatePing() {
       <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
     </span>
   );
+}
+
+function AllServices() {
+  const [running, setRunning] = useState<string[]>(["Loading..."]);
+  const [stopped, setStopped] = useState<string[]>(["Loading..."]);
+
+  useEffect(() => {
+    const timer = setInterval(async () => {
+      try {
+        const data = await client.query(["get_services"]);
+        const running_services: string[] = [];
+        const stopped_services: string[] = [];
+
+        for (const service of data.split("\n")) {
+          if (service.startsWith(" [ + ]  ")) {
+            running_services.push(service.replace(" [ + ]  ", ""));
+          } else {
+            stopped_services.push(service.replace(" [ - ]  ", ""));
+          }
+        }
+
+        setRunning(running_services);
+        setStopped(stopped_services);
+      } catch (err) {
+        console.error(err);
+      }
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return <div className="flex justify-around mt-4">
+    <div className="w-1/2 px-6">
+        <div className="flex items-center gap-2">
+            <AnimatePing />
+            <span className="font-semibold">Running</span>
+        </div>
+        <ul role="list" className="py-6 px-2 divide-y divide-slate-200">
+        {
+            running.map((service, idx) => {
+                return <li key={idx} data-service-name={service} className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
+                >{service}</li>;
+            })
+        }
+        </ul>
+    </div> 
+    <div className="w-1/2 px-6">
+        <div className="flex items-center gap-2">
+            <StoppedIcon />
+            <span className="font-semibold">Stopped</span>
+        </div>
+        <ul role="list" className="py-6 px-2 divide-y divide-slate-200">
+        {
+            stopped.map((service, idx) => {
+                return <li key={idx} data-service-name={service} className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer"
+                >{service}</li>;
+            })
+        }
+        </ul>
+    </div> 
+  </div>;
 }
