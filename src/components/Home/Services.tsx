@@ -34,30 +34,33 @@ export default function AllServices() {
       } catch (err) {
         console.error(err);
       }
-    }, 2000);
+    }, 10000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="flex justify-around mt-4">
-      <div className="w-1/2 px-6">
-        <div className="flex items-center gap-2">
+    <div className="flex justify-around mt-2 xl:mt-4">
+      <div className="w-1/2 px-2 xl:px-6">
+        <div className="flex items-center gap-1 xl:gap-2">
           <AnimatePing />
           <span className="font-semibold">Running</span>
         </div>
-        <div role="list" className="py-4 px-2 divide-y divide-slate-200">
+        <div
+          role="list"
+          className="py-2 xl:py-4 px-1 xl:px-2 divide-y divide-slate-200"
+        >
           {running.map((service, idx) => {
             return (
               <div
                 key={idx}
-                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
+                className="px-2 xl:px-4 py-1 xl:py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
               >
                 <Popover>
-                  <PopoverTrigger className="w-full text-left">
+                  <PopoverTrigger className="w-full text-left text-sm xl:text-md">
                     {service}
                   </PopoverTrigger>
                   <PopoverContent className="w-90">
-                    <div className="flex gap-2">
+                    <div className="flex gap-1 xl:gap-2">
                       <Button
                         variant={"default"}
                         onClick={(e) => {
@@ -110,24 +113,27 @@ export default function AllServices() {
           })}
         </div>
       </div>
-      <div className="w-1/2 px-6">
-        <div className="flex items-center gap-2">
+      <div className="w-1/2 px-2 xl:px-6">
+        <div className="flex items-center gap-1 xl:gap-2">
           <StoppedIcon />
           <span className="font-semibold">Stopped</span>
         </div>
-        <div role="list" className="py-4 px-2 divide-y divide-slate-200">
+        <div
+          role="list"
+          className="py-2 xl:py-4 px-1 xl:px-2 divide-y divide-slate-200"
+        >
           {stopped.map((service, idx) => {
             return (
               <div
                 key={idx}
-                className="px-4 py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
+                className="px-2 xl:px-4 py-1 xl:py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
               >
                 <Popover>
-                  <PopoverTrigger className="w-full text-left">
+                  <PopoverTrigger className="w-full text-left text-sm xl:text-md">
                     {service}
                   </PopoverTrigger>
                   <PopoverContent className="w-90">
-                    <div className="flex gap-2">
+                    <div className="flex gap-1 xl:gap-2">
                       <Button
                         variant={"default"}
                         onClick={(e) => {

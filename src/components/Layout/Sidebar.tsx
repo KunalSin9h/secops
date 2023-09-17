@@ -9,7 +9,7 @@ import { rspc } from "@/context/rspc";
 
 export default function Sidebar() {
   return (
-    <div className="bg-appdark text-white flex flex-col w-80 p-4">
+    <div className="bg-appdark text-white flex flex-col w-64 xl:w-80 p-2 xl:p-4">
       <div className="flex items-center gap-2 px-1 py-3">
         <img
           src="/default-user-icon.png"

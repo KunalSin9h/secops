@@ -24,7 +24,7 @@ export default function Ubuntu() {
   return (
     <div className="flex flex-col">
       <span className="text-purple-800 font-semibold">{release}</span>
-      <span className="font-bold text-2xl">{distro}</span>
+      <span className="font-bold text-md xl:text-xl">{distro}</span>
     </div>
   );
 }
