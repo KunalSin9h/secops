@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@/styles/global.css";
 import RspcProvider from "@/context/rspc";
 import Layout from "@/components/Layout/Layout";
-import Home from "@/components/Home";
+import Home from "@/components/Home/Home";
 import SSH from "./components/SSH";
 import TOR from "./components/TOR";
 import Settings from "./components/Settings";

@@ -8,7 +8,11 @@ async fn main() -> tauri::Result<()> {
         .invoke_handler(tauri::generate_handler![
             ipc_version,
             ipc_kill,
-            ipc_get_status
+            ipc_get_status,
+            ipc_start_service,
+            ipc_stop_service,
+            ipc_enable_service,
+            ipc_disable_service
         ])
         .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
         .run(tauri::generate_context!())
