@@ -12,10 +12,10 @@ use crate::{core::Action, rspc::RspcError};
 pub async fn get_services() -> Result<String, rspc::Error> {
     let res = match Action::new(
         "Get All services present on the device",
-        "cat",
+        "service",
         false,
         true,
-        vec!["~/dummy.file"],
+        vec!["--status-all"],
     )
     .exec(None)
     {

@@ -15,6 +15,10 @@ export default function AllServices() {
   const [running, setRunning] = useState<string[]>();
   const [stopped, setStopped] = useState<string[]>();
 
+  // This refresh state is to fetch new data when ever a new
+  // interaction will happen by the use
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     const timer = setInterval(async () => {
       try {
@@ -37,7 +41,7 @@ export default function AllServices() {
       }
     }, 10000);
     return () => clearInterval(timer);
-  }, []);
+  }, [refresh]);
 
   return (
     <div className="flex justify-around mt-2 xl:mt-4">
@@ -70,6 +74,8 @@ export default function AllServices() {
                             invoke("ipc_get_status", { service }).catch(
                               console.log,
                             );
+
+                            setRefresh(!refresh);
                           }}
                         >
                           Status
@@ -81,6 +87,8 @@ export default function AllServices() {
                             invoke("ipc_enable_service", { service }).catch(
                               console.log,
                             );
+
+                            setRefresh(!refresh);
                           }}
                         >
                           Enable
@@ -92,6 +100,8 @@ export default function AllServices() {
                             invoke("ipc_disable_service", { service }).catch(
                               console.log,
                             );
+
+                            setRefresh(!refresh);
                           }}
                         >
                           Disable
@@ -103,6 +113,7 @@ export default function AllServices() {
                             invoke("ipc_stop_service", { service }).catch(
                               console.log,
                             );
+                            setRefresh(!refresh);
                           }}
                         >
                           Stop
@@ -147,6 +158,8 @@ export default function AllServices() {
                             invoke("ipc_get_status", { service }).catch(
                               console.log,
                             );
+
+                            setRefresh(!refresh);
                           }}
                         >
                           Status
@@ -158,6 +171,8 @@ export default function AllServices() {
                             invoke("ipc_enable_service", { service }).catch(
                               console.log,
                             );
+
+                            setRefresh(!refresh);
                           }}
                         >
                           Enable
@@ -169,6 +184,8 @@ export default function AllServices() {
                             invoke("ipc_disable_service", { service }).catch(
                               console.log,
                             );
+
+                            setRefresh(!refresh);
                           }}
                         >
                           Disable
@@ -181,6 +198,8 @@ export default function AllServices() {
                             invoke("ipc_start_service", { service }).catch(
                               console.log,
                             );
+
+                            setRefresh(!refresh);
                           }}
                         >
                           Start
