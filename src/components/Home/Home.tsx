@@ -4,7 +4,7 @@ import Ubuntu from "./UbuntuBranding";
 
 export default function Home() {
   return (
-    <div className="flex gap-2 xl:gap-4 h-[80vh] xl:h-[84vh]">
+    <div className="flex gap-2 xl:gap-4 h-[84vh]">
       <div className="w-1/3 flex flex-col gap-2 xl:gap-4">
         <div className="h-24 xl:h-36 border rounded shadow p-1 xl:p-2 flex items-center justify-center">
           <div className="flex gap-2 xl:gap-4 items-center">

@@ -9,10 +9,11 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "../ui/button";
 import AnimatePing from "./AnimatePing";
+import LoadingList from "./LoadingList";
 
 export default function AllServices() {
-  const [running, setRunning] = useState<string[]>(["Loading..."]);
-  const [stopped, setStopped] = useState<string[]>(["Loading..."]);
+  const [running, setRunning] = useState<string[]>();
+  const [stopped, setStopped] = useState<string[]>();
 
   useEffect(() => {
     const timer = setInterval(async () => {
@@ -49,68 +50,72 @@ export default function AllServices() {
           role="list"
           className="py-2 xl:py-4 px-1 xl:px-2 divide-y divide-slate-200"
         >
-          {running.map((service, idx) => {
-            return (
-              <div
-                key={idx}
-                className="px-2 xl:px-4 py-1 xl:py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
-              >
-                <Popover>
-                  <PopoverTrigger className="w-full text-left text-sm xl:text-md">
-                    {service}
-                  </PopoverTrigger>
-                  <PopoverContent className="w-90">
-                    <div className="flex gap-1 xl:gap-2">
-                      <Button
-                        variant={"default"}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_get_status", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Status
-                      </Button>
-                      <Button
-                        variant={"secondary"}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_enable_service", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Enable
-                      </Button>
-                      <Button
-                        variant={"secondary"}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_disable_service", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Disable
-                      </Button>
-                      <Button
-                        variant={"destructive"}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_stop_service", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Stop
-                      </Button>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            );
-          })}
+          {running ? (
+            running.map((service, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="px-2 xl:px-4 py-1 xl:py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
+                >
+                  <Popover>
+                    <PopoverTrigger className="w-full text-left text-sm xl:text-md">
+                      {service}
+                    </PopoverTrigger>
+                    <PopoverContent className="w-90">
+                      <div className="flex gap-1 xl:gap-2">
+                        <Button
+                          variant={"default"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_get_status", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Status
+                        </Button>
+                        <Button
+                          variant={"secondary"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_enable_service", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Enable
+                        </Button>
+                        <Button
+                          variant={"secondary"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_disable_service", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Disable
+                        </Button>
+                        <Button
+                          variant={"destructive"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_stop_service", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Stop
+                        </Button>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              );
+            })
+          ) : (
+            <LoadingList size={10} />
+          )}
         </div>
       </div>
       <div className="w-1/2 px-2 xl:px-6">
@@ -122,69 +127,73 @@ export default function AllServices() {
           role="list"
           className="py-2 xl:py-4 px-1 xl:px-2 divide-y divide-slate-200"
         >
-          {stopped.map((service, idx) => {
-            return (
-              <div
-                key={idx}
-                className="px-2 xl:px-4 py-1 xl:py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
-              >
-                <Popover>
-                  <PopoverTrigger className="w-full text-left text-sm xl:text-md">
-                    {service}
-                  </PopoverTrigger>
-                  <PopoverContent className="w-90">
-                    <div className="flex gap-1 xl:gap-2">
-                      <Button
-                        variant={"default"}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_get_status", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Status
-                      </Button>
-                      <Button
-                        variant={"secondary"}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_enable_service", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Enable
-                      </Button>
-                      <Button
-                        variant={"secondary"}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_disable_service", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Disable
-                      </Button>
-                      <Button
-                        variant={"default"}
-                        className="bg-green-600 hover:bg-green-700"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          invoke("ipc_start_service", { service }).catch(
-                            console.log,
-                          );
-                        }}
-                      >
-                        Start
-                      </Button>
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              </div>
-            );
-          })}
+          {stopped ? (
+            stopped.map((service, idx) => {
+              return (
+                <div
+                  key={idx}
+                  className="px-2 xl:px-4 py-1 xl:py-2 hover:bg-slate-200 active:bg-slate-300 rounded cursor-pointer w-full"
+                >
+                  <Popover>
+                    <PopoverTrigger className="w-full text-left text-sm xl:text-md">
+                      {service}
+                    </PopoverTrigger>
+                    <PopoverContent className="w-90">
+                      <div className="flex gap-1 xl:gap-2">
+                        <Button
+                          variant={"default"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_get_status", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Status
+                        </Button>
+                        <Button
+                          variant={"secondary"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_enable_service", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Enable
+                        </Button>
+                        <Button
+                          variant={"secondary"}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_disable_service", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Disable
+                        </Button>
+                        <Button
+                          variant={"default"}
+                          className="bg-green-600 hover:bg-green-700"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            invoke("ipc_start_service", { service }).catch(
+                              console.log,
+                            );
+                          }}
+                        >
+                          Start
+                        </Button>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+              );
+            })
+          ) : (
+            <LoadingList size={6} />
+          )}
         </div>
       </div>
     </div>
