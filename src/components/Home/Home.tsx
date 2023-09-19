@@ -11,7 +11,7 @@ export default function Home() {
             <img
               src="/ubuntu.png"
               alt="Ubuntu Desktop Logo"
-              className="h-14 xl:h-28 w-14 xl:w-28"
+              className="h-14 xl:h-24 w-14 xl:w-24"
             />
             <Ubuntu />
           </div>
