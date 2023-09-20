@@ -1,0 +1,16 @@
+{
+  "message": "Initial State",
+  "timestamp": 3498393893493,
+  "commands": {
+    "create-secops-folder": {
+      "description": "this command will  command will create .secops folder for storing secops state",
+      "instructions": [
+        {
+          "description": "create secops folder",
+          "run": "mkdir ~/.secops",
+          "undo": "rmdir -rf ~/.secops"
+        }
+      ]
+    }
+  }
+}
