@@ -5,6 +5,7 @@ use super::Instruction;
 use std::io::BufRead;
 use std::io::BufReader;
 use std::process::Command;
+
 pub struct AppCommand {
     pub description: String,
     pub instructions: Vec<Instruction>,

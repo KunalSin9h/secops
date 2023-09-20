@@ -9,6 +9,7 @@ import SSH from "./components/SSH";
 import TOR from "./components/TOR";
 import Settings from "./components/Settings";
 import Help from "./components/Help";
+import Firewall from "./components/Firewall";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/tor", element: <TOR /> },
       { path: "/settings", element: <Settings /> },
       { path: "/help", element: <Help /> },
+      { path: "/ufw", element: <Firewall /> },
     ],
   },
 ]);

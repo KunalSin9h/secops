@@ -1,4 +1,5 @@
 import {
+  ComponentIcon,
   HelpAndSupport,
   HomeIcon,
   SSHIcon,
@@ -24,6 +25,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     label: "TOR Blocking",
     path: "/tor",
     icon: <TorIcon />,
+  },
+  {
+    key: "ufw",
+    label: "Firewall",
+    path: "/ufw",
+    icon: <ComponentIcon />,
   },
 ];
 

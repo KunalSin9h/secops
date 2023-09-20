@@ -1,3 +1,5 @@
 export default function Settings() {
-  return <h1>Settings</h1>;
+  return <div>
+      1. Use for personal use only, dont create state file.
+      </div>
 }
