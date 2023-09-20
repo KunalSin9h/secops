@@ -6,6 +6,10 @@ Todo
 
    2. If `.secops` is already present then just use it
 
+   3. Ask user to allow creating state or go without state for simple use
+
+   4. Have a setting option to alter this decision later
+
 2. When user Apply any security commands, then store the data in the `current.json`
 
    1. see the `dummy_state.json` for reference on how to
