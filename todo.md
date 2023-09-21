@@ -1,14 +1,14 @@
 Todo
 
-1. Check if `.secops` folder is present
+1. [DONE] Check if `.secops` folder is present
 
-   1. If not then pop up a message for "welcome" and ask to create a .secops folder in the home directory for creating states
+   1. [1.5.0] If not then pop up a message for "welcome" and ask to create a .secops folder in the home directory for creating states
 
-   2. If `.secops` is already present then just use it
+   2. [DONE] If `.secops` is already present then just use it
 
-   3. Ask user to allow creating state or go without state for simple use
+   3. [1.5.0] Ask user to allow creating state or go without state for simple use
 
-   4. Have a setting option to alter this decision later
+   4. [1.5.0] Have a setting option to alter this decision later
 
 2. When user Apply any security commands, then store the data in the `current.json`
 
