@@ -4,8 +4,9 @@ features = []
 version = '1.4'
 
 [dependencies]
-env_logger = "0.10.0"
-log = "0.4.20"
+chrono = '0.4.31'
+env_logger = '0.10.0'
+log = '0.4.20'
 serde_json = '1.0'
 
 [dependencies.rspc]
@@ -34,7 +35,9 @@ edition = '2021'
 license = 'MIT'
 name = 'secops'
 repository = 'https://github.com/kunalsin9h/secops'
-version = '0.3.2'
+version = '0.3.3'
+
+[profile]
 [profile.release]
 codegen-units = 1
 lto = true

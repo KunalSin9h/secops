@@ -1,4 +1,5 @@
-use std::{fs, io::BufWriter, path::PathBuf};
+use chrono::Local;
+use std::{fs, path::PathBuf};
 
 pub fn setup() -> Result<(), ()> {
     // This env::home_dir() is depreciated, due to unexpected behavior
@@ -66,56 +67,34 @@ fn check_folder(path: &PathBuf) -> Result<(), ()> {
                 log::error!("Failed to create {}", path.display());
                 return Err(());
             } else {
-                log::info!("Created $HOME/.secops/state fonder");
+                log::info!("Created {} folder", path.display());
                 Ok(())
             }
         }
     }
 }
 
-#[derive(serde::Serialize, serde::Deserialize)]
-struct AppState {
-    message: String,
-    time: String,
-    commands: serde_json::Value,
-}
-
 /// populate the default state file
 fn fill_default_state_file(path: PathBuf) -> Result<(), ()> {
-    let default_state_json = serde_json::json!({
-        "message": "Default State",
-        "time": 0,
-        "commands": []
-    });
+    let default_state_string = r#"{
+    "message": "Default State",
+    "time": "$",
+    "commands": []
+}"#;
 
-    let file = match std::fs::File::open(&path) {
-        Ok(file) => file,
-        Err(e) => {
-            log::error!("{}", e.to_string());
-            return Err(());
+    let data = default_state_string.replace("$", Local::now().to_string().as_str());
+
+    match fs::write(&path, data.as_bytes()) {
+        Ok(_) => {
+            log::info!("Write default file content to {}", &path.display());
+            Ok(())
         }
-    };
-    let w = BufWriter::new(file);
-
-    if serde_json::to_writer(w, &default_state_json).is_err() {
-        log::error!("Failed to write json data");
-        return Err(());
+        Err(e) => {
+            log::error!(
+                "Error while writing default file content: {}",
+                e.to_string()
+            );
+            Err(())
+        }
     }
-    log::info!("Written default state file in {}", path.display());
-
-    Ok(())
-
-    // match fs::write(&path, default_file_content.as_bytes()) {
-    //     Ok(_) => {
-    //         log::info!("Write default file content to {}", &path.display());
-    //         Ok(())
-    //     }
-    //     Err(e) => {
-    //         log::error!(
-    //             "Error while writing default file content: {}",
-    //             e.to_string()
-    //         );
-    //         Err(())
-    //     }
-    // }
 }
