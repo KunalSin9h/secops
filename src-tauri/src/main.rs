@@ -1,8 +1,17 @@
-use secops::{ipc::*, rspc::init_rspc};
+use secops::{core::setup, ipc::*, rspc::init_rspc};
 
 #[tokio::main]
 async fn main() -> tauri::Result<()> {
     let router = init_rspc();
+
+    env_logger::init();
+
+    if setup().is_err() {
+        log::error!("Failed to setup app.");
+        std::process::exit(1);
+    } else {
+        println!("Secops v{}", env!("CARGO_PKG_VERSION"))
+    }
 
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![

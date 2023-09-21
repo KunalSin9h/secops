@@ -20,6 +20,8 @@ Todo
 
 5. Allow exporting any state file
 
+   1. Allow encrypting state file
+
 6. Allow importing any state file and applying the state.
 
 7. [1.0.0]
