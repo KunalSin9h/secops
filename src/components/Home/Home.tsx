@@ -1,6 +1,7 @@
 import { ScrollArea } from "../ui/scroll-area";
 import AllServices from "./Services";
 import Ubuntu from "./UbuntuBranding";
+import Update from "./Update";
 
 export default function Home() {
   return (
@@ -25,7 +26,7 @@ export default function Home() {
       </div>
 
       <ScrollArea className="w-2/3 border rounded shadow p-1 xl:p-2">
-        <p className="font-bold  text-xl xl:text-2xl ">Updates</p>
+        <Update />
       </ScrollArea>
     </div>
   );
