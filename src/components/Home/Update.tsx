@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { invoke } from "@tauri-apps/api";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
@@ -13,7 +14,15 @@ export default function Update() {
           <span className="text-xl">
             Refresh package repository information
           </span>
-          <Button variant={"secondary"}>Update</Button>
+          <Button
+            variant={"secondary"}
+            onClick={(e) => {
+              e.preventDefault();
+              invoke("update").catch(console.log);
+            }}
+          >
+            Update
+          </Button>
         </div>
         <p className="text-gray-500">
           The "update" command in Ubuntu, run as "apt update," refreshes the
@@ -25,7 +34,15 @@ export default function Update() {
       <div className="w-[70%]">
         <div className="flex gap-2 items-center my-2">
           <span className="text-xl">Upgrade the installed packages</span>
-          <Button variant={"secondary"}>Upgrade</Button>
+          <Button
+            variant={"secondary"}
+            onClick={(e) => {
+              e.preventDefault();
+              invoke("upgrade").catch(console.log);
+            }}
+          >
+            Upgrade
+          </Button>
         </div>
         <p className="text-gray-500">
           The "upgrade" command in Ubuntu, executed as "apt upgrade," updates
@@ -39,7 +56,15 @@ export default function Update() {
           <span className="text-xl">
             Hard upgrade packages (Distribution Upgrade)
           </span>
-          <Button variant={"secondary"}>Dist Upgrade</Button>
+          <Button
+            variant={"secondary"}
+            onClick={(e) => {
+              e.preventDefault();
+              invoke("dist_upgrade").catch(console.log);
+            }}
+          >
+            Dist Upgrade
+          </Button>
         </div>
         <p className="text-gray-500">
           The "dist-upgrade" command in Ubuntu, used as "apt dist-upgrade,"
@@ -52,7 +77,15 @@ export default function Update() {
       <div className="w-[70%]">
         <div className="flex gap-2 items-center my-2">
           <span className="text-xl">Install Security specific upgrades</span>
-          <Button variant={"secondary"}>Security Upgrades</Button>
+          <Button
+            variant={"secondary"}
+            onClick={(e) => {
+              e.preventDefault();
+              invoke("unattended_upgrade").catch(console.log);
+            }}
+          >
+            Security Upgrades
+          </Button>
         </div>
         <p className="text-gray-500">
           The "unattended-upgrade" manually install security related updates,
