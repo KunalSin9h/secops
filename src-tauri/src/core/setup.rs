@@ -1,7 +1,9 @@
 use chrono::Local;
 use std::{fs, path::PathBuf};
 
-pub fn setup() -> Result<(), ()> {
+use super::Application;
+
+pub fn setup(state: &mut Application) -> Result<(), ()> {
     // This env::home_dir() is depreciated, due to unexpected behavior
     // on windows, it will be good in linux.
     #[allow(deprecated)]
@@ -12,6 +14,8 @@ pub fn setup() -> Result<(), ()> {
             return Err(());
         }
     };
+
+    *state.home_dir.lock().unwrap() = home_dir.clone();
 
     log::info!("Get home directory: {}", home_dir.display());
 
