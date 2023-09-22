@@ -1,8 +1,11 @@
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 
 export default function Update() {
+  const [autoUpgradeEnabled, setAutoUpgradeEnabled] = useState(false);
+
   return (
     <div className="p-4">
       <div className="w-[70%]">
@@ -62,8 +65,9 @@ export default function Update() {
             </Label>
             <Switch
               id="auto-security-updates"
+              checked={autoUpgradeEnabled}
               onCheckedChange={(v: boolean) => {
-                console.log(v);
+                setAutoUpgradeEnabled(v);
               }}
             />
           </div>
