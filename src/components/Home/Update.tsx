@@ -11,7 +11,7 @@ export default function Update() {
     <div className="p-4">
       <div className="w-[70%]">
         <div className="flex gap-2 items-center">
-          <span className="text-xl">
+          <span className="text-lg xl:text-xl">
             Refresh package repository information
           </span>
           <Button
@@ -24,7 +24,7 @@ export default function Update() {
             Update
           </Button>
         </div>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-sm">
           The "update" command in Ubuntu, run as "apt update," refreshes the
           package repository information, ensuring the system has the latest
           data about available packages and versions, vital for secure and
@@ -44,7 +44,7 @@ export default function Update() {
             Upgrade
           </Button>
         </div>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-sm">
           The "upgrade" command in Ubuntu, executed as "apt upgrade," updates
           installed packages to their latest versions while maintaining package
           dependencies, keeping the system's software up-to-date and secure.
@@ -66,7 +66,7 @@ export default function Update() {
             Dist Upgrade
           </Button>
         </div>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-sm">
           The "dist-upgrade" command in Ubuntu, used as "apt dist-upgrade,"
           performs a more aggressive package upgrade, resolving complex
           dependencies and making necessary changes like package removals or
@@ -87,7 +87,7 @@ export default function Update() {
             Security Upgrades
           </Button>
         </div>
-        <p className="text-gray-500">
+        <p className="text-gray-500 text-sm">
           The "unattended-upgrade" manually install security related updates,
           without installing non-security updates.
         </p>
@@ -104,13 +104,13 @@ export default function Update() {
               }}
             />
           </div>
-          <p className="text-gray-500">
+          <p className="text-gray-500 text-sm">
             By setting{" "}
-            <span className="font-mono text-sm">
+            <span className="font-mono text-xs">
               APT::Periodic::Unattended-Upgrade "1";
             </span>{" "}
             in the{" "}
-            <span className="font-mono text-sm">
+            <span className="font-mono text-xs">
               /etc/apt/apt.conf.d/20auto-upgrades
             </span>{" "}
             configuration file, you activate the system's built-in mechanism for
