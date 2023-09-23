@@ -44,7 +44,7 @@
   "name": "secops",
   "private": true,
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc \u0026\u0026 vite build",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,json,md,jsx,tsx,mdx}\"",
@@ -54,5 +54,5 @@
     "preview": "vite preview",
     "tauri": "tauri"
   },
-  "version": "0.3.4"
+  "version": "0.3.5"
 }
