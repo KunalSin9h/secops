@@ -28,7 +28,7 @@ pub async fn update(app: tauri::AppHandle) -> Result<(), rspc::Error> {
 ///
 /// This command will do
 /// ```bash
-/// sudo apt-get upgrade
+/// sudo apt-get upgrade -y
 /// ```
 #[tauri::command(async)]
 pub async fn upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error> {
@@ -37,7 +37,7 @@ pub async fn upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error> {
         "apt-get",
         true,
         false,
-        vec!["upgrade"],
+        vec!["upgrade", "-y"],
     )
     .exec(Some(&app))
     {
@@ -52,7 +52,7 @@ pub async fn upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error> {
 ///
 /// This command will do
 /// ```bash
-/// sudo apt-get dist-upgrade
+/// sudo apt-get dist-upgrade -y
 /// ```
 #[tauri::command(async)]
 pub async fn dist_upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error> {
@@ -61,7 +61,31 @@ pub async fn dist_upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error> {
         "apt-get",
         true,
         false,
-        vec!["dist-upgrade"],
+        vec!["dist-upgrade", "-y"],
+    )
+    .exec(Some(&app))
+    {
+        Ok(res) => res,
+        Err(e) => return Err(RspcError::internal_server_error(e))?,
+    };
+
+    Ok(())
+}
+
+/// Auto remove
+///
+/// This command will do
+/// ```bash
+/// sudo auto-remove -y
+/// ```
+#[tauri::command(async)]
+pub async fn auto_remove(app: tauri::AppHandle) -> Result<(), rspc::Error> {
+    let _ = match Action::new(
+        "Removing unused and orphans packages",
+        "apt-get",
+        true,
+        false,
+        vec!["auto-remove", "-y"],
     )
     .exec(Some(&app))
     {

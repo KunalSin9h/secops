@@ -32,7 +32,8 @@ async fn main() -> tauri::Result<()> {
             update,
             upgrade,
             dist_upgrade,
-            unattended_upgrade
+            unattended_upgrade,
+            auto_remove
         ])
         .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
         .run(tauri::generate_context!())

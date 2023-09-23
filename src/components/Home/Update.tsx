@@ -33,7 +33,9 @@ export default function Update() {
       </div>
       <div className="w-[70%]">
         <div className="flex gap-2 items-center my-2">
-          <span className="text-xl">Upgrade the installed packages</span>
+          <span className="text-lg xl:text-xl">
+            Upgrade the installed packages
+          </span>
           <Button
             variant={"secondary"}
             onClick={(e) => {
@@ -53,7 +55,7 @@ export default function Update() {
 
       <div className="w-[70%]">
         <div className="flex gap-2 items-center my-2">
-          <span className="text-xl">
+          <span className="text-lg xl:text-xl">
             Hard upgrade packages (Distribution Upgrade)
           </span>
           <Button
@@ -76,7 +78,31 @@ export default function Update() {
       </div>
       <div className="w-[70%]">
         <div className="flex gap-2 items-center my-2">
-          <span className="text-xl">Install Security specific upgrades</span>
+          <span className="text-lg xl:text-xl">
+            Remove unused and orphans packages
+          </span>
+          <Button
+            variant={"secondary"}
+            onClick={(e) => {
+              e.preventDefault();
+              invoke("auto_remove").catch(console.log);
+            }}
+          >
+            Remove
+          </Button>
+        </div>
+        <p className="text-gray-500 text-sm">
+          The "sudo apt auto-remove" command in Ubuntu is a system maintenance
+          tool that helps keep your system clean and efficient. It identifies
+          and removes packages that were initially installed as dependencies for
+          other software but are no longer needed by any installed package.
+        </p>
+      </div>
+      <div className="w-[70%]">
+        <div className="flex gap-2 items-center my-2">
+          <span className="text-lg xl:text-xl">
+            Install Security specific upgrades
+          </span>
           <Button
             variant={"secondary"}
             onClick={(e) => {
