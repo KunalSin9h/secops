@@ -130,17 +130,17 @@ pub async fn unattended_upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error
 pub async fn enable_auto_security_updates(
     enable: bool,
     app: tauri::AppHandle,
-) -> Result<bool, rspc::Error> {
+) -> Result<(), rspc::Error> {
     let cmd = enable_auto_security_updates_command();
 
     if enable {
         match cmd.execute(&app) {
-            Ok(res) => Ok(res),
+            Ok(()) => Ok(()),
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
     } else {
         match cmd.rollback(&app) {
-            Ok(res) => Ok(res),
+            Ok(()) => Ok(()),
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
     }
@@ -154,19 +154,19 @@ fn enable_auto_security_updates_command() -> AppCommand {
         false,
         vec![
             "-i",
-            "s/APT::Periodic::Unattended-Upgrade \"0\";/APT::Periodic::Unattended-Upgrade \"1\";/",
+            "\'s/APT::Periodic::Unattended-Upgrade \"0\";/APT::Periodic::Unattended-Upgrade \"1\";/\'",
             "/etc/apt/apt.conf.d/20auto-upgrades",
         ],
     );
 
     let undo = Action::new(
-        "enabling auto security updates",
+        "disabling auto security updates",
         "sed",
         true,
         false,
         vec![
             "-i",
-            "s/APT::Periodic::Unattended-Upgrade \"1\";/APT::Periodic::Unattended-Upgrade \"0\";/",
+            "\'s/APT::Periodic::Unattended-Upgrade \"1\";/APT::Periodic::Unattended-Upgrade \"0\";/\'",
             "/etc/apt/apt.conf.d/20auto-upgrades",
         ],
     );

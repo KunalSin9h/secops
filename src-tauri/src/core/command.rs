@@ -36,18 +36,18 @@ impl AppCommand {
         }
     }
 
-    pub fn execute(&self, app: &AppHandle) -> Result<bool, String> {
+    pub fn execute(&self, app: &AppHandle) -> Result<(), String> {
         //  run = true
-        return self.exec(true, app);
+        self.exec(true, app)
     }
 
-    pub fn rollback(&self, app: &AppHandle) -> Result<bool, String> {
+    pub fn rollback(&self, app: &AppHandle) -> Result<(), String> {
         // run = false, means it will execute the undo command of all
         // instructions
-        return self.exec(false, app);
+        self.exec(false, app)
     }
 
-    fn exec(&self, run: bool, app: &AppHandle) -> Result<bool, String> {
+    fn exec(&self, run: bool, app: &AppHandle) -> Result<(), String> {
         let mut root_shell = Command::new("pkexec");
 
         root_shell.stdout(std::process::Stdio::piped());
@@ -71,11 +71,7 @@ impl AppCommand {
     }
 }
 
-pub fn execution_manager(
-    cmd: &mut Command,
-    app: &AppHandle,
-    desc: &String,
-) -> Result<bool, String> {
+pub fn execution_manager(cmd: &mut Command, app: &AppHandle, desc: &String) -> Result<(), String> {
     let mut child = match cmd.spawn() {
         Ok(child) => child,
         Err(err) => return Err(err.to_string()),
@@ -104,7 +100,7 @@ pub fn execution_manager(
 
     if finish.success() {
         send_execution_state(app, desc, "Done".into(), "pass", pid)?;
-        Ok(true)
+        Ok(())
     } else {
         send_execution_state(app, desc, "Failed".into(), "fail", pid)?;
         Err(format!(

@@ -7,6 +7,7 @@ import InfoToolTip from "../InfoToolTip.tsx";
 
 export default function Update() {
   const [autoUpgradeEnabled, setAutoUpgradeEnabled] = useState(false);
+  const [autoUpgradeBtnDisable, setAutoUpgradeBtnDisable] = useState(false);
 
   return (
     <div className="p-4">
@@ -91,8 +92,21 @@ export default function Update() {
             <Switch
               id="auto-security-updates"
               checked={autoUpgradeEnabled}
-              onCheckedChange={(v: boolean) => {
-                setAutoUpgradeEnabled(v);
+              disabled={autoUpgradeBtnDisable}
+              onCheckedChange={async (enable: boolean) => {
+                setAutoUpgradeBtnDisable(true);
+                try {
+                  await invoke("enable_auto_security_updates", {
+                    enable,
+                  });
+
+                  setAutoUpgradeBtnDisable(false);
+                  setAutoUpgradeEnabled(enable);
+                } catch (err) {
+                  console.log(err);
+                  setAutoUpgradeBtnDisable(false);
+                  setAutoUpgradeEnabled(!enable);
+                }
               }}
             />
           </div>
@@ -117,7 +131,7 @@ function UpdateCard({
     <div className="w-full py-2 xl:py-4">
       <div className="flex gap-4 items-center">
         <div className="flex items-center gap-1">
-          <span className="text-md xl:text-lg">{title}</span>
+          <span className="text-sm xl:text-lg">{title}</span>
           <InfoToolTip info={info} />
         </div>
         <Button
