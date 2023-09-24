@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.4.0",
-    "@types/node": "^20.6.3",
+    "@types/node": "^20.6.4",
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
@@ -55,5 +55,5 @@
     "preview": "vite preview",
     "tauri": "tauri"
   },
-  "version": "0.3.5"
+  "version": "0.3.6"
 }
