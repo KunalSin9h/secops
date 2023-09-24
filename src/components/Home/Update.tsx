@@ -79,7 +79,7 @@ export default function Update() {
                 </span>
                 <InfoToolTip
                   info={
-                    "By setting, APT::Periodic::Unattended-Upgrade '1', in the /etc/apt/apt.conf.d/20auto-upgrades             configuration file, you activate the system's built-in mechanism for \
+                    "By setting, APT::Periodic::Unattended-Upgrade '1', in the /etc/apt/apt.conf.d/20auto-upgrades configuration file, you activate the system's built-in mechanism for \
             unattended security updates. When enabled, the system will  \
             automatically check for and install security updates on a regular  \
             basis, enhancing the system's security without requiring manual \
