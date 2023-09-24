@@ -1,5 +1,3 @@
-use tauri::AppHandle;
-
 use crate::{core::Action, rspc::RspcError};
 
 /// Get All services present on the device
@@ -9,6 +7,7 @@ use crate::{core::Action, rspc::RspcError};
 /// ```bash
 /// service --status-all
 /// ```
+#[tauri::command(async)]
 pub async fn get_services() -> Result<String, rspc::Error> {
     let res = match Action::new(
         "Get All services present on the device",
@@ -32,7 +31,8 @@ pub async fn get_services() -> Result<String, rspc::Error> {
 /// ```bash
 /// systemctl status {service}
 /// ```
-pub async fn get_status(service: String, app: &AppHandle) -> Result<(), rspc::Error> {
+#[tauri::command(async)]
+pub async fn get_status(service: String, app: tauri::AppHandle) -> Result<(), rspc::Error> {
     let _ = match Action::new(
         format!("Getting systemctl service status for {}", &service).as_str(),
         "systemctl",
@@ -40,7 +40,7 @@ pub async fn get_status(service: String, app: &AppHandle) -> Result<(), rspc::Er
         false,
         vec!["status", service.as_str()],
     )
-    .exec(Some(app))
+    .exec(Some(&app))
     {
         Ok(res) => res,
         Err(e) => return Err(RspcError::internal_server_error(e))?,
@@ -55,7 +55,8 @@ pub async fn get_status(service: String, app: &AppHandle) -> Result<(), rspc::Er
 /// ```bash
 /// sudo systemctl start {service}
 /// ```
-pub async fn start_service(service: String, app: &AppHandle) -> Result<(), rspc::Error> {
+#[tauri::command(async)]
+pub async fn start_service(service: String, app: tauri::AppHandle) -> Result<(), rspc::Error> {
     let _ = match Action::new(
         format!("Starting {} systemctl service", &service).as_str(),
         "systemctl",
@@ -63,7 +64,7 @@ pub async fn start_service(service: String, app: &AppHandle) -> Result<(), rspc:
         false,
         vec!["start", service.as_str()],
     )
-    .exec(Some(app))
+    .exec(Some(&app))
     {
         Ok(res) => res,
         Err(e) => return Err(RspcError::internal_server_error(e))?,
@@ -78,7 +79,8 @@ pub async fn start_service(service: String, app: &AppHandle) -> Result<(), rspc:
 /// ```bash
 /// sudo systemctl stop {service}
 /// ```
-pub async fn stop_service(service: String, app: &AppHandle) -> Result<(), rspc::Error> {
+#[tauri::command(async)]
+pub async fn stop_service(service: String, app: tauri::AppHandle) -> Result<(), rspc::Error> {
     let _ = match Action::new(
         format!("Stopping {} systemctl service", &service).as_str(),
         "systemctl",
@@ -86,7 +88,7 @@ pub async fn stop_service(service: String, app: &AppHandle) -> Result<(), rspc::
         false,
         vec!["stop", service.as_str()],
     )
-    .exec(Some(app))
+    .exec(Some(&app))
     {
         Ok(res) => res,
         Err(e) => return Err(RspcError::internal_server_error(e))?,
@@ -101,7 +103,8 @@ pub async fn stop_service(service: String, app: &AppHandle) -> Result<(), rspc::
 /// ```bash
 /// sudo systemctl enable {service}
 /// ```
-pub async fn enable_service(service: String, app: &AppHandle) -> Result<(), rspc::Error> {
+#[tauri::command(async)]
+pub async fn enable_service(service: String, app: tauri::AppHandle) -> Result<(), rspc::Error> {
     let _ = match Action::new(
         format!("Enabling {} systemctl service", &service).as_str(),
         "systemctl",
@@ -109,7 +112,7 @@ pub async fn enable_service(service: String, app: &AppHandle) -> Result<(), rspc
         false,
         vec!["enable", service.as_str()],
     )
-    .exec(Some(app))
+    .exec(Some(&app))
     {
         Ok(res) => res,
         Err(e) => return Err(RspcError::internal_server_error(e))?,
@@ -124,7 +127,8 @@ pub async fn enable_service(service: String, app: &AppHandle) -> Result<(), rspc
 /// ```bash
 /// sudo systemctl disable {service}
 /// ```
-pub async fn disable_service(service: String, app: &AppHandle) -> Result<(), rspc::Error> {
+#[tauri::command(async)]
+pub async fn disable_service(service: String, app: tauri::AppHandle) -> Result<(), rspc::Error> {
     let _ = match Action::new(
         format!("Disabling {} systemctl service", &service).as_str(),
         "systemctl",
@@ -132,7 +136,7 @@ pub async fn disable_service(service: String, app: &AppHandle) -> Result<(), rsp
         false,
         vec!["disable", service.as_str()],
     )
-    .exec(Some(app))
+    .exec(Some(&app))
     {
         Ok(res) => res,
         Err(e) => return Err(RspcError::internal_server_error(e))?,

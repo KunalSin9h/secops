@@ -148,7 +148,7 @@ export default function Footer() {
               onClick={(e) => {
                 e.preventDefault();
                 if (pid !== undefined) {
-                  invoke("ipc_kill", { pid }).catch(console.error);
+                  invoke("kill", { pid }).catch(console.error);
                 } else {
                   console.log("pid is undefined");
                 }

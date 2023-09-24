@@ -1,6 +1,9 @@
-use tauri::AppHandle;
-
 use crate::{core::Action, rspc::RspcError};
+
+#[tauri::command(async)]
+pub async fn version() -> String {
+    env!["CARGO_PKG_VERSION"].into()
+}
 
 /// Get User will return the current logged-in user on the system
 ///
@@ -31,7 +34,8 @@ pub async fn get_user() -> Result<String, rspc::Error> {
 /// ```bash
 /// kill -9 {pid}
 /// ```
-pub async fn kill(pid: u32, app: &AppHandle) -> Result<(), String> {
+#[tauri::command]
+pub async fn kill(pid: u32, app: tauri::AppHandle) -> Result<(), rspc::Error> {
     let kill_cmd = Action::new(
         format!("Killing the running process: {}", pid).as_str(),
         "kill",
@@ -40,9 +44,10 @@ pub async fn kill(pid: u32, app: &AppHandle) -> Result<(), String> {
         vec!["-9", &pid.to_string()],
     );
 
-    let _ = kill_cmd.exec(Some(app))?;
-
-    Ok(())
+    match kill_cmd.exec(Some(&app)) {
+        Ok(_) => Ok(()),
+        Err(e) => Err(RspcError::internal_server_error(e))?,
+    }
 }
 
 /// Get Distribution Information

@@ -1,7 +1,6 @@
 use secops::{
     commands::*,
     core::{setup, Application},
-    ipc::*,
     rspc::init_rspc,
 };
 
@@ -22,13 +21,13 @@ async fn main() -> tauri::Result<()> {
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            ipc_version,
-            ipc_kill,
-            ipc_get_status,
-            ipc_start_service,
-            ipc_stop_service,
-            ipc_enable_service,
-            ipc_disable_service,
+            version,
+            kill,
+            get_status,
+            start_service,
+            stop_service,
+            enable_service,
+            disable_service,
             update,
             upgrade,
             dist_upgrade,

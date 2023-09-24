@@ -46,7 +46,7 @@ pub fn setup(state: &mut Application) -> Result<(), ()> {
                 log::error!("Failed to create {}", default_state_file.display());
                 return Err(());
             } else {
-                log::info!("Created $HOME/.secops/state fonder");
+                log::info!("Created $HOME/.secops/state folder");
                 // copy the default state file to newly created file
                 fill_default_state_file(default_state_file)?;
             }
@@ -83,6 +83,7 @@ fn fill_default_state_file(path: PathBuf) -> Result<(), ()> {
     let default_state_string = r#"{
     "message": "Default State",
     "time": "$",
+    "settings": {},
     "commands": []
 }"#;
 

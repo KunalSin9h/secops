@@ -1,5 +1,6 @@
 {
   "message": "Default State",
-  "timestamp": 0,
+  "timestamp": "",
+  "settings": {},
   "commands": []
 }

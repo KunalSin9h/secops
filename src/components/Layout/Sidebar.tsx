@@ -66,7 +66,7 @@ function SidebarLink({
 function AppVersion() {
   const [version, setVersion] = useState("");
 
-  invoke("ipc_version")
+  invoke("version")
     .then((version) => {
       setVersion(version as string);
     })

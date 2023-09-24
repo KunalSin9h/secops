@@ -71,7 +71,7 @@ export default function AllServices() {
                           variant={"default"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_get_status", { service }).catch(
+                            invoke("get_status", { service }).catch(
                               console.log,
                             );
 
@@ -84,7 +84,7 @@ export default function AllServices() {
                           variant={"secondary"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_enable_service", { service }).catch(
+                            invoke("enable_service", { service }).catch(
                               console.log,
                             );
 
@@ -97,7 +97,7 @@ export default function AllServices() {
                           variant={"secondary"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_disable_service", { service }).catch(
+                            invoke("disable_service", { service }).catch(
                               console.log,
                             );
 
@@ -110,7 +110,7 @@ export default function AllServices() {
                           variant={"destructive"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_stop_service", { service }).catch(
+                            invoke("stop_service", { service }).catch(
                               console.log,
                             );
                             setRefresh(!refresh);
@@ -155,7 +155,7 @@ export default function AllServices() {
                           variant={"default"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_get_status", { service }).catch(
+                            invoke("get_status", { service }).catch(
                               console.log,
                             );
 
@@ -168,7 +168,7 @@ export default function AllServices() {
                           variant={"secondary"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_enable_service", { service }).catch(
+                            invoke("enable_service", { service }).catch(
                               console.log,
                             );
 
@@ -181,7 +181,7 @@ export default function AllServices() {
                           variant={"secondary"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_disable_service", { service }).catch(
+                            invoke("disable_service", { service }).catch(
                               console.log,
                             );
 
@@ -195,7 +195,7 @@ export default function AllServices() {
                           className="bg-green-600 hover:bg-green-700"
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("ipc_start_service", { service }).catch(
+                            invoke("start_service", { service }).catch(
                               console.log,
                             );
 
