@@ -156,7 +156,7 @@ export const FailIcon = () => (
 
 export const InfoIcon = () => (
   <svg
-    className="text-blue-400"
+    className="text-black opacity-80 cursor-help"
     width="18"
     height="18"
     viewBox="0 0 15 15"
