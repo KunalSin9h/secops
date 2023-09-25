@@ -1,13 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import InfoToolTip from "../InfoToolTip.tsx";
+import getSetting from "@/lib/settings.ts";
 
 export default function Update() {
   const [autoUpgradeEnabled, setAutoUpgradeEnabled] = useState(false);
   const [autoUpgradeBtnDisable, setAutoUpgradeBtnDisable] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const alreadyEnabled = (await getSetting("auto.security.upgrades")) as
+          | boolean
+          | undefined;
+
+        if (alreadyEnabled === undefined) return;
+        setAutoUpgradeEnabled(alreadyEnabled);
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, []);
 
   return (
     <div className="p-4">

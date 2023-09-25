@@ -13,9 +13,14 @@
   "tauri": {
     "allowlist": {
       "all": false,
+      "fs": {
+        "readFile": true,
+        "writeFile": true,
+        "scope": ["$HOME/.secops/state/*"]
+      },
       "shell": {
         "all": false,
-        "open": true
+        "open": false
       }
     },
     "bundle": {
@@ -26,9 +31,7 @@
       "category": "Utility",
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
-        "depends": [
-          "policykit-1"
-        ],
+        "depends": ["policykit-1"],
         "desktopTemplate": "../assets/deb/secops.desktop"
       },
       "icon": [
