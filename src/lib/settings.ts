@@ -28,10 +28,8 @@ async function readStatFile() {
 
 /**
  * get a single setting value
- *
- * @param setting string
  */
-export async function getSetting(setting: string) {
+export async function getSetting(setting: string): SettingsValue {
   try {
     const stateFile = await readStatFile();
     const stateFileData = JSON.parse(stateFile) as StateFile;
@@ -44,9 +42,6 @@ export async function getSetting(setting: string) {
 
 /**
  * Update a single setting value
- *
- * @param setting string
- * @param value SettingsValue
  */
 export async function updateSetting(setting: string, value: SettingsValue) {
   try {
