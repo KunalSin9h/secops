@@ -32,7 +32,7 @@ fn get_state_file(home_dir: &PathBuf) -> Result<StateFile, std::io::Error> {
 fn write_state_file(home_dir: &PathBuf, state_file: StateFile) -> Result<(), std::io::Error> {
     let state_file_path = home_dir.join(CURRENT_STATE_FILE_PATH);
 
-    let new_state_file_content = serde_json::to_string(&state_file)?;
+    let new_state_file_content = serde_json::to_string_pretty(&state_file)?;
 
     match std::fs::write(state_file_path, new_state_file_content.as_bytes()) {
         Ok(()) => Ok(()),
