@@ -83,7 +83,6 @@ fn fill_default_state_file(path: PathBuf) -> Result<(), ()> {
     let default_state_string = r#"{
     "message": "Default State",
     "time": "$",
-    "settings": {},
     "commands": []
 }"#;
 
