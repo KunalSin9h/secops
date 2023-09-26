@@ -145,8 +145,10 @@ pub async fn enable_auto_security_updates(
                     undo: cmd.undo_script().clone(),
                 };
 
-                add_command(&home_dir, command).expect("failed to add_command");
-                Ok(())
+                match add_command(&home_dir, command) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
+                }
             }
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
@@ -154,8 +156,10 @@ pub async fn enable_auto_security_updates(
         match cmd.rollback(&app) {
             Ok(()) => {
                 // remove command
-                remove_command(&home_dir, cmd.name).expect("failed to remove-command");
-                Ok(())
+                match remove_command(&home_dir, cmd.name) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
+                }
             }
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
