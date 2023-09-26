@@ -1,5 +1,5 @@
 use crate::{
-    core::{Action, AppCommand, Instruction},
+    core::{add_command, remove_command, Action, AppCommand, Application, Command, Instruction},
     rspc::RspcError,
 };
 
@@ -130,17 +130,37 @@ pub async fn unattended_upgrade(app: tauri::AppHandle) -> Result<(), rspc::Error
 pub async fn enable_auto_security_updates(
     enable: bool,
     app: tauri::AppHandle,
+    state: tauri::State<'_, Application>,
 ) -> Result<(), rspc::Error> {
     let cmd = enable_auto_security_updates_command();
+    let home_dir = state.home_dir.lock().unwrap().clone();
 
     if enable {
         match cmd.execute(&app) {
-            Ok(()) => Ok(()),
+            Ok(()) => {
+                // add command
+                let command = Command {
+                    name: cmd.name.clone(),
+                    run: cmd.run_script().clone(),
+                    undo: cmd.undo_script().clone(),
+                };
+
+                match add_command(&home_dir, command) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
+                }
+            }
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
     } else {
         match cmd.rollback(&app) {
-            Ok(()) => Ok(()),
+            Ok(()) => {
+                // remove command
+                match remove_command(&home_dir, cmd.name) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
+                }
+            }
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
     }
@@ -174,6 +194,7 @@ fn enable_auto_security_updates_command() -> AppCommand {
     let inst = Instruction::new("", run, Some(undo));
 
     AppCommand {
+        name: "auto.security.upgrades".into(),
         description: "Enabling / Disabling auto security updates".into(),
         instructions: vec![inst],
     }
