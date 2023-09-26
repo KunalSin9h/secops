@@ -10,6 +10,7 @@ import {
 import { Button } from "../ui/button";
 import AnimatePing from "./AnimatePing";
 import LoadingList from "./LoadingList";
+import toastError from "@/lib/toastError";
 
 export default function AllServices() {
   const [running, setRunning] = useState<string[]>();
@@ -37,7 +38,7 @@ export default function AllServices() {
         setRunning(running_services);
         setStopped(stopped_services);
       } catch (err) {
-        console.error(err);
+        toastError(err as string);
       }
     }, 10000);
     return () => clearInterval(timer);
@@ -71,10 +72,7 @@ export default function AllServices() {
                           variant={"default"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("get_status", { service }).catch(
-                              console.log,
-                            );
-
+                            invoke("get_status", { service }).catch(toastError);
                             setRefresh(!refresh);
                           }}
                         >
@@ -85,7 +83,7 @@ export default function AllServices() {
                           onClick={(e) => {
                             e.preventDefault();
                             invoke("enable_service", { service }).catch(
-                              console.log,
+                              toastError,
                             );
 
                             setRefresh(!refresh);
@@ -98,7 +96,7 @@ export default function AllServices() {
                           onClick={(e) => {
                             e.preventDefault();
                             invoke("disable_service", { service }).catch(
-                              console.log,
+                              toastError,
                             );
 
                             setRefresh(!refresh);
@@ -111,7 +109,7 @@ export default function AllServices() {
                           onClick={(e) => {
                             e.preventDefault();
                             invoke("stop_service", { service }).catch(
-                              console.log,
+                              toastError,
                             );
                             setRefresh(!refresh);
                           }}
@@ -155,9 +153,7 @@ export default function AllServices() {
                           variant={"default"}
                           onClick={(e) => {
                             e.preventDefault();
-                            invoke("get_status", { service }).catch(
-                              console.log,
-                            );
+                            invoke("get_status", { service }).catch(toastError);
 
                             setRefresh(!refresh);
                           }}
@@ -169,7 +165,7 @@ export default function AllServices() {
                           onClick={(e) => {
                             e.preventDefault();
                             invoke("enable_service", { service }).catch(
-                              console.log,
+                              toastError,
                             );
 
                             setRefresh(!refresh);
@@ -182,7 +178,7 @@ export default function AllServices() {
                           onClick={(e) => {
                             e.preventDefault();
                             invoke("disable_service", { service }).catch(
-                              console.log,
+                              toastError,
                             );
 
                             setRefresh(!refresh);
@@ -196,7 +192,7 @@ export default function AllServices() {
                           onClick={(e) => {
                             e.preventDefault();
                             invoke("start_service", { service }).catch(
-                              console.log,
+                              toastError,
                             );
 
                             setRefresh(!refresh);

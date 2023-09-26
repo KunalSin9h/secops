@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import InfoToolTip from "../InfoToolTip.tsx";
 import { getSetting } from "@/lib/settings.ts";
+import toastError from "@/lib/toastError.tsx";
 
 export default function Update() {
   const [autoUpgradeEnabled, setAutoUpgradeEnabled] = useState(false);
@@ -17,8 +18,7 @@ export default function Update() {
 
         setAutoUpgradeEnabled(alreadyEnabled);
       } catch (err) {
-        // TODO: Shoot a new Notification
-        console.log(err);
+        toastError(err as string);
       }
     })();
   }, []);
@@ -117,9 +117,9 @@ export default function Update() {
                   setAutoUpgradeBtnDisable(false);
                   setAutoUpgradeEnabled(enable);
                 } catch (err) {
-                  console.log(err);
                   setAutoUpgradeBtnDisable(false);
                   setAutoUpgradeEnabled(!enable);
+                  toastError(err as string);
                 }
               }}
             />
@@ -153,7 +153,7 @@ function UpdateCard({
           size={"sm"}
           onClick={(e) => {
             e.preventDefault();
-            invoke(trigger).catch(console.log);
+            invoke(trigger).catch(toastError);
           }}
         >
           {button}
