@@ -7,6 +7,7 @@ use std::io::BufReader;
 use std::process::Command;
 
 pub struct AppCommand {
+    pub name: String,
     pub description: String,
     pub instructions: Vec<Instruction>,
 }
@@ -14,6 +15,7 @@ pub struct AppCommand {
 impl Default for AppCommand {
     fn default() -> Self {
         AppCommand {
+            name: "default.name".to_string(),
             description: "Default command description".to_string(),
             instructions: vec![],
         }
@@ -29,8 +31,9 @@ struct ExecutionState {
 }
 
 impl AppCommand {
-    pub fn new(description: &str, instructions: Vec<Instruction>) -> Self {
+    pub fn new(name: &str, description: &str, instructions: Vec<Instruction>) -> Self {
         AppCommand {
+            name: name.to_string(),
             description: description.to_string(),
             instructions,
         }

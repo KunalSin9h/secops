@@ -4,14 +4,26 @@ type StateFile = {
   message: string;
   time: string;
   settings: Settings;
-  commands: [];
+  commands: Commands[];
 };
 
 type Settings = {
   [setting: string]: SettingsValue;
 };
 
-type SettingsValue = string | boolean | Settings | Settings[] | undefined;
+type SettingsValue =
+  | undefined
+  | boolean
+  | number
+  | string
+  | SettingsValue[]
+  | Settings;
+
+type Commands = {
+  name: string;
+  run: string;
+  undo: string;
+};
 
 const currentStateFilePath = ".secops/state/current.json";
 
@@ -29,7 +41,7 @@ async function readStatFile() {
 /**
  * get a single setting value
  */
-export async function getSetting(setting: string): SettingsValue {
+export async function getSetting(setting: string): Promise<SettingsValue> {
   try {
     const stateFile = await readStatFile();
     const stateFileData = JSON.parse(stateFile) as StateFile;
