@@ -17,45 +17,43 @@ pub struct Command {
 
 const CURRENT_STATE_FILE_PATH: &str = ".secops/state/current.json";
 
-fn read_state_file(home_dir: &PathBuf) -> Result<String, std::io::Error> {
+fn get_state_file(home_dir: &PathBuf) -> Result<StateFile, std::io::Error> {
     let state_file_path = home_dir.join(CURRENT_STATE_FILE_PATH);
 
-    match std::fs::read_to_string(state_file_path) {
-        Ok(data) => Ok(data),
-        Err(e) => Err(e),
-    }
+    let data = match std::fs::read_to_string(state_file_path) {
+        Ok(data) => data,
+        Err(e) => return Err(e),
+    };
+
+    let state_file: StateFile = serde_json::from_str(&data).expect("Failed to convert str to json");
+
+    Ok(state_file)
 }
 
-fn write_state_file(home_dir: &PathBuf, content: String) -> Result<(), std::io::Error> {
+fn write_state_file(home_dir: &PathBuf, state_file: StateFile) -> Result<(), std::io::Error> {
     let state_file_path = home_dir.join(CURRENT_STATE_FILE_PATH);
 
-    match std::fs::write(state_file_path, content.as_bytes()) {
+    let new_state_file_content =
+        serde_json::to_string(&state_file).expect("failed to crate string fro struct");
+
+    match std::fs::write(state_file_path, new_state_file_content.as_bytes()) {
         Ok(()) => Ok(()),
         Err(e) => Err(e),
     }
 }
 
 pub fn add_command(home_dir: &PathBuf, cmd: Command) -> Result<(), std::io::Error> {
-    let state_file_content = read_state_file(home_dir)?;
-
-    let mut state_file: StateFile =
-        serde_json::from_str(&state_file_content).expect("Failed to convert str to json");
+    let mut state_file = get_state_file(home_dir)?;
 
     state_file.commands.push(cmd);
 
-    let new_state_file_content =
-        serde_json::to_string(&state_file).expect("failed to crate string fro struct");
-
-    write_state_file(home_dir, new_state_file_content)?;
+    write_state_file(home_dir, state_file)?;
 
     Ok(())
 }
 
 pub fn remove_command(home_dir: &PathBuf, cmd_name: String) -> Result<(), std::io::Error> {
-    let state_file_content = read_state_file(home_dir)?;
-
-    let mut state_file: StateFile =
-        serde_json::from_str(&state_file_content).expect("Failed to convert str to json");
+    let mut state_file = get_state_file(home_dir)?;
 
     let filter_commands: Vec<Command> = state_file
         .commands
@@ -65,10 +63,7 @@ pub fn remove_command(home_dir: &PathBuf, cmd_name: String) -> Result<(), std::i
 
     state_file.commands = filter_commands;
 
-    let new_state_file_content =
-        serde_json::to_string(&state_file).expect("failed to crate string fro struct");
-
-    write_state_file(home_dir, new_state_file_content)?;
+    write_state_file(home_dir, state_file)?;
 
     Ok(())
 }
