@@ -6,6 +6,7 @@ import {
   DASHBOARD_SIDEBAR_LINKS,
 } from "@/lib/constants/navigation";
 import { rspc } from "@/context/rspc";
+import toastError from "@/lib/toastError";
 
 export default function Sidebar() {
   return (
@@ -70,7 +71,7 @@ function AppVersion() {
     .then((version) => {
       setVersion(version as string);
     })
-    .catch(console.log);
+    .catch(toastError);
 
   return (
     <span className="text-sm pl-2 text-appdim">

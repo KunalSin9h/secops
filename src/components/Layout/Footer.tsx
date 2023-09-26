@@ -12,6 +12,7 @@ import {
   CollapsIcon,
 } from "@/lib/icons";
 import { ScrollArea } from "../ui/scroll-area";
+import toastError, { toastInfo } from "@/lib/toastError";
 
 type ExecutionStatePayload = {
   title: string;
@@ -56,7 +57,7 @@ export default function Footer() {
             break;
 
           default:
-            console.log("not match any state");
+            toastInfo("not match any state");
             break;
         }
 
@@ -148,9 +149,9 @@ export default function Footer() {
               onClick={(e) => {
                 e.preventDefault();
                 if (pid !== undefined) {
-                  invoke("kill", { pid }).catch(console.error);
+                  invoke("kill", { pid }).catch(toastError);
                 } else {
-                  console.log("pid is undefined");
+                  toastInfo("pid is undefined");
                 }
               }}
             >

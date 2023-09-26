@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Footer from "./Footer";
 import { ScrollArea } from "../ui/scroll-area";
+import { Toaster } from "../ui/toaster";
 
 export default function Layout() {
   return (
@@ -17,6 +18,7 @@ export default function Layout() {
           <Footer />
         </div>
       </div>
+      <Toaster />
     </div>
   );
 }
