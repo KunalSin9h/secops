@@ -36,6 +36,30 @@ impl AppCommand {
         }
     }
 
+    pub fn run_script(&self) -> String {
+        let scripts: Vec<String> = self
+            .instructions
+            .iter()
+            .map(|inst| inst.run.script())
+            .collect();
+
+        scripts.join(" && ")
+    }
+
+    pub fn undo_script(&self) -> String {
+        let scripts: Vec<String> = self
+            .instructions
+            .iter()
+            .map(|inst| match &inst.undo {
+                None => "".to_string(),
+                Some(action) => action.script(),
+            })
+            .filter(|script| script != "")
+            .collect();
+
+        scripts.join(" && ")
+    }
+
     pub fn execute(&self, app: &AppHandle) -> Result<(), String> {
         //  run = true
         self.exec(true, app)
@@ -53,19 +77,13 @@ impl AppCommand {
         root_shell.stdout(std::process::Stdio::piped());
         root_shell.stderr(std::process::Stdio::piped());
 
-        let mut commands: Vec<String> = vec![];
+        let commands = if run {
+            self.run_script()
+        } else {
+            self.undo_script()
+        };
 
-        for inst in &self.instructions {
-            if run {
-                commands.push(inst.run.script());
-            } else {
-                if let Some(action) = &inst.undo {
-                    commands.push(action.script());
-                }
-            }
-        }
-
-        root_shell.arg("sh").arg("-c").arg(commands.join(" && "));
+        root_shell.arg("sh").arg("-c").arg(commands);
 
         execution_manager(&mut root_shell, app, &self.description)
     }
