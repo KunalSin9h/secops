@@ -1,10 +1,9 @@
-use std::{collections::HashMap, path::PathBuf};
+use std::path::PathBuf;
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct StateFile {
     pub message: String,
     pub time: String,
-    pub settings: HashMap<String, serde_json::Value>,
     pub commands: Vec<Command>,
 }
 

@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Switch } from "../ui/switch";
 import InfoToolTip from "../InfoToolTip.tsx";
-import { getSetting, updateSetting } from "@/lib/settings.ts";
+import { getSetting } from "@/lib/settings.ts";
 
 export default function Update() {
   const [autoUpgradeEnabled, setAutoUpgradeEnabled] = useState(false);
@@ -13,13 +13,11 @@ export default function Update() {
   useEffect(() => {
     (async () => {
       try {
-        const alreadyEnabled = (await getSetting("auto.security.upgrades")) as
-          | boolean
-          | undefined;
+        const alreadyEnabled = await getSetting("auto.security.upgrades");
 
-        if (alreadyEnabled === undefined) return;
         setAutoUpgradeEnabled(alreadyEnabled);
       } catch (err) {
+        // TODO: Shoot a new Notification
         console.log(err);
       }
     })();
@@ -118,7 +116,6 @@ export default function Update() {
 
                   setAutoUpgradeBtnDisable(false);
                   setAutoUpgradeEnabled(enable);
-                  await updateSetting("auto.security.upgrades", enable);
                 } catch (err) {
                   console.log(err);
                   setAutoUpgradeBtnDisable(false);
