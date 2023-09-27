@@ -24,10 +24,15 @@ export default function Home() {
           </div>
         </ScrollArea>
       </div>
-
-      <ScrollArea className="w-2/3 border rounded shadow p-1 xl:p-2">
-        <Update />
-      </ScrollArea>
+      <div className="flex flex-col w-2/3 gap-2 xl:gap-4">
+        <ScrollArea className="w-full border rounded shadow p-1 xl:p-2">
+          <p className="font-semibold text-lg xl:text-xl">Updates</p>
+          <Update />
+        </ScrollArea>
+        <ScrollArea className="w-full border rounded shadow p-1 xl:p-2">
+          <p className="font-semibold text-lg xl:text-xl">General</p>
+        </ScrollArea>
+      </div>
     </div>
   );
 }

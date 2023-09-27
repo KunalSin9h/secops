@@ -29,6 +29,7 @@ export default function Update() {
         title={"Refresh package repository information"}
         button={"Update"}
         trigger={"update"}
+        btnTheme={"secondary"}
         info={
           "The update command in Ubuntu, run as apt update, refreshes the \
           package repository information, ensuring the system has the latest \
@@ -36,11 +37,11 @@ export default function Update() {
               up-to-date software management."
         }
       />
-
       <UpdateCard
         title={"Upgrade the installed packages"}
         button={"Upgrade"}
         trigger={"upgrade"}
+        btnTheme={"secondary"}
         info={
           "The upgrade command in Ubuntu,  \
           executed as apt upgrade, updates \
@@ -48,11 +49,11 @@ export default function Update() {
           dependencies, keeping the system's software up-to-date and secure."
         }
       />
-
       <UpdateCard
         title={"Hard upgrade packages (Distribution Upgrade)"}
         button={"Dist Upgrade"}
         trigger={"dist_upgrade"}
+        btnTheme={"secondary"}
         info={
           "The dist-upgrade command in Ubuntu, used as apt dist-upgrade, \
           performs a more aggressive package upgrade, resolving complex \
@@ -61,11 +62,11 @@ export default function Update() {
           stability and compatibility. This also upgrades distribution."
         }
       />
-
       <UpdateCard
         title={"Remove unused and orphans packages"}
         button={"Remove"}
         trigger={"auto_remove"}
+        btnTheme={"secondary"}
         info={
           "The sudo apt auto-remove command in Ubuntu is a system maintenance \
           tool that helps keep your system clean and efficient. It identifies \
@@ -75,16 +76,21 @@ export default function Update() {
       />
 
       <div className="w-[70%]">
-        <UpdateCard
-          title={"Install Security specific upgrades"}
-          button={"Security Upgrades"}
-          trigger={"unattended_upgrade"}
-          info={
-            "The unattended-upgrade manually install security related updates, \
+        <div className="rounded  bg-yellow-100 border border-yellow-500 px-2">
+          <span className="text-xs uppercase font-mono">
+            This require system to be plugged-in for charging
+          </span>
+          <UpdateCard
+            title={"Install Security specific upgrades"}
+            button={"Security Upgrades"}
+            trigger={"unattended_upgrade"}
+            btnTheme={"default"}
+            info={
+              "The unattended-upgrade manually install security related updates, \
           without installing non-security updates."
-          }
-        />
-
+            }
+          />
+        </div>
         <div className="rounded my-8 bg-green-100 p-2 border border-green-500">
           <div className="flex items-center gap-4">
             <Label htmlFor="auto-security-updates">
@@ -135,11 +141,21 @@ function UpdateCard({
   button,
   trigger,
   info,
+  btnTheme,
 }: {
   title: string;
   button: string;
   trigger: string;
   info: string;
+  btnTheme:
+    | "link"
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | null
+    | undefined;
 }) {
   return (
     <div className="w-full py-2 xl:py-4">
@@ -149,7 +165,7 @@ function UpdateCard({
           <InfoToolTip info={info} />
         </div>
         <Button
-          variant={"secondary"}
+          variant={btnTheme}
           size={"sm"}
           onClick={(e) => {
             e.preventDefault();
