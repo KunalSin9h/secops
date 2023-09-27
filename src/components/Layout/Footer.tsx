@@ -57,7 +57,10 @@ export default function Footer() {
             break;
 
           default:
-            toastInfo("not match any state");
+            toastInfo(
+              "Unable to show process status icons",
+              "not match any state",
+            );
             break;
         }
 
@@ -151,7 +154,7 @@ export default function Footer() {
                 if (pid !== undefined) {
                   invoke("kill", { pid }).catch(toastError);
                 } else {
-                  toastInfo("pid is undefined");
+                  toastInfo("Not able to get pid", "pid is undefined");
                 }
               }}
             >

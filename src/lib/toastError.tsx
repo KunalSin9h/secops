@@ -1,4 +1,4 @@
-import { toast } from "../components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 
 export default function toastError(err: string) {
   toast({
@@ -11,14 +11,10 @@ export default function toastError(err: string) {
     ),
   });
 }
-export function toastInfo(info: string) {
+export function toastInfo(title: string, description: string) {
   toast({
     variant: "default",
-    title: "Info.",
-    description: (
-      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-        <code className="text-white">{info}</code>
-      </pre>
-    ),
+    title,
+    description,
   });
 }
