@@ -1,4 +1,7 @@
-use crate::{core::Action, rspc::RspcError};
+use crate::{
+    core::{add_command, remove_command, Action, AppCommand, Application, Command, Instruction},
+    rspc::RspcError,
+};
 
 #[tauri::command(async)]
 pub async fn version() -> String {
@@ -71,4 +74,87 @@ pub async fn get_distro() -> Result<String, rspc::Error> {
     };
 
     Ok(res.unwrap())
+}
+
+/// Enable / Disable Camera
+///
+/// This will
+///
+/// add `blacklist uvcvideo` to `/etc/modprobe.d/blacklist.conf`
+///
+#[tauri::command(async)]
+pub async fn disable_camera(
+    disable: bool,
+    app: tauri::AppHandle,
+    state: tauri::State<'_, Application>,
+) -> Result<(), rspc::Error> {
+    let cmd = disable_camera_command();
+    let home_dir = state.home_dir.lock().unwrap().clone();
+
+    if disable {
+        match cmd.execute(&app) {
+            Ok(()) => {
+                // add command
+                let command = Command {
+                    name: cmd.name.clone(),
+                    run: cmd.run_script().clone(),
+                    undo: cmd.undo_script().clone(),
+                };
+
+                match add_command(&home_dir, command) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
+                }
+            }
+            Err(e) => Err(RspcError::internal_server_error(e))?,
+        }
+    } else {
+        match cmd.rollback(&app) {
+            Ok(()) => {
+                // remove command
+                match remove_command(&home_dir, cmd.name) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
+                }
+            }
+            Err(e) => Err(RspcError::internal_server_error(e))?,
+        }
+    }
+}
+
+fn disable_camera_command() -> AppCommand {
+    let run = Action::new(
+        "disabling camera",
+        "echo",
+        true,
+        false,
+        vec![
+            "blacklist uvcvideo",
+            "|",
+            "pkexec",
+            "tee",
+            "-a",
+            "/etc/modprobe.d/blacklist.conf",
+        ],
+    );
+
+    let undo = Action::new(
+        "enabling camera",
+        "sed",
+        true,
+        false,
+        vec![
+            "-i",
+            "\'s/blacklist uvcvideo//g\'",
+            "/etc/modprobe.d/blacklist.conf",
+        ],
+    );
+
+    let inst = Instruction::new("", run, Some(undo));
+
+    AppCommand {
+        name: "disable.camera".into(),
+        description: "Enabling / Disabling camera".into(),
+        instructions: vec![inst],
+    }
 }
