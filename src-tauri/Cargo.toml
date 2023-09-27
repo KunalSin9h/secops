@@ -18,7 +18,7 @@ features = ['derive']
 version = '1.0'
 
 [dependencies.tauri]
-features = [ 'fs-read-file']
+features = ['fs-read-file']
 version = '1.4'
 
 [dependencies.tokio]
@@ -35,7 +35,7 @@ edition = '2021'
 license = 'MIT'
 name = 'secops'
 repository = 'https://github.com/kunalsin9h/secops'
-version = '0.6.0'
+version = '0.7.0'
 
 [profile]
 [profile.release]

@@ -1,4 +1,5 @@
 import { ScrollArea } from "../ui/scroll-area";
+import General from "./General";
 import AllServices from "./Services";
 import Ubuntu from "./UbuntuBranding";
 import Update from "./Update";
@@ -31,6 +32,7 @@ export default function Home() {
         </ScrollArea>
         <ScrollArea className="w-full border rounded shadow p-1 xl:p-2">
           <p className="font-semibold text-lg xl:text-xl">General</p>
+          <General />
         </ScrollArea>
       </div>
     </div>
