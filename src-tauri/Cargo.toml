@@ -18,7 +18,7 @@ features = ['derive']
 version = '1.0'
 
 [dependencies.tauri]
-features = ['fs-write-file', 'fs-read-file']
+features = [ 'fs-read-file']
 version = '1.4'
 
 [dependencies.tokio]
