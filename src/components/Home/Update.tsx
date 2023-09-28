@@ -1,28 +1,10 @@
-import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api";
 import { Button } from "../ui/button";
-import { Label } from "../ui/label";
-import { Switch } from "../ui/switch";
 import InfoToolTip from "../InfoToolTip.tsx";
-import { getSetting } from "@/lib/settings.ts";
 import toastError from "@/lib/toastError.tsx";
+import SwitchCommand from "../SwitchCommand.tsx";
 
 export default function Update() {
-  const [autoUpgradeEnabled, setAutoUpgradeEnabled] = useState(false);
-  const [autoUpgradeBtnDisable, setAutoUpgradeBtnDisable] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const alreadyEnabled = await getSetting("auto.security.upgrades");
-
-        setAutoUpgradeEnabled(alreadyEnabled);
-      } catch (err) {
-        toastError(err as string);
-      }
-    })();
-  }, []);
-
   return (
     <div className="p-4">
       <UpdateCard
@@ -78,7 +60,8 @@ export default function Update() {
       <div className="w-[70%]">
         <div className="rounded  bg-yellow-100 border border-yellow-500 px-2">
           <span className="text-xs uppercase font-mono">
-            This require system to be plugged-in for charging
+            This require system to be plugged-in for charging and uses WI-FI
+            network
           </span>
           <UpdateCard
             title={"Install Security specific upgrades"}
@@ -92,44 +75,16 @@ export default function Update() {
           />
         </div>
         <div className="rounded my-8 bg-green-100 p-2 border border-green-500">
-          <div className="flex items-center gap-4">
-            <Label htmlFor="auto-security-updates">
-              <div className="flex items-center gap-1">
-                <span className="text-md xl:text-lg">
-                  Enable auto security updates
-                </span>
-                <InfoToolTip
-                  info={
-                    "By setting, APT::Periodic::Unattended-Upgrade '1', in the /etc/apt/apt.conf.d/20auto-upgrades configuration file, you activate the system's built-in mechanism for \
-            unattended security updates. When enabled, the system will  \
-            automatically check for and install security updates on a regular  \
-            basis, enhancing the system's security without requiring manual \
+          <SwitchCommand
+            title="Enable auto security updates"
+            info="By setting, APT::Periodic::Unattended-Upgrade '1', in the /etc/apt/apt.conf.d/20auto-upgrades configuration file, you activate the system's built-in mechanism for 
+            unattended security updates. When enabled, the system will  
+            automatically check for and install security updates on a regular  
+            basis, enhancing the system's security without requiring manual 
             intervention."
-                  }
-                />
-              </div>
-            </Label>
-            <Switch
-              id="auto-security-updates"
-              checked={autoUpgradeEnabled}
-              disabled={autoUpgradeBtnDisable}
-              onCheckedChange={async (enable: boolean) => {
-                setAutoUpgradeBtnDisable(true);
-                try {
-                  await invoke("enable_auto_security_updates", {
-                    enable,
-                  });
-
-                  setAutoUpgradeBtnDisable(false);
-                  setAutoUpgradeEnabled(enable);
-                } catch (err) {
-                  setAutoUpgradeBtnDisable(false);
-                  setAutoUpgradeEnabled(!enable);
-                  toastError(err as string);
-                }
-              }}
-            />
-          </div>
+            id="auto.security.upgrades"
+            ipc="enable_auto_security_updates"
+          />
         </div>
       </div>
     </div>

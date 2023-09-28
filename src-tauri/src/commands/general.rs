@@ -84,14 +84,16 @@ pub async fn get_distro() -> Result<String, rspc::Error> {
 ///
 #[tauri::command(async)]
 pub async fn disable_camera(
-    disable: bool,
+    enable: bool,
     app: tauri::AppHandle,
     state: tauri::State<'_, Application>,
 ) -> Result<(), rspc::Error> {
     let cmd = disable_camera_command();
     let home_dir = state.home_dir.lock().unwrap().clone();
 
-    if disable {
+    // enable means user has enable the switch
+    // for which we need to disable camera
+    if enable {
         match cmd.execute(&app) {
             Ok(()) => {
                 // add command
