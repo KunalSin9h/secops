@@ -1,9 +1,12 @@
 use tauri::AppHandle;
 use tauri::Manager;
 
+use super::add_command;
+use super::remove_command;
 use super::Instruction;
 use std::io::BufRead;
 use std::io::BufReader;
+use std::path::PathBuf;
 use std::process::Command;
 
 pub struct AppCommand {
@@ -63,15 +66,40 @@ impl AppCommand {
         scripts.join(" && ")
     }
 
-    pub fn execute(&self, app: &AppHandle) -> Result<(), String> {
+    pub fn execute(&self, app: &AppHandle, home_dir: &PathBuf) -> Result<(), String> {
         //  run = true
-        self.exec(true, app)
+        match self.exec(true, app) {
+            Ok(()) => {
+                // add command
+                let command = super::Command {
+                    name: self.name.clone(),
+                    run: self.run_script().clone(),
+                    undo: self.undo_script().clone(),
+                };
+
+                match add_command(home_dir, command) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(e.to_string()),
+                }
+            }
+            Err(e) => Err(e),
+        }
     }
 
-    pub fn rollback(&self, app: &AppHandle) -> Result<(), String> {
+    pub fn rollback(&self, app: &AppHandle, home_dir: &PathBuf) -> Result<(), String> {
         // run = false, means it will execute the undo command of all
         // instructions
-        self.exec(false, app)
+
+        match self.exec(false, app) {
+            Ok(()) => {
+                // remove command
+                match remove_command(home_dir, self.name.clone()) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(e.to_string()),
+                }
+            }
+            Err(e) => Err(e),
+        }
     }
 
     fn exec(&self, run: bool, app: &AppHandle) -> Result<(), String> {

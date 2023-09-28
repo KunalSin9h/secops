@@ -1,5 +1,5 @@
 use crate::{
-    core::{add_command, remove_command, Action, AppCommand, Application, Command, Instruction},
+    core::{Action, AppCommand, Application, Instruction},
     rspc::RspcError,
 };
 
@@ -136,31 +136,13 @@ pub async fn enable_auto_security_updates(
     let home_dir = state.home_dir.lock().unwrap().clone();
 
     if enable {
-        match cmd.execute(&app) {
-            Ok(()) => {
-                // add command
-                let command = Command {
-                    name: cmd.name.clone(),
-                    run: cmd.run_script().clone(),
-                    undo: cmd.undo_script().clone(),
-                };
-
-                match add_command(&home_dir, command) {
-                    Ok(()) => Ok(()),
-                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
-                }
-            }
+        match cmd.execute(&app, &home_dir) {
+            Ok(()) => Ok(()),
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
     } else {
-        match cmd.rollback(&app) {
-            Ok(()) => {
-                // remove command
-                match remove_command(&home_dir, cmd.name) {
-                    Ok(()) => Ok(()),
-                    Err(e) => Err(RspcError::internal_server_error(e.to_string()))?,
-                }
-            }
+        match cmd.rollback(&app, &home_dir) {
+            Ok(()) => Ok(()),
             Err(e) => Err(RspcError::internal_server_error(e))?,
         }
     }
