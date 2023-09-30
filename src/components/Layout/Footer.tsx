@@ -154,7 +154,7 @@ export default function Footer() {
                 if (pid !== undefined) {
                   invoke("kill", { pid }).catch(toastError);
                 } else {
-                  toastInfo("Not able to get pid", "pid is undefined");
+                  toastInfo("Not able to get pid", "No process running");
                 }
               }}
             >

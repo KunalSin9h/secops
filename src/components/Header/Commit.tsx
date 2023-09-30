@@ -2,11 +2,13 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { CommitIcon } from "@/lib/icons";
+import { Button } from "../ui/button";
 
 export default function Commit() {
   return (
@@ -17,14 +19,15 @@ export default function Commit() {
           <span>Commit</span>
         </div>
       </DialogTrigger>
-      <DialogContent className="h-[80%] w-[80%] xl:w-[60%]">
-        <DialogHeader className="">
-          <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent className="h-[80%] w-[80%] xl:w-[60%] ">
+        <Button variant={"default"}>Commit</Button>
+        <div className="m-2 p-2 xl:m-4 xl:p-4">
+          <ul>
+            <li>A</li>
+            <li>A</li>
+            <li>A</li>
+          </ul>
+        </div>
       </DialogContent>
     </Dialog>
   );
