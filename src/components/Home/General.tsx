@@ -11,7 +11,7 @@ export default function General() {
         ipc="disable_camera"
         id="disable.camera"
         toast_info="Camera enabled / disabled successfully"
-        toast_desc=""
+        toast_desc=" "
       />
       <SwitchCommand
         title="Block USB"
@@ -20,8 +20,8 @@ export default function General() {
            privacy & security."
         ipc="usb_block"
         id="usb.block"
-        toast_info="USB block / unblock successfully"
-        toast_desc=""
+        toast_info="USB block / unblock successfully. Restart require"
+        toast_desc="This require system to restart to make any changes"
       />
     </div>
   );

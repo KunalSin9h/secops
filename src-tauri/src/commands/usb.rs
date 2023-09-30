@@ -151,7 +151,7 @@ fn usb_block_command() -> AppCommand {
     );
 
     AppCommand {
-        name: "disable.camera".into(),
+        name: "usb.block".into(),
         description: "Enabling / Disabling camera".into(),
         instructions: vec![
             uas_inst,
