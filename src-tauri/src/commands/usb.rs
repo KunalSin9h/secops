@@ -106,7 +106,7 @@ fn usb_block_command() -> AppCommand {
         Some(remove_usb_storage_in_blacklist_file),
     );
 
-    let refresh_modprobe_uas = Action::new(
+    let remove_modprobe_uas = Action::new(
         "refresh modprobe",
         "modprobe",
         true,
@@ -114,24 +114,40 @@ fn usb_block_command() -> AppCommand {
         vec!["-r", "uas"],
     );
 
-    let refresh_uas_inst = Instruction::new(
-        "",
-        refresh_modprobe_uas.clone(),
-        Some(refresh_modprobe_uas.clone()),
+    let add_modprobe_uas = Action::new(
+        "add modprobe",
+        "modprobe",
+        true,
+        false,
+        vec!["uas"],
     );
 
-    let refresh_modprobe_usb_storage = Action::new(
-        "refresh modprobe",
+    let refresh_uas_inst = Instruction::new(
+        "",
+        remove_modprobe_uas,
+        Some(add_modprobe_uas)
+    );
+
+    let remove_modprobe_usb_storage = Action::new(
+        "remove modprobe",
         "modprobe",
         true,
         false,
         vec!["-r", "usb-storage"],
     );
 
+    let add_modprobe_usb_storage = Action::new(
+        "add modprobe",
+        "modprobe",
+        true,
+        false,
+        vec!["usb-storage"],
+    );
+
     let refresh_usb_inst = Instruction::new(
         "",
-        refresh_modprobe_usb_storage.clone(),
-        Some(refresh_modprobe_usb_storage.clone()),
+        remove_modprobe_usb_storage,
+        Some(add_modprobe_usb_storage)
     );
 
     AppCommand {

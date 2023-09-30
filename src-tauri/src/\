@@ -149,7 +149,7 @@ fn disable_camera_command() -> AppCommand {
     );
 
     let add_modprobe = Action::new(
-        "add modprobe",
+        "remove modprobe",
         "modprobe",
         true,
         false,
