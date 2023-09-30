@@ -107,7 +107,7 @@ fn usb_block_command() -> AppCommand {
     );
 
     let remove_modprobe_uas = Action::new(
-        "refresh modprobe",
+        "remove modprobe",
         "modprobe",
         true,
         false,
