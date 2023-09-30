@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.0",
-    "@types/node": "^20.7.1",
+    "@types/node": "^20.8.0",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^7.33.2",
     "husky": "^8.0.3",
     "install": "^0.13.0",
-    "postcss": "^8.4.30",
+    "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
@@ -57,5 +57,5 @@
     "preview": "vite preview",
     "tauri": "tauri"
   },
-  "version": "0.7.1"
+  "version": "0.8.0"
 }

@@ -35,6 +35,7 @@ async fn main() -> tauri::Result<()> {
             auto_remove,
             enable_auto_security_updates,
             disable_camera,
+            usb_block,
         ])
         .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
         .run(tauri::generate_context!())
