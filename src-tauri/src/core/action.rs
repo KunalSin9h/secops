@@ -4,6 +4,7 @@ use tauri::AppHandle;
 
 use super::execution_manager;
 
+#[derive(Clone)]
 pub struct Action {
     pub description: String,
     pub command: String,

@@ -107,7 +107,7 @@ pub async fn disable_camera(
 }
 
 fn disable_camera_command() -> AppCommand {
-    let run = Action::new(
+    let add_uvcvideo_in_blacklist_file = Action::new(
         "disabling camera",
         "echo",
         true,
@@ -122,7 +122,7 @@ fn disable_camera_command() -> AppCommand {
         ],
     );
 
-    let undo = Action::new(
+    let remove_uvcvideo_in_blacklist_file = Action::new(
         "enabling camera",
         "sed",
         true,
@@ -134,11 +134,26 @@ fn disable_camera_command() -> AppCommand {
         ],
     );
 
-    let inst = Instruction::new("", run, Some(undo));
+    let uvcvideo_instruction = Instruction::new(
+        "",
+        add_uvcvideo_in_blacklist_file,
+        Some(remove_uvcvideo_in_blacklist_file),
+    );
+
+    let refresh_modprobe = Action::new(
+        "refresh modprobe",
+        "modprobe",
+        true,
+        false,
+        vec!["-r", "uvcvideo"],
+    );
+
+    let refresh_instruction =
+        Instruction::new("", refresh_modprobe.clone(), Some(refresh_modprobe.clone()));
 
     AppCommand {
         name: "disable.camera".into(),
         description: "Enabling / Disabling camera".into(),
-        instructions: vec![inst],
+        instructions: vec![uvcvideo_instruction, refresh_instruction],
     }
 }
