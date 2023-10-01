@@ -6,7 +6,7 @@ on:
       - "release"
 
 jobs:
-  publish-secops:
+  release-secops:
     permissions:
       contents: write
 
