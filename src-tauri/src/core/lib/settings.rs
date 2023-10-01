@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::Path;
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct StateFile {
@@ -16,7 +16,7 @@ pub struct Command {
 
 const CURRENT_STATE_FILE_PATH: &str = ".secops/state/current.json";
 
-fn get_state_file(home_dir: &PathBuf) -> Result<StateFile, std::io::Error> {
+fn get_state_file(home_dir: &Path) -> Result<StateFile, std::io::Error> {
     let state_file_path = home_dir.join(CURRENT_STATE_FILE_PATH);
 
     let data = match std::fs::read_to_string(state_file_path) {
@@ -29,7 +29,7 @@ fn get_state_file(home_dir: &PathBuf) -> Result<StateFile, std::io::Error> {
     Ok(state_file)
 }
 
-fn write_state_file(home_dir: &PathBuf, state_file: StateFile) -> Result<(), std::io::Error> {
+fn write_state_file(home_dir: &Path, state_file: StateFile) -> Result<(), std::io::Error> {
     let state_file_path = home_dir.join(CURRENT_STATE_FILE_PATH);
 
     let new_state_file_content = serde_json::to_string_pretty(&state_file)?;
@@ -40,7 +40,7 @@ fn write_state_file(home_dir: &PathBuf, state_file: StateFile) -> Result<(), std
     }
 }
 
-pub fn add_command(home_dir: &PathBuf, cmd: Command) -> Result<(), std::io::Error> {
+pub fn add_command(home_dir: &Path, cmd: Command) -> Result<(), std::io::Error> {
     let mut state_file = get_state_file(home_dir)?;
 
     state_file.commands.push(cmd);
@@ -50,7 +50,7 @@ pub fn add_command(home_dir: &PathBuf, cmd: Command) -> Result<(), std::io::Erro
     Ok(())
 }
 
-pub fn remove_command(home_dir: &PathBuf, cmd_name: String) -> Result<(), std::io::Error> {
+pub fn remove_command(home_dir: &Path, cmd_name: String) -> Result<(), std::io::Error> {
     let mut state_file = get_state_file(home_dir)?;
 
     let filter_commands: Vec<Command> = state_file

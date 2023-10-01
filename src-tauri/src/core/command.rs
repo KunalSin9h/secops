@@ -6,7 +6,7 @@ use super::remove_command;
 use super::Instruction;
 use std::io::BufRead;
 use std::io::BufReader;
-use std::path::PathBuf;
+use std::path::Path;
 use std::process::Command;
 
 pub struct AppCommand {
@@ -60,13 +60,13 @@ impl AppCommand {
                 None => "".to_string(),
                 Some(action) => action.script(),
             })
-            .filter(|script| script != "")
+            .filter(|script| !script.is_empty())
             .collect();
 
         scripts.join(" && ")
     }
 
-    pub fn execute(&self, app: &AppHandle, home_dir: &PathBuf) -> Result<(), String> {
+    pub fn execute(&self, app: &AppHandle, home_dir: &Path) -> Result<(), String> {
         //  run = true
         match self.exec(true, app) {
             Ok(()) => {
@@ -86,7 +86,7 @@ impl AppCommand {
         }
     }
 
-    pub fn rollback(&self, app: &AppHandle, home_dir: &PathBuf) -> Result<(), String> {
+    pub fn rollback(&self, app: &AppHandle, home_dir: &Path) -> Result<(), String> {
         // run = false, means it will execute the undo command of all
         // instructions
 
@@ -120,7 +120,7 @@ impl AppCommand {
     }
 }
 
-pub fn execution_manager(cmd: &mut Command, app: &AppHandle, desc: &String) -> Result<(), String> {
+pub fn execution_manager(cmd: &mut Command, app: &AppHandle, desc: &str) -> Result<(), String> {
     let mut child = match cmd.spawn() {
         Ok(child) => child,
         Err(err) => return Err(err.to_string()),
@@ -131,14 +131,14 @@ pub fn execution_manager(cmd: &mut Command, app: &AppHandle, desc: &String) -> R
     if let Some(child_stdout) = child.stdout.as_mut() {
         let lines = BufReader::new(child_stdout).lines();
         for line in lines {
-            send_execution_state(app, desc, line.unwrap(), "passing", pid)?;
+            send_execution_state(app, desc, line.unwrap().as_str(), "passing", pid)?;
         }
     }
 
     if let Some(child_stderr) = child.stderr.as_mut() {
         let lines = BufReader::new(child_stderr).lines();
         for line in lines {
-            send_execution_state(app, desc, line.unwrap(), "failing", pid)?;
+            send_execution_state(app, desc, line.unwrap().as_str(), "failing", pid)?;
         }
     }
 
@@ -148,10 +148,10 @@ pub fn execution_manager(cmd: &mut Command, app: &AppHandle, desc: &String) -> R
     };
 
     if finish.success() {
-        send_execution_state(app, desc, "Done".into(), "pass", pid)?;
+        send_execution_state(app, desc, "Done", "pass", pid)?;
         Ok(())
     } else {
-        send_execution_state(app, desc, "Failed".into(), "fail", pid)?;
+        send_execution_state(app, desc, "Failed", "fail", pid)?;
         Err(format!(
             "Command failed with exit code: {}",
             finish.code().unwrap_or(-1)
@@ -161,22 +161,21 @@ pub fn execution_manager(cmd: &mut Command, app: &AppHandle, desc: &String) -> R
 
 fn send_execution_state(
     app: &AppHandle,
-    title: &String,
-    message: String,
+    title: &str,
+    message: &str,
     state: &str,
     pid: u32,
 ) -> Result<(), String> {
-    let _ = app
-        .emit_all(
-            "execution_state",
-            ExecutionState {
-                title: title.clone(),
-                message: format!("{} >  {}", pid, message),
-                state: state.to_owned(),
-                pid,
-            },
-        )
-        .map_err(|e| e.to_string())?;
+    app.emit_all(
+        "execution_state",
+        ExecutionState {
+            title: title.to_owned(),
+            message: format!("{} >  {}", pid, message),
+            state: state.to_owned(),
+            pid,
+        },
+    )
+    .map_err(|e| e.to_string())?;
 
     Ok(())
 }

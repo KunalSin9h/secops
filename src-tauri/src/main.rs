@@ -9,13 +9,15 @@ async fn main() -> tauri::Result<()> {
     let router = init_rspc();
     let mut state = Application::default();
 
-    env_logger::init();
+    std::env::set_var("SECOPS_LOG", "info");
+    env_logger::Builder::from_env("SECOPS_LOG").init();
 
-    if setup(&mut state).is_err() {
-        log::error!("Failed to setup app.");
-        std::process::exit(1);
-    } else {
-        println!("Secops v{}", env!("CARGO_PKG_VERSION"))
+    match setup(&mut state) {
+        Ok(()) => println!("Secops v{}", env!("CARGO_PKG_VERSION")),
+        Err(e) => {
+            log::error!("{}", e);
+            std::process::exit(1);
+        }
     }
 
     tauri::Builder::default()

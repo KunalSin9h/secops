@@ -148,16 +148,9 @@ fn disable_camera_command() -> AppCommand {
         vec!["-r", "uvcvideo"],
     );
 
-    let add_modprobe = Action::new(
-        "add modprobe",
-        "modprobe",
-        true,
-        false,
-        vec!["uvcvideo"],
-    );
+    let add_modprobe = Action::new("add modprobe", "modprobe", true, false, vec!["uvcvideo"]);
 
-    let refresh_instruction =
-        Instruction::new("", remove_modprobe, Some(add_modprobe));
+    let refresh_instruction = Instruction::new("", remove_modprobe, Some(add_modprobe));
 
     AppCommand {
         name: "disable.camera".into(),

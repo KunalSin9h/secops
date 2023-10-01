@@ -10,3 +10,9 @@ pnpm format:check
 
 # for Linting for fontend( src)
 pnpm lint
+
+# for rust linting
+cd src-tauri && cargo clippy -- -D warnings
+
+# for rust formating
+cargo fmt -- --check

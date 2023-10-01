@@ -3,15 +3,16 @@ use std::{fs, path::PathBuf};
 
 use super::Application;
 
-pub fn setup(state: &mut Application) -> Result<(), ()> {
+pub fn setup(state: &mut Application) -> Result<(), String> {
     // This env::home_dir() is depreciated, due to unexpected behavior
     // on windows, it will be good in linux.
     #[allow(deprecated)]
     let home_dir = match std::env::home_dir() {
         Some(path) => path,
         None => {
-            log::error!("Failed to get home directory");
-            return Err(());
+            let err = "Failed to get home directory";
+            log::error!("{}", err);
+            return Err(err.to_string());
         }
     };
 
@@ -35,6 +36,7 @@ pub fn setup(state: &mut Application) -> Result<(), ()> {
                 "Found {} file, skipping creating new",
                 default_state_file.display()
             );
+            Ok(())
         }
         Err(e) => {
             log::warn!("{}", e);
@@ -43,22 +45,24 @@ pub fn setup(state: &mut Application) -> Result<(), ()> {
                 default_state_file.display()
             );
             if fs::File::create(&default_state_file).is_err() {
-                log::error!("Failed to create {}", default_state_file.display());
-                return Err(());
+                let err = format!("Failed to create {}", default_state_file.display());
+                log::error!("{}", err);
+                Err(err.to_string())
             } else {
                 log::info!("Created $HOME/.secops/state folder");
                 // copy the default state file to newly created file
-                fill_default_state_file(default_state_file)?;
+                match fill_default_state_file(default_state_file) {
+                    Ok(()) => Ok(()),
+                    Err(e) => Err(e),
+                }
             }
         }
     }
-
-    Ok(())
 }
 
 /// check_folder will check if folder exists
 /// and if not, then it will create a new folder
-fn check_folder(path: &PathBuf) -> Result<(), ()> {
+fn check_folder(path: &PathBuf) -> Result<(), String> {
     match fs::metadata(path) {
         Ok(_) => {
             log::info!("Found {} folder, skipping creating new", path.display());
@@ -68,8 +72,9 @@ fn check_folder(path: &PathBuf) -> Result<(), ()> {
             log::warn!("{}", e);
             log::info!("Did not found {}, creating new", path.display());
             if fs::create_dir(path).is_err() {
-                log::error!("Failed to create {}", path.display());
-                return Err(());
+                let err = format!("Failed to create {}", path.display());
+                log::error!("{}", err);
+                Err(err.to_string())
             } else {
                 log::info!("Created {} folder", path.display());
                 Ok(())
@@ -79,14 +84,13 @@ fn check_folder(path: &PathBuf) -> Result<(), ()> {
 }
 
 /// populate the default state file
-fn fill_default_state_file(path: PathBuf) -> Result<(), ()> {
+fn fill_default_state_file(path: PathBuf) -> Result<(), String> {
     let default_state_string = r#"{
     "message": "Default State",
     "time": "$",
     "commands": []
 }"#;
-
-    let data = default_state_string.replace("$", Local::now().to_string().as_str());
+    let data = default_state_string.replace('$', Local::now().to_string().as_str());
 
     match fs::write(&path, data.as_bytes()) {
         Ok(_) => {
@@ -94,11 +98,10 @@ fn fill_default_state_file(path: PathBuf) -> Result<(), ()> {
             Ok(())
         }
         Err(e) => {
-            log::error!(
-                "Error while writing default file content: {}",
-                e.to_string()
-            );
-            Err(())
+            let err = format!("Error while writing default file content: {}", e);
+
+            log::error!("{}", err);
+            Err(err.to_string())
         }
     }
 }
