@@ -23,7 +23,7 @@ export default function General() {
         title="Block USB"
         info="By adding 'blacklist uas' and 'blacklist usb-storage' in file '/etc/modprobe.d/blacklist.conf', 
           we block the the usb port of the device, which will prevent data theft, enhancing the 
-           privacy & security."
+           privacy & security. Require system restart to take effect."
         ipc="usb_block"
         id="usb.block"
         info_on={{

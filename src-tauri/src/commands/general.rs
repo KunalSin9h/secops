@@ -1,3 +1,4 @@
+use super::shared::*;
 use crate::{
     core::{Action, AppCommand, Application, Instruction},
     rspc::RspcError,
@@ -107,32 +108,10 @@ pub async fn disable_camera(
 }
 
 fn disable_camera_command() -> AppCommand {
-    let add_uvcvideo_in_blacklist_file = Action::new(
-        "disabling camera",
-        "echo",
-        true,
-        false,
-        vec![
-            "blacklist uvcvideo",
-            "|",
-            "pkexec",
-            "tee",
-            "-a",
-            "/etc/modprobe.d/blacklist.conf",
-        ],
-    );
+    let module = "uvcvideo";
+    let add_uvcvideo_in_blacklist_file = add_module_to_blacklist(module);
 
-    let remove_uvcvideo_in_blacklist_file = Action::new(
-        "enabling camera",
-        "sed",
-        true,
-        false,
-        vec![
-            "-i",
-            "\'s/blacklist uvcvideo//g\'",
-            "/etc/modprobe.d/blacklist.conf",
-        ],
-    );
+    let remove_uvcvideo_in_blacklist_file = remove_module_from_blacklist(module);
 
     let uvcvideo_instruction = Instruction::new(
         "",
@@ -140,21 +119,14 @@ fn disable_camera_command() -> AppCommand {
         Some(remove_uvcvideo_in_blacklist_file),
     );
 
-    let remove_modprobe = Action::new(
-        "remove modprobe",
-        "modprobe",
-        true,
-        false,
-        vec!["-r", "uvcvideo"],
-    );
-
-    let add_modprobe = Action::new("add modprobe", "modprobe", true, false, vec!["uvcvideo"]);
+    let remove_modprobe = remove_modprobe(module);
+    let add_modprobe = add_modprobe(module);
 
     let refresh_instruction = Instruction::new("", remove_modprobe, Some(add_modprobe));
 
     AppCommand {
         name: "disable.camera".into(),
-        description: "Enabling / Disabling camera".into(),
+        description: "Disable camera".into(),
         instructions: vec![uvcvideo_instruction, refresh_instruction],
     }
 }

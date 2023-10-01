@@ -114,9 +114,15 @@ impl AppCommand {
             self.undo_script()
         };
 
+        let desc = if run {
+            format!("Execute: {}", &self.description)
+        } else {
+            format!("Rollback: {}", &self.description)
+        };
+
         root_shell.arg("sh").arg("-c").arg(commands);
 
-        execution_manager(&mut root_shell, app, &self.description)
+        execution_manager(&mut root_shell, app, &desc)
     }
 }
 

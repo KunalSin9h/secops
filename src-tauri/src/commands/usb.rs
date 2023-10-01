@@ -1,5 +1,6 @@
+use super::shared::*;
 use crate::{
-    core::{Action, AppCommand, Application, Instruction},
+    core::{AppCommand, Application, Instruction},
     rspc::RspcError,
 };
 
@@ -40,94 +41,34 @@ pub async fn usb_block(
 }
 
 fn usb_block_command() -> AppCommand {
-    let add_uas_in_blacklist_file = Action::new(
-        "add uas in blacklist.conf",
-        "echo",
-        true,
-        false,
-        vec![
-            "blacklist uas",
-            "|",
-            "pkexec",
-            "tee",
-            "-a",
-            "/etc/modprobe.d/blacklist.conf",
-        ],
-    );
+    let module_uas = "uas";
+    let module_usb = "usb-storage";
 
-    let remove_uas_in_blacklist_file = Action::new(
-        "remove uas from blacklist.conf",
-        "sed",
-        true,
-        false,
-        vec![
-            "-i",
-            "\'s/blacklist uas//g\'",
-            "/etc/modprobe.d/blacklist.conf",
-        ],
-    );
+    let add_uas_in_blacklist_file = add_module_to_blacklist(module_uas);
+    let remove_uas_from_blacklist_file = remove_module_from_blacklist(module_uas);
 
     let uas_inst = Instruction::new(
         "",
         add_uas_in_blacklist_file,
-        Some(remove_uas_in_blacklist_file),
+        Some(remove_uas_from_blacklist_file),
     );
 
-    let add_usb_storage_in_blacklist_file = Action::new(
-        "add usb-storage in blacklist.conf",
-        "echo",
-        true,
-        false,
-        vec![
-            "blacklist usb-storage",
-            "|",
-            "pkexec",
-            "tee",
-            "-a",
-            "/etc/modprobe.d/blacklist.conf",
-        ],
-    );
-
-    let remove_usb_storage_in_blacklist_file = Action::new(
-        "remove usb-storage in blacklist.conf",
-        "sed",
-        true,
-        false,
-        vec![
-            "-i",
-            "\'s/blacklist usb-storage//g\'",
-            "/etc/modprobe.d/blacklist.conf",
-        ],
-    );
+    let add_usb_storage_in_blacklist_file = add_module_to_blacklist(module_usb);
+    let remove_usb_storage_from_blacklist_file = remove_module_from_blacklist(module_usb);
 
     let usb_storage_inst = Instruction::new(
         "",
         add_usb_storage_in_blacklist_file,
-        Some(remove_usb_storage_in_blacklist_file),
+        Some(remove_usb_storage_from_blacklist_file),
     );
 
-    let remove_modprobe_uas = Action::new(
-        "remove modprobe",
-        "modprobe",
-        true,
-        false,
-        vec!["-r", "uas"],
-    );
-
-    let add_modprobe_uas = Action::new("add modprobe", "modprobe", true, false, vec!["uas"]);
+    let remove_modprobe_uas = remove_modprobe(module_uas);
+    let add_modprobe_uas = add_modprobe(module_uas);
 
     let refresh_uas_inst = Instruction::new("", remove_modprobe_uas, Some(add_modprobe_uas));
 
-    let remove_modprobe_usb_storage = Action::new(
-        "remove modprobe",
-        "modprobe",
-        true,
-        false,
-        vec!["-r", "usb-storage"],
-    );
-
-    let add_modprobe_usb_storage =
-        Action::new("add modprobe", "modprobe", true, false, vec!["usb-storage"]);
+    let remove_modprobe_usb_storage = remove_modprobe(module_usb);
+    let add_modprobe_usb_storage = add_modprobe(module_uas);
 
     let refresh_usb_inst = Instruction::new(
         "",
@@ -137,7 +78,7 @@ fn usb_block_command() -> AppCommand {
 
     AppCommand {
         name: "usb.block".into(),
-        description: "Blocking / Un-Blocking USB Device".into(),
+        description: "Block USB Device".into(),
         instructions: vec![
             uas_inst,
             usb_storage_inst,
