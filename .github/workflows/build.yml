@@ -1,0 +1,38 @@
+name: "Build"
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: install frontend dependencies
+        run: pnpm install
+      - name: build
+        run: pnpm build
+
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+      - name: install platform dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+      - name: build
+        run: |
+          cd src-tauri
+          cargo build

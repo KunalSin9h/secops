@@ -1,14 +1,14 @@
-name: "publish"
+name: "Release"
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - "release"
 
 jobs:
   publish-secops:
     permissions:
       contents: write
-    strategy:
-      fail-fast: false
 
     runs-on: ubuntu-20.04
     steps:
@@ -20,7 +20,7 @@ jobs:
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
 
-      - name: install platform dependencies 
+      - name: install platform dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
