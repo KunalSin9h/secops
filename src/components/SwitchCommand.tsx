@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import InfoToolTip from "./InfoToolTip";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
-import toastError, { toastInfo } from "@/lib/toastError";
+import toastError, { toastInfo, toastInfoType } from "@/lib/toastError";
 import { getSetting } from "@/lib/settings";
 
 export default function SwitchCommand({
@@ -11,15 +11,15 @@ export default function SwitchCommand({
   info,
   ipc,
   id,
-  toast_info,
-  toast_desc,
+  info_on,
+  info_off,
 }: {
   title: string;
   info: string;
   ipc: string;
   id: string;
-  toast_info?: string;
-  toast_desc?: string;
+  info_on?: toastInfoType;
+  info_off?: toastInfoType;
 }) {
   const [enabled, setEnabled] = useState(false);
   const [enabledBtnDisable, setEnableBtnDisable] = useState(false);
@@ -57,8 +57,12 @@ export default function SwitchCommand({
 
             setEnableBtnDisable(false);
             setEnabled(enable);
-            if (toast_info && toast_desc) {
-              toastInfo(toast_info, toast_desc);
+
+            if (info_on && enable) {
+              toastInfo(info_on);
+            }
+            if (info_off && !enable) {
+              toastInfo(info_off);
             }
           } catch (err) {
             setEnableBtnDisable(false);

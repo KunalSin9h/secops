@@ -137,7 +137,7 @@ fn usb_block_command() -> AppCommand {
 
     AppCommand {
         name: "usb.block".into(),
-        description: "Enabling / Disabling camera".into(),
+        description: "Blocking / Un-Blocking USB Device".into(),
         instructions: vec![
             uas_inst,
             usb_storage_inst,

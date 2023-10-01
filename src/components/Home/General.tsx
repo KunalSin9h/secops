@@ -10,8 +10,14 @@ export default function General() {
           personal's privacy & security."
         ipc="disable_camera"
         id="disable.camera"
-        toast_info="Camera enabled / disabled successfully"
-        toast_desc=" "
+        info_on={{
+          title: "Camera device disabled successfully",
+          desc: "",
+        }}
+        info_off={{
+          title: "Camera device enabled successfully",
+          desc: "",
+        }}
       />
       <SwitchCommand
         title="Block USB"
@@ -20,8 +26,14 @@ export default function General() {
            privacy & security."
         ipc="usb_block"
         id="usb.block"
-        toast_info="USB block / unblock successfully. Restart require"
-        toast_desc="This require system to restart to make any changes"
+        info_on={{
+          title: "USB device block successfully. Restart require",
+          desc: "This require system to restart to make any changes",
+        }}
+        info_off={{
+          title: "USB device unblock successfully. Restart require",
+          desc: "This require system to restart to make any changes",
+        }}
       />
     </div>
   );

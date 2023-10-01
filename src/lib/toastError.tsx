@@ -1,5 +1,10 @@
 import { toast } from "@/components/ui/use-toast";
 
+export type toastInfoType = {
+  title: string;
+  desc: string;
+};
+
 export default function toastError(err: string) {
   toast({
     variant: "destructive",
@@ -11,10 +16,10 @@ export default function toastError(err: string) {
     ),
   });
 }
-export function toastInfo(title: string, description: string) {
+export function toastInfo(info: toastInfoType) {
   toast({
     variant: "default",
-    title,
-    description,
+    title: info.title,
+    description: info.desc,
   });
 }
