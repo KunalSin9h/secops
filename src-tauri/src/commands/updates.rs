@@ -177,7 +177,7 @@ fn enable_auto_security_updates_command() -> AppCommand {
 
     AppCommand {
         name: "auto.security.upgrades".into(),
-        description: "Enabling / Disabling auto security updates".into(),
+        description: "Enable auto security updates".into(),
         instructions: vec![inst],
     }
 }
