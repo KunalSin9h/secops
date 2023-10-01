@@ -5,6 +5,8 @@
 Ubuntu Security Made Easy
 
 [![publish](https://github.com/KunalSin9h/secops/actions/workflows/release.yml/badge.svg)](https://github.com/KunalSin9h/secops/actions/workflows/release.yml)
+[![Build](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml)
+[![Test](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml)
 
 ## Local Setup
 
