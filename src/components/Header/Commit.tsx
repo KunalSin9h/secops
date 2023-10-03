@@ -1,26 +1,31 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { CommitIcon } from "@/lib/icons";
-import { Button } from "../ui/button";
 
 export default function Commit() {
   return (
-    <Dialog>
-      <DialogTrigger>
+    <Sheet>
+      <SheetTrigger>
         <div className="bg-white text-black hover:bg-black/10 px-3 py-2 rounded-md cursor-pointer flex items-center gap-2">
           <CommitIcon />
           <span>Commit</span>
         </div>
-      </DialogTrigger>
-      <DialogContent className="h-[80%] w-[80%] xl:w-[60%] ">
-        <Button variant={"default"}>Commit</Button>
-        <div className="m-2 p-2 xl:m-4 xl:p-4">
-          <ul>
-            <li>A</li>
-            <li>A</li>
-            <li>A</li>
-          </ul>
-        </div>
-      </DialogContent>
-    </Dialog>
+      </SheetTrigger>
+      <SheetContent className="w-1/3">
+        <SheetHeader>
+          <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+          <SheetDescription>
+            This action cannot be undone. This will permanently delete your
+            account and remove your data from our servers.
+          </SheetDescription>
+        </SheetHeader>
+      </SheetContent>
+    </Sheet>
   );
 }
