@@ -38,7 +38,7 @@ export default function AllServices() {
         setRunning(running_services);
         setStopped(stopped_services);
       } catch (err) {
-        toastError(err as string);
+        toastError((err as string).toString());
       }
     }, 10000);
     return () => clearInterval(timer);

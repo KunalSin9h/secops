@@ -31,7 +31,7 @@ export default function SwitchCommand({
 
         setEnabled(alreadyEnabled);
       } catch (err) {
-        toastError(err as string);
+        toastError((err as string).toString());
       }
     })();
   }, []);
@@ -67,7 +67,7 @@ export default function SwitchCommand({
           } catch (err) {
             setEnableBtnDisable(false);
             setEnabled(!enable);
-            toastError(err as string);
+            toastError((err as string).toString());
           }
         }}
       />
