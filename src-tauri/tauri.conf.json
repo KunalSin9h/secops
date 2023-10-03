@@ -15,6 +15,7 @@
       "all": false,
       "fs": {
         "readFile": true,
+        "writeFile": true,
         "readDir": true,
         "scope": ["$HOME/.secops/*", "$HOME/.secops/state/*"]
       },

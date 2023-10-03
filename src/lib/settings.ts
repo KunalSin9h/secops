@@ -1,4 +1,9 @@
-import { readTextFile, BaseDirectory, readDir } from "@tauri-apps/api/fs";
+import {
+  readTextFile,
+  BaseDirectory,
+  readDir,
+  writeTextFile,
+} from "@tauri-apps/api/fs";
 
 type StateFile = {
   message: string;
@@ -97,6 +102,36 @@ export async function getCommitStatus() {
   res[0].commit = isAlreadyCommit;
 
   return res;
+}
+
+/**
+ * Assumption: Commit is only for current state file
+ */
+export async function commitSettings(message: string) {
+  try {
+    const stateFile = await readStatFile(currentStateFilePath);
+    const stateFileData = JSON.parse(stateFile) as StateFile;
+
+    const time = getValidDate(stateFileData.time);
+    const newFileName = `${time.getTime()}_${message
+      .split(" ")
+      .join("_")}.json`;
+
+    await writeTextFile(`${stateFileDirectory}/${newFileName}`, stateFile, {
+      dir: BaseDirectory.Home,
+    });
+
+    // TODO: may get time from rust
+    stateFileData.time = `${new Date().toISOString()} +05:30`;
+
+    await writeTextFile(
+      currentStateFilePath,
+      JSON.stringify(stateFileData, null, 4),
+      { dir: BaseDirectory.Home },
+    );
+  } catch (err) {
+    throw new Error(err as string);
+  }
 }
 
 function getValidDate(currentDateString: string) {
