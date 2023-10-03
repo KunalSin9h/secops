@@ -8,7 +8,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { CommitIcon } from "@/lib/icons";
-import { type StateMeta, getCommitStatus } from "@/lib/settings";
+import {
+  type StateMeta,
+  getCommitStatus,
+  commitSettings,
+} from "@/lib/settings";
 
 export default function Commit() {
   return (
@@ -19,7 +23,7 @@ export default function Commit() {
           <span>Commit</span>
         </div>
       </SheetTrigger>
-      <SheetContent className="w-1/3">
+      <SheetContent className=" w-2/3 xl:w-1/3">
         <SheetHeader>
           <SheetTitle>Commit Settings!</SheetTitle>
           <SheetDescription>
@@ -57,9 +61,15 @@ function Commits() {
               commitStatus[0].commit ? "bg-green-100" : "bg-green-300"
             }  text-black ${
               commitStatus[0].commit
-                ? "opacity-60 pointer-event-none cursor-not-allowed"
+                ? "pointer-events-none cursor-not-allowed opacity-60"
                 : "hover:bg-green-400/50"
-            } px-3 py-2 rounded-md cursor-pointer`}
+            } px-3 py-2 rounded-md `}
+            onClick={async (e) => {
+              e.preventDefault();
+              await commitSettings("new commit it is");
+              const status = await getCommitStatus();
+              setCommitStatus(status);
+            }}
           >
             <span className="text-xs uppercase font-bold">
               {commitStatus[0].commit ? "All Good" : "Commit"}

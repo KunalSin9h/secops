@@ -77,7 +77,8 @@ export async function getCommitStatus() {
     return bTime - aTime;
   });
 
-  let isAlreadyCommit = false;
+  // if user has done nothing that we won't allow commit
+  let isAlreadyCommit = allState[0].commands.length === 0 ? true : false;
 
   if (allState.length > 1) {
     if (
@@ -117,12 +118,20 @@ export async function commitSettings(message: string) {
       .split(" ")
       .join("_")}.json`;
 
-    await writeTextFile(`${stateFileDirectory}/${newFileName}`, stateFile, {
-      dir: BaseDirectory.Home,
-    });
+    stateFileData.message = message;
+
+    await writeTextFile(
+      `${stateFileDirectory}/${newFileName}`,
+      JSON.stringify(stateFileData, null, 4),
+      {
+        dir: BaseDirectory.Home,
+      },
+    );
 
     // TODO: may get time from rust
     stateFileData.time = `${new Date().toISOString()} +05:30`;
+
+    stateFileData.message = "Current settings";
 
     await writeTextFile(
       currentStateFilePath,
