@@ -15,9 +15,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   type StateMeta,
   getCommitStatus,
@@ -68,45 +68,57 @@ function Commits() {
       <div className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8">
         <span className="text-md">{commitStatus[0].message}</span>
         <div className="flex gap-4 items-center">
-        <Dialog open={commitMessageDialog}>
-          <DialogTrigger className={`${commitStatus[0].commit ? "pointer-events-none cursor-not-allowed opacity-60" : "" }`}>
-          <div
+          <Dialog open={commitMessageDialog}>
+            <DialogTrigger
               className={`${
+                commitStatus[0].commit
+                  ? "pointer-events-none cursor-not-allowed opacity-60"
+                  : ""
+              }`}
+            >
+              <div
+                className={`${
                   commitStatus[0].commit ? "bg-green-100" : "bg-green-300"
-                  }  text-black 
+                }  text-black 
                   "hover:bg-green-400/50"
                    px-3 py-2 rounded-md `}
                 onClick={(e) => {
-                    e.preventDefault();
-                    setCommitMessageDialog(true);
+                  e.preventDefault();
+                  setCommitMessageDialog(true);
                 }}
               >
-              <span className="text-xs uppercase font-bold">
+                <span className="text-xs uppercase font-bold">
                   {commitStatus[0].commit ? "All Good" : "Commit"}
-              </span>
-          </div>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Commit current settings</DialogTitle>
-            </DialogHeader>
-            <div>
-                <Input placeholder="Commit message..." onChange={(e) => {
+                </span>
+              </div>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Commit current settings</DialogTitle>
+              </DialogHeader>
+              <div>
+                <Input
+                  placeholder="Commit message..."
+                  onChange={(e) => {
                     e.preventDefault();
                     setCommitMessage(e.target.value);
-                }} />                
-                <Button className="mt-4" 
-                  onClick={async (e) => {
-                      e.preventDefault();
-                      await commitSettings(commitMessage);
-                      const status = await getCommitStatus();
-                      setCommitMessageDialog(false);
-                      setCommitStatus(status);
                   }}
-                >Commit</Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+                />
+                <Button
+                  className="mt-4"
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await commitSettings(commitMessage);
+                    const status = await getCommitStatus();
+                    setCommitMessageDialog(false);
+                    setCommitStatus(status);
+                  }}
+                >
+                  Commit
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
           <span className="opacity-60 text-xs">{commitStatus[0].time}</span>
         </div>
       </div>
