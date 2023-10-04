@@ -1,5 +1,3 @@
-![Banner](https://tiddi.kunalsin9h.com/e3S1fjb)
-
 # Secops
 
 Ubuntu Security Made Easy
