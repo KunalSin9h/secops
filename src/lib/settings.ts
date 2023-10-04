@@ -86,6 +86,8 @@ export async function getCommitStatus() {
       JSON.stringify(allState[1].commands)
     ) {
       isAlreadyCommit = true;
+    } else {
+      isAlreadyCommit = false;
     }
   }
 
