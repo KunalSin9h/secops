@@ -5,7 +5,7 @@ export type toastInfoType = {
   desc: string;
 };
 
-export default function toastError(err: string) {
+export default function toastError(err: unknown) {
   toast({
     variant: "destructive",
     title: "Uh oh! Something went wrong.",
