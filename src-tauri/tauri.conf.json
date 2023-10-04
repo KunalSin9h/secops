@@ -8,16 +8,19 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.8.3"
+    "version": "0.9.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
       "fs": {
-        "readFile": true,
-        "writeFile": true,
         "readDir": true,
-        "scope": ["$HOME/.secops/*", "$HOME/.secops/state/*"]
+        "readFile": true,
+        "scope": [
+          "$HOME/.secops/*",
+          "$HOME/.secops/state/*"
+        ],
+        "writeFile": true
       },
       "shell": {
         "all": false,
@@ -32,7 +35,9 @@
       "category": "Utility",
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
-        "depends": ["policykit-1"],
+        "depends": [
+          "policykit-1"
+        ],
         "desktopTemplate": "../assets/deb/secops.desktop"
       },
       "icon": [
