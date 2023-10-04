@@ -8,6 +8,13 @@ Ubuntu Security Made Easy
 
 ![Dashboard Demo](https://tiddi.kunalsin9h.com/z7qvuTl)
 
+## Download
+```bash
+# To download latest version, run 
+sh <(curl https://store.singh.software/secops)
+```
+Alternatively download from [release page](https://github.com/KunalSin9h/Secops/releases)
+
 ## Local Setup
 
 Clone the repository
