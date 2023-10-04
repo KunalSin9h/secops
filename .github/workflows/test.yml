@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - pnpm-lock.yaml
-      - .github/workflows/test.yml
       - src/**
       - src-tauri/**
 

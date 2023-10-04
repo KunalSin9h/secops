@@ -6,7 +6,6 @@ on:
       - "master"
     paths:
       - pnpm-lock.yaml
-      - .github/workflows/build.yml
       - src/**
       - src-tauri/**
 
