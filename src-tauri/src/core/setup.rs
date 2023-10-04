@@ -86,7 +86,7 @@ fn check_folder(path: &PathBuf) -> Result<(), String> {
 /// populate the default state file
 fn fill_default_state_file(path: PathBuf) -> Result<(), String> {
     let default_state_string = r#"{
-    "message": "Default State",
+    "message": "Current Settings",
     "time": "$",
     "commands": []
 }"#;

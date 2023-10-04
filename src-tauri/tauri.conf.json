@@ -8,16 +8,19 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.8.3"
+    "version": "0.9.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
       "fs": {
+        "readDir": true,
         "readFile": true,
         "scope": [
+          "$HOME/.secops/*",
           "$HOME/.secops/state/*"
-        ]
+        ],
+        "writeFile": true
       },
       "shell": {
         "all": false,

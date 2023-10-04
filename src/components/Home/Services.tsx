@@ -18,7 +18,7 @@ export default function AllServices() {
 
   // This refresh state is to fetch new data when ever a new
   // interaction will happen by the use
-  const [refresh, setRefresh] = useState(false);
+  const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(async () => {
@@ -38,7 +38,7 @@ export default function AllServices() {
         setRunning(running_services);
         setStopped(stopped_services);
       } catch (err) {
-        toastError(err as string);
+        toastError(err);
       }
     }, 10000);
     return () => clearInterval(timer);
@@ -73,7 +73,7 @@ export default function AllServices() {
                           onClick={(e) => {
                             e.preventDefault();
                             invoke("get_status", { service }).catch(toastError);
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Status
@@ -86,7 +86,7 @@ export default function AllServices() {
                               toastError,
                             );
 
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Enable
@@ -99,7 +99,7 @@ export default function AllServices() {
                               toastError,
                             );
 
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Disable
@@ -111,7 +111,7 @@ export default function AllServices() {
                             invoke("stop_service", { service }).catch(
                               toastError,
                             );
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Stop
@@ -155,7 +155,7 @@ export default function AllServices() {
                             e.preventDefault();
                             invoke("get_status", { service }).catch(toastError);
 
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Status
@@ -168,7 +168,7 @@ export default function AllServices() {
                               toastError,
                             );
 
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Enable
@@ -181,7 +181,7 @@ export default function AllServices() {
                               toastError,
                             );
 
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Disable
@@ -195,7 +195,7 @@ export default function AllServices() {
                               toastError,
                             );
 
-                            setRefresh(!refresh);
+                            setRefresh(refresh + 1);
                           }}
                         >
                           Start
