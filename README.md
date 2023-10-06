@@ -6,7 +6,7 @@ Ubuntu Security Made Easy
 [![Build](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml)
 [![Test](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml)
 
-![Dashboard Demo](https://tiddi.kunalsin9h.com/z7qvuTl)
+![Dashboard Demo](https://tiddi.kunalsin9h.com/K9TvRPW)
 
 ## Download
 ```bash
