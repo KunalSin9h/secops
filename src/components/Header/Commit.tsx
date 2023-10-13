@@ -51,7 +51,7 @@ export default function Commit() {
 function Commits() {
   const [commitStatus, setCommitStatus] = useState<StateMeta[]>();
   const [commitMessage, setCommitMessage] = useState("");
-  const [commitMessageDialog, setCommitMessageDialog] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -64,10 +64,10 @@ function Commits() {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8">
+      <div className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8 even:bg-red-200">
         <span className="text-md">{commitStatus[0].message}</span>
         <div className="flex gap-4 items-center">
-          <Dialog open={commitMessageDialog}>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger
               className={`${
                 commitStatus[0].commit
@@ -81,10 +81,6 @@ function Commits() {
                 }  text-black 
                   "hover:bg-green-400/50"
                    px-3 py-2 rounded-md `}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setCommitMessageDialog(true);
-                }}
               >
                 <span className="text-xs uppercase font-bold">
                   {commitStatus[0].commit ? "All Good" : "Commit"}
@@ -103,18 +99,28 @@ function Commits() {
                     setCommitMessage(e.target.value);
                   }}
                 />
-                <Button
-                  className="mt-4"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    await commitSettings(commitMessage);
-                    const status = await getCommitStatus();
-                    setCommitMessageDialog(false);
-                    setCommitStatus(status);
-                  }}
-                >
-                  Commit
-                </Button>
+                <div className="mt-4 flex items-center gap-2 justify-end">
+                  <Button
+                    variant={"secondary"}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpen(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      await commitSettings(commitMessage.trim());
+                      const status = await getCommitStatus();
+                      setOpen(false);
+                      setCommitStatus(status);
+                    }}
+                  >
+                    Commit
+                  </Button>
+                </div>
               </div>
             </DialogContent>
           </Dialog>
