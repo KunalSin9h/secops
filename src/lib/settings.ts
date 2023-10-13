@@ -70,6 +70,8 @@ export async function getCommitStatus() {
   }
 
   // sort the state files in newest to oldest
+  // newest will have bigger value then
+  // older ones.
   allState.sort((a: StateFile, b: StateFile) => {
     const aTime = getValidDate(a.time).getTime();
     const bTime = getValidDate(b.time).getTime();
