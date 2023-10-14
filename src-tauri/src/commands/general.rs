@@ -138,7 +138,7 @@ pub async fn revert_commit(
     state: tauri::State<'_, Application>,
 ) -> Result<(), rspc::Error> {
     let home_dir = state.home_dir.lock().unwrap().clone();
-    revert_state(&app, &home_dir, &file).map_err(|e| RspcError::internal_server_error(e))?;
+    revert_state(&app, &home_dir, &file).map_err(RspcError::internal_server_error)?;
 
     Ok(())
 }
