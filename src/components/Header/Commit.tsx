@@ -23,6 +23,7 @@ import {
   commitSettings,
   CommitStatus,
 } from "@/lib/settings";
+import toastError from "@/lib/toastError";
 
 export default function Commit() {
   return (
@@ -67,7 +68,10 @@ function Commits() {
         data={commitStatus.states[0]}
         statusUpdater={setCommitStatus}
       />
-      <RevertBox states={commitStatus.states.slice(1)} />
+      <RevertBox
+        states={commitStatus.states.slice(1)}
+        commit={commitStatus.commit}
+      />
     </div>
   );
 }
@@ -145,7 +149,13 @@ function CommitBox({
   );
 }
 
-function RevertBox({ states }: { states: StateMeta[] }) {
+function RevertBox({
+  commit,
+  states,
+}: {
+  commit: boolean;
+  states: StateMeta[];
+}) {
   return (
     <div>
       {states.map((value, index) => (
@@ -161,6 +171,13 @@ function RevertBox({ states }: { states: StateMeta[] }) {
                 text-black 
                    hover:bg-red-400/80
                px-3 py-2 rounded-md cursor-pointer"
+              onClick={async (e) => {
+                e.preventDefault();
+                if (!commit) {
+                  toastError("Commit the current settings first!");
+                  return;
+                }
+              }}
             >
               <span className="text-xs uppercase font-bold">Revert</span>
             </div>
