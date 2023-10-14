@@ -166,17 +166,14 @@ function RevertBox({
           <span className="text-md">{value.message}</span>
           <div className="flex gap-4 items-center">
             <div
-              className="
-                bg-red-300
-                text-black 
-                   hover:bg-red-400/80
-               px-3 py-2 rounded-md cursor-pointer"
+              className="bg-red-300 text-black hover:bg-red-400/80 px-3 py-2 rounded-md cursor-pointer"
               onClick={async (e) => {
                 e.preventDefault();
                 if (!commit) {
                   toastError("Commit the current settings first!");
                   return;
                 }
+                console.log(value.fileName);
               }}
             >
               <span className="text-xs uppercase font-bold">Revert</span>
