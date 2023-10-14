@@ -24,7 +24,7 @@ import {
   commitSettings,
   CommitStatus,
 } from "@/lib/settings";
-import toastError, { toastInfo } from "@/lib/toastError";
+import toastError, { toastInfoReload } from "@/lib/toastError";
 
 export default function Commit() {
   return (
@@ -91,7 +91,7 @@ function CommitBox({
 
   return (
     <div className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8">
-      <span className="text-md">{data.message}</span>
+      <span className="text-md font-bold">{data.message}</span>
       <div className="flex gap-4 items-center">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger
@@ -169,7 +169,7 @@ function RevertBox({
           key={index}
           className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8"
         >
-          <span className="text-md">{value.message}</span>
+          <span className="text-md font-bold">{value.message}</span>
           <div className="flex gap-4 items-center">
             <div
               className="bg-red-300 text-black hover:bg-red-400/80 px-3 py-2 rounded-md cursor-pointer"
@@ -179,13 +179,13 @@ function RevertBox({
                   toastError("Commit the current settings first!");
                   return;
                 }
-                console.log(value.fileName);
                 invoke("revert_commit", {
                   file: value.fileName,
                 })
                   .then(() =>
-                    toastInfo({
+                    toastInfoReload({
                       title: "Settings reverted successfully",
+                      desc: "Reload the window to update UI",
                     }),
                   )
                   .catch(toastError);
