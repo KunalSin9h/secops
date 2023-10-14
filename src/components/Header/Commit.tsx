@@ -21,6 +21,7 @@ import {
   type StateMeta,
   getCommitStatus,
   commitSettings,
+  CommitStatus,
 } from "@/lib/settings";
 
 export default function Commit() {
@@ -49,118 +50,124 @@ export default function Commit() {
 }
 
 function Commits() {
-  const [commitStatus, setCommitStatus] = useState<StateMeta[]>();
-  const [commitMessage, setCommitMessage] = useState("");
-  const [open, setOpen] = useState(false);
+  const [commitStatus, setCommitStatus] = useState<CommitStatus>();
 
   useEffect(() => {
     (async () => {
       const status = await getCommitStatus();
       setCommitStatus(status);
     })();
-  }, []);
+  }, [commitStatus]);
 
   if (commitStatus === undefined) return <div>Loading...</div>;
-
   return (
     <div>
-      <div className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8 even:bg-red-200">
-        <span className="text-md">{commitStatus[0].message}</span>
-        <div className="flex gap-4 items-center">
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger
-              className={`${
-                commitStatus[0].commit
-                  ? "pointer-events-none cursor-not-allowed opacity-60"
-                  : ""
-              }`}
-            >
-              <div
-                className={`${
-                  commitStatus[0].commit ? "bg-green-100" : "bg-green-300"
-                }  text-black 
-                  "hover:bg-green-400/50"
-                   px-3 py-2 rounded-md `}
-              >
-                <span className="text-xs uppercase font-bold">
-                  {commitStatus[0].commit ? "All Good" : "Commit"}
-                </span>
-              </div>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Commit current settings</DialogTitle>
-              </DialogHeader>
-              <div>
-                <Input
-                  placeholder="Commit message..."
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setCommitMessage(e.target.value);
-                  }}
-                />
-                <div className="mt-4 flex items-center gap-2 justify-end">
-                  <Button
-                    variant={"secondary"}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setOpen(false);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      await commitSettings(commitMessage.trim());
-                      const status = await getCommitStatus();
-                      setOpen(false);
-                      setCommitStatus(status);
-                    }}
-                  >
-                    Commit
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
-          <span className="opacity-60 text-xs">{commitStatus[0].time}</span>
-        </div>
-      </div>
-
-      <div>
-        {commitStatus.slice(1).map((item, index) => {
-          return <CommitBox key={index} {...item} />;
-        })}
-      </div>
+      <CommitBox
+        status={commitStatus.commit}
+        data={commitStatus.states[0]}
+        statusUpdater={setCommitStatus}
+      />
+      <RevertBox states={commitStatus.states.slice(1)} />
     </div>
   );
 }
 
 function CommitBox({
-  message,
-  commit,
-  time,
+  status,
+  data,
+  statusUpdater,
 }: {
-  message: string;
-  commit: boolean;
-  time: string;
+  status: boolean;
+  data: StateMeta;
+  statusUpdater: React.Dispatch<React.SetStateAction<CommitStatus | undefined>>;
 }) {
+  const [commitMessage, setCommitMessage] = useState("");
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8">
-      <span className="text-md">{message}</span>
+      <span className="text-md">{data.message}</span>
       <div className="flex gap-4 items-center">
-        <div
-          className={`${commit ? "bg-red-300" : "bg-green-300"}  text-black ${
-            commit ? "hover:bg-red-400/80" : "hover:bg-green-400/50"
-          } px-3 py-2 rounded-md cursor-pointer`}
-        >
-          <span className="text-xs uppercase font-bold">
-            {commit ? "Revert" : "Commit"}
-          </span>
-        </div>
-        <span className="opacity-60 text-xs">{time}</span>
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger>
+            <div
+              className={`${
+                status ? "bg-green-100" : "bg-green-300"
+              }  text-black 
+                  "hover:bg-green-400/50"
+                   px-3 py-2 rounded-md `}
+            >
+              <span className="text-xs uppercase font-bold">
+                {status ? "All Good" : "Commit"}
+              </span>
+            </div>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Commit current settings</DialogTitle>
+            </DialogHeader>
+            <div>
+              <Input
+                placeholder="Commit message..."
+                onChange={(e) => {
+                  e.preventDefault();
+                  setCommitMessage(e.target.value);
+                }}
+              />
+              <div className="mt-4 flex items-center gap-2 justify-end">
+                <Button
+                  variant={"secondary"}
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    setOpen(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await commitSettings(commitMessage.trim());
+                    const status = await getCommitStatus();
+                    statusUpdater(status);
+                    setOpen(false);
+                  }}
+                >
+                  Commit
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+        <span className="opacity-60 text-xs">{data.time}</span>
       </div>
+    </div>
+  );
+}
+
+function RevertBox({ states }: { states: StateMeta[] }) {
+  return (
+    <div>
+      {states.map((value, index) => (
+        <div
+          key={index}
+          className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8"
+        >
+          <span className="text-md">{value.message}</span>
+          <div className="flex gap-4 items-center">
+            <div
+              className="
+                bg-red-300
+                text-black 
+                   hover:bg-red-400/80
+               px-3 py-2 rounded-md cursor-pointer"
+            >
+              <span className="text-xs uppercase font-bold">Revert</span>
+            </div>
+            <span className="opacity-60 text-xs">{value.time}</span>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

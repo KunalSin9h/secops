@@ -49,8 +49,12 @@ export async function getSetting(setting: string): Promise<boolean> {
 
 export type StateMeta = {
   message: string;
-  commit: boolean;
   time: string;
+};
+
+export type CommitStatus = {
+  commit: boolean;
+  states: StateMeta[];
 };
 
 /**
@@ -93,18 +97,15 @@ export async function getCommitStatus() {
     }
   }
 
-  const res: StateMeta[] = [];
+  const res: CommitStatus = { commit: isAlreadyCommit, states: [] };
 
   for (const state of allState) {
     const time = getValidDate(state.time);
-    res.push({
+    res.states.push({
       message: state.message,
       time: `${time.toLocaleTimeString()}, ${time.toDateString()}`,
-      commit: true,
     });
   }
-
-  res[0].commit = isAlreadyCommit;
 
   return res;
 }
