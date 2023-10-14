@@ -14,10 +14,11 @@ pub struct Command {
     pub undo: String,
 }
 
-pub const CURRENT_STATE_FILE_PATH: &str = ".secops/state/current.json";
+pub const STATE_FOLDER: &str = ".secops/state";
+pub const CURRENT_STATE_FILE: &str = "current.json";
 
 pub fn get_state_file(home_dir: &Path, file_path: &str) -> Result<StateFile, std::io::Error> {
-    let state_file_path = home_dir.join(file_path);
+    let state_file_path = home_dir.join(STATE_FOLDER).join(file_path);
 
     let data = match std::fs::read_to_string(state_file_path) {
         Ok(data) => data,
@@ -34,7 +35,7 @@ pub fn write_state_file(
     state_file: StateFile,
     file_path: &str,
 ) -> Result<(), std::io::Error> {
-    let state_file_path = home_dir.join(file_path);
+    let state_file_path = home_dir.join(STATE_FOLDER).join(file_path);
 
     let new_state_file_content = serde_json::to_string_pretty(&state_file)?;
 
@@ -45,17 +46,17 @@ pub fn write_state_file(
 }
 
 pub fn add_command(home_dir: &Path, cmd: Command) -> Result<(), std::io::Error> {
-    let mut state_file = get_state_file(home_dir, CURRENT_STATE_FILE_PATH)?;
+    let mut state_file = get_state_file(home_dir, CURRENT_STATE_FILE)?;
 
     state_file.commands.push(cmd);
 
-    write_state_file(home_dir, state_file, CURRENT_STATE_FILE_PATH)?;
+    write_state_file(home_dir, state_file, CURRENT_STATE_FILE)?;
 
     Ok(())
 }
 
 pub fn remove_command(home_dir: &Path, cmd_name: String) -> Result<(), std::io::Error> {
-    let mut state_file = get_state_file(home_dir, CURRENT_STATE_FILE_PATH)?;
+    let mut state_file = get_state_file(home_dir, CURRENT_STATE_FILE)?;
 
     let filter_commands: Vec<Command> = state_file
         .commands
@@ -65,7 +66,7 @@ pub fn remove_command(home_dir: &Path, cmd_name: String) -> Result<(), std::io::
 
     state_file.commands = filter_commands;
 
-    write_state_file(home_dir, state_file, CURRENT_STATE_FILE_PATH)?;
+    write_state_file(home_dir, state_file, CURRENT_STATE_FILE)?;
 
     Ok(())
 }

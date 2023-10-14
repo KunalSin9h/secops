@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { invoke } from "@tauri-apps/api";
 import {
   Sheet,
   SheetContent,
@@ -174,6 +175,9 @@ function RevertBox({
                   return;
                 }
                 console.log(value.fileName);
+                invoke("revert_commit", {
+                  file: value.fileName,
+                }).catch(toastError);
               }}
             >
               <span className="text-xs uppercase font-bold">Revert</span>

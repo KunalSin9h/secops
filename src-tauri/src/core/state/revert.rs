@@ -3,12 +3,12 @@ use std::{collections::HashSet, path::PathBuf, vec};
 use tauri::AppHandle;
 
 use crate::core::{
-    get_state_file, write_state_file, Action, AppCommand, Instruction, CURRENT_STATE_FILE_PATH,
+    get_state_file, write_state_file, Action, AppCommand, Instruction, CURRENT_STATE_FILE,
 };
 
 pub fn revert_state(app: &AppHandle, home_dir: &PathBuf, file_name: &str) -> Result<(), String> {
     let mut current_state =
-        get_state_file(home_dir, CURRENT_STATE_FILE_PATH).map_err(|e| e.to_string())?;
+        get_state_file(home_dir, CURRENT_STATE_FILE).map_err(|e| e.to_string())?;
     let revert_file_state = get_state_file(home_dir, file_name).map_err(|e| e.to_string())?;
 
     let mut to_undo = HashSet::<String>::new();
@@ -45,8 +45,7 @@ pub fn revert_state(app: &AppHandle, home_dir: &PathBuf, file_name: &str) -> Res
     run_cmd.execute(app, home_dir)?;
 
     current_state.commands = revert_file_state.commands;
-    write_state_file(home_dir, current_state, CURRENT_STATE_FILE_PATH)
-        .map_err(|e| e.to_string())?;
+    write_state_file(home_dir, current_state, CURRENT_STATE_FILE).map_err(|e| e.to_string())?;
 
     Ok(())
 }
