@@ -2,7 +2,7 @@ import { toast } from "@/components/ui/use-toast";
 
 export type toastInfoType = {
   title: string;
-  desc: string;
+  desc?: string;
 };
 
 export default function toastError(err: unknown) {

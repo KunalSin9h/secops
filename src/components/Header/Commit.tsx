@@ -24,7 +24,7 @@ import {
   commitSettings,
   CommitStatus,
 } from "@/lib/settings";
-import toastError from "@/lib/toastError";
+import toastError, { toastInfo } from "@/lib/toastError";
 
 export default function Commit() {
   return (
@@ -94,11 +94,16 @@ function CommitBox({
       <span className="text-md">{data.message}</span>
       <div className="flex gap-4 items-center">
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger>
+          <DialogTrigger
+            className={`${
+              status ? "pointer-events-none cursor-not-allowed" : ""
+            }
+              `}
+          >
             <div
               className={`${
                 status ? "bg-green-100" : "bg-green-300"
-              }  text-black 
+              } text-black 
                   "hover:bg-green-400/50"
                    px-3 py-2 rounded-md `}
             >
@@ -177,7 +182,13 @@ function RevertBox({
                 console.log(value.fileName);
                 invoke("revert_commit", {
                   file: value.fileName,
-                }).catch(toastError);
+                })
+                  .then(() =>
+                    toastInfo({
+                      title: "Settings reverted successfully",
+                    }),
+                  )
+                  .catch(toastError);
               }}
             >
               <span className="text-xs uppercase font-bold">Revert</span>
