@@ -1,8 +1,9 @@
 import { toast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 export type toastInfoType = {
   title: string;
-  desc: string;
+  desc?: string;
 };
 
 export default function toastError(err: unknown) {
@@ -21,5 +22,24 @@ export function toastInfo(info: toastInfoType) {
     variant: "default",
     title: info.title,
     description: info.desc,
+  });
+}
+
+export function toastInfoReload(info: toastInfoType) {
+  toast({
+    variant: "default",
+    title: info.title,
+    description: info.desc,
+    action: (
+      <ToastAction
+        altText="Reload"
+        onClick={(e) => {
+          e.preventDefault();
+          window.location.reload();
+        }}
+      >
+        Reload
+      </ToastAction>
+    ),
   });
 }

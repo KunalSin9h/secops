@@ -17,6 +17,11 @@ type Commands = {
   undo: string;
 };
 
+type StateFileMeta = {
+  fileName: string;
+  state: StateFile;
+};
+
 const stateFileDirectory = ".secops/state";
 const currentStateFilePath = ".secops/state/current.json";
 
@@ -49,15 +54,20 @@ export async function getSetting(setting: string): Promise<boolean> {
 
 export type StateMeta = {
   message: string;
-  commit: boolean;
   time: string;
+  fileName: string;
+};
+
+export type CommitStatus = {
+  commit: boolean;
+  states: StateMeta[];
 };
 
 /**
  * get all settings file content
  */
 export async function getCommitStatus() {
-  const allState: StateFile[] = [];
+  const allState: StateFileMeta[] = [];
   // read the .secops/state directory
   const allStatesFile = await readDir(stateFileDirectory, {
     dir: BaseDirectory.Home,
@@ -66,26 +76,29 @@ export async function getCommitStatus() {
   for (const file of allStatesFile) {
     const stateFile = await readStatFile(`${stateFileDirectory}/${file.name}`);
     const stateFileData = JSON.parse(stateFile) as StateFile;
-    allState.push(stateFileData);
+    allState.push({
+      fileName: file.name as string,
+      state: stateFileData,
+    });
   }
 
   // sort the state files in newest to oldest
   // newest will have bigger value then
   // older ones.
-  allState.sort((a: StateFile, b: StateFile) => {
-    const aTime = getValidDate(a.time).getTime();
-    const bTime = getValidDate(b.time).getTime();
+  allState.sort((a: StateFileMeta, b: StateFileMeta) => {
+    const aTime = getValidDate(a.state.time).getTime();
+    const bTime = getValidDate(b.state.time).getTime();
 
     return bTime - aTime;
   });
 
   // if user has done nothing that we won't allow commit
-  let isAlreadyCommit = allState[0].commands.length === 0 ? true : false;
+  let isAlreadyCommit = allState[0].state.commands.length === 0 ? true : false;
 
   if (allState.length > 1) {
     if (
-      JSON.stringify(allState[0].commands) ===
-      JSON.stringify(allState[1].commands)
+      JSON.stringify(allState[0].state.commands) ===
+      JSON.stringify(allState[1].state.commands)
     ) {
       isAlreadyCommit = true;
     } else {
@@ -93,18 +106,16 @@ export async function getCommitStatus() {
     }
   }
 
-  const res: StateMeta[] = [];
+  const res: CommitStatus = { commit: isAlreadyCommit, states: [] };
 
   for (const state of allState) {
-    const time = getValidDate(state.time);
-    res.push({
-      message: state.message,
+    const time = getValidDate(state.state.time);
+    res.states.push({
+      message: state.state.message,
       time: `${time.toLocaleTimeString()}, ${time.toDateString()}`,
-      commit: true,
+      fileName: state.fileName,
     });
   }
-
-  res[0].commit = isAlreadyCommit;
 
   return res;
 }
