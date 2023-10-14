@@ -14,10 +14,10 @@ pub struct Command {
     pub undo: String,
 }
 
-const CURRENT_STATE_FILE_PATH: &str = ".secops/state/current.json";
+pub const CURRENT_STATE_FILE_PATH: &str = ".secops/state/current.json";
 
-fn get_state_file(home_dir: &Path) -> Result<StateFile, std::io::Error> {
-    let state_file_path = home_dir.join(CURRENT_STATE_FILE_PATH);
+pub fn get_state_file(home_dir: &Path, file_path: &str) -> Result<StateFile, std::io::Error> {
+    let state_file_path = home_dir.join(file_path);
 
     let data = match std::fs::read_to_string(state_file_path) {
         Ok(data) => data,
@@ -29,8 +29,12 @@ fn get_state_file(home_dir: &Path) -> Result<StateFile, std::io::Error> {
     Ok(state_file)
 }
 
-fn write_state_file(home_dir: &Path, state_file: StateFile) -> Result<(), std::io::Error> {
-    let state_file_path = home_dir.join(CURRENT_STATE_FILE_PATH);
+pub fn write_state_file(
+    home_dir: &Path,
+    state_file: StateFile,
+    file_path: &str,
+) -> Result<(), std::io::Error> {
+    let state_file_path = home_dir.join(file_path);
 
     let new_state_file_content = serde_json::to_string_pretty(&state_file)?;
 
@@ -41,17 +45,17 @@ fn write_state_file(home_dir: &Path, state_file: StateFile) -> Result<(), std::i
 }
 
 pub fn add_command(home_dir: &Path, cmd: Command) -> Result<(), std::io::Error> {
-    let mut state_file = get_state_file(home_dir)?;
+    let mut state_file = get_state_file(home_dir, CURRENT_STATE_FILE_PATH)?;
 
     state_file.commands.push(cmd);
 
-    write_state_file(home_dir, state_file)?;
+    write_state_file(home_dir, state_file, CURRENT_STATE_FILE_PATH)?;
 
     Ok(())
 }
 
 pub fn remove_command(home_dir: &Path, cmd_name: String) -> Result<(), std::io::Error> {
-    let mut state_file = get_state_file(home_dir)?;
+    let mut state_file = get_state_file(home_dir, CURRENT_STATE_FILE_PATH)?;
 
     let filter_commands: Vec<Command> = state_file
         .commands
@@ -61,7 +65,7 @@ pub fn remove_command(home_dir: &Path, cmd_name: String) -> Result<(), std::io::
 
     state_file.commands = filter_commands;
 
-    write_state_file(home_dir, state_file)?;
+    write_state_file(home_dir, state_file, CURRENT_STATE_FILE_PATH)?;
 
     Ok(())
 }

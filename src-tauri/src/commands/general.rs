@@ -1,6 +1,6 @@
 use super::shared::*;
 use crate::{
-    core::{Action, AppCommand, Application, Instruction},
+    core::{revert_state, Action, AppCommand, Application, Instruction},
     rspc::RspcError,
 };
 
@@ -129,4 +129,16 @@ fn disable_camera_command() -> AppCommand {
         description: "Disable camera".into(),
         instructions: vec![uvcvideo_instruction, refresh_instruction],
     }
+}
+
+#[tauri::command(async)]
+pub async fn revert_commit(
+    file: String,
+    app: tauri::AppHandle,
+    state: tauri::State<'_, Application>,
+) -> Result<(), rspc::Error> {
+    let home_dir = state.home_dir.lock().unwrap().clone();
+    revert_state(&app, &home_dir, &file).map_err(|e| RspcError::internal_server_error(e))?;
+
+    Ok(())
 }
