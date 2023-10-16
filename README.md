@@ -1,12 +1,17 @@
-# Secops
+<p align="center">
+    <h1>Secops</h1>
+    <h3>Ubuntu Security Made Easy</h3>
+</p>
 
-Ubuntu Security Made Easy
+<p align="center"> 
+    [![publish](https://github.com/KunalSin9h/secops/actions/workflows/release.yml/badge.svg)](https://github.com/KunalSin9h/secops/actions/workflows/release.yml)
+    [![Build](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml)
+    [![Test](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml)
+</p>
 
-[![publish](https://github.com/KunalSin9h/secops/actions/workflows/release.yml/badge.svg)](https://github.com/KunalSin9h/secops/actions/workflows/release.yml)
-[![Build](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/build.yml)
-[![Test](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml/badge.svg)](https://github.com/KunalSin9h/Secops/actions/workflows/test.yml)
-
-![Dashboard Demo](https://tiddi.kunalsin9h.com/K9TvRPW)
+<p align="center">
+    <img href="https://tiddi.kunalsin9h.com/K9TvRPW" alt="Secops Dashboard Image" />
+</p>
 
 ## Download
 ```bash
@@ -25,7 +30,7 @@ git clone https://github.com/KunalSin9h/secops
 
 ### Requirements
 
-#### Download All requirenments on Ubuntu for developing the project.
+#### Download All requirements on Ubuntu for developing the project.
 
 ```bash
 cd secops # go to project directory
@@ -50,6 +55,6 @@ Run the development app
 pnpm tauri dev
 ```
 
-Application will be build by GitHub Action
+Debian Package (**.deb**) will be build by GitHub Action
 
-Tauri [Docs](https://tauri.app/v1/guides/)
+
