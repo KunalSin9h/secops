@@ -5,17 +5,17 @@
     <p align="center">
         <h3>Ubuntu Security Made Easy</h3>
     </p>
-
-    <p align="center">
-        <a href="https://github.com/KunalSin9h/secops/actions/workflows/release.yml" target="_black" rel="noopener"><img src="https://github.com/KunalSin9h/secops/actions/workflows/release.yml/badge.svg" alt="Publish" /></a>
-        <a href="https://github.com/KunalSin9h/Secops/actions/workflows/build.yml" target="_black" rel="noopener"><img src="https://github.com/KunalSin9h/Secops/actions/workflows/build.yml/badge.svg" alt="Build" /></a>
-        <a href="https://github.com/KunalSin9h/Secops/actions/workflows/test.yml" target="_black" rel="noopener"><img src="https://github.com/KunalSin9h/Secops/actions/workflows/test.yml/badge.svg" alt="Test" /></a>
-    </p>
-
-    <p align="center">
-        <img href="https://tiddi.kunalsin9h.com/K9TvRPW" alt="Secops Dashboard Image" />
-    </p>
 </div>
+
+<p align="center">
+    <a href="https://github.com/KunalSin9h/secops/actions/workflows/release.yml" target="_black" rel="noopener"><img src="https://github.com/KunalSin9h/secops/actions/workflows/release.yml/badge.svg" alt="Publish" /></a>
+    <a href="https://github.com/KunalSin9h/Secops/actions/workflows/build.yml" target="_black" rel="noopener"><img src="https://github.com/KunalSin9h/Secops/actions/workflows/build.yml/badge.svg" alt="Build" /></a>
+    <a href="https://github.com/KunalSin9h/Secops/actions/workflows/test.yml" target="_black" rel="noopener"><img src="https://github.com/KunalSin9h/Secops/actions/workflows/test.yml/badge.svg" alt="Test" /></a>
+</p>
+
+<p align="center">
+    <img href="https://tiddi.kunalsin9h.com/K9TvRPW" alt="Secops Dashboard Image" />
+</p>
 
 ## Download
 ```bash
