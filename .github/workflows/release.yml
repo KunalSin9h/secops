@@ -17,7 +17,8 @@ jobs:
           node-version: 18
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
-
+      - name: Run sccache-cache
+        uses: mozilla-actions/sccache-action@v0.0.3
       - name: install platform dependencies
         run: |
           sudo apt-get update
