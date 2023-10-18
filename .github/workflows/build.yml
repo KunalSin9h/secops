@@ -8,6 +8,7 @@ on:
       - pnpm-lock.yaml
       - src/**
       - src-tauri/**
+      - .github/workflows/**
 
 jobs:
   build-frontend:
