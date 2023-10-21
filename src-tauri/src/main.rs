@@ -1,6 +1,6 @@
 use secops::{
     commands::*,
-    core::{setup, Application},
+    core::{__cmd__close_loading, close_loading, setup, Application},
     rspc::init_rspc,
 };
 
@@ -39,6 +39,7 @@ async fn main() -> tauri::Result<()> {
             disable_camera,
             usb_block,
             revert_commit,
+            close_loading,
         ])
         .plugin(rspc::integrations::tauri::plugin(router.into(), || ()))
         .run(tauri::generate_context!())

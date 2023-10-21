@@ -1,11 +1,23 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [react(), tsconfigPaths()],
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "src/screens/loading.html",
+          dest: "",
+        },
+      ],
+    }),
+  ],
 
   resolve: {
     alias: {

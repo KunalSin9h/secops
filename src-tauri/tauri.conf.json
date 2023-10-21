@@ -16,10 +16,7 @@
       "fs": {
         "readDir": true,
         "readFile": true,
-        "scope": [
-          "$HOME/.secops/*",
-          "$HOME/.secops/state/*"
-        ],
+        "scope": ["$HOME/.secops/*", "$HOME/.secops/state/*"],
         "writeFile": true
       },
       "shell": {
@@ -35,9 +32,7 @@
       "category": "Utility",
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
-        "depends": [
-          "policykit-1"
-        ],
+        "depends": ["policykit-1"],
         "desktopTemplate": "../assets/deb/secops.desktop"
       },
       "icon": [
@@ -59,15 +54,26 @@
       {
         "center": true,
         "decorations": true,
-        "fileDropEnabled": true,
+        "fileDropEnabled": false,
         "fullscreen": false,
         "height": 850,
         "minHeight": 600,
         "minWidth": 868,
         "resizable": true,
         "title": "Secops",
-        "transparent": true,
-        "width": 1600
+        "transparent": false,
+        "width": 1600,
+        "visible": false
+      },
+      {
+        "center": true,
+        "width": 200,
+        "height": 200,
+        "decorations": false,
+        "resizable": false,
+        "title": "Secops | Loading...",
+        "url": "loading.html",
+        "label": "loading"
       }
     ]
   }
