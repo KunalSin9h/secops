@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.11.0"
+    "version": "0.11.1"
   },
   "tauri": {
     "allowlist": {
@@ -72,11 +72,11 @@
       },
       {
         "center": true,
-        "decorations": false,
+        "decorations": true,
         "height": 350,
         "label": "loading",
         "resizable": false,
-        "title": "Secops | Loading...",
+        "title": "Secops Starting...",
         "url": "loading.html",
         "width": 300
       }
