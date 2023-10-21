@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDom from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@/styles/global.css";
+import { invoke } from "@tauri-apps/api";
 import RspcProvider from "@/context/rspc";
 import Layout from "@/components/Layout/Layout";
 import Home from "@/components/Home/Home";
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+
+document.addEventListener("DOMContentLoaded", () => {
+  invoke("close_loading");
+});
 
 ReactDom.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

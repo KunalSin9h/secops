@@ -35,21 +35,24 @@ edition = '2021'
 license = 'MIT'
 name = 'secops'
 repository = 'https://github.com/kunalsin9h/secops'
-version = '0.10.0'
+version = '0.11.0'
 
 [profile]
+[profile.ci]
+inherits = 'dev'
+
+[profile.ci.package]
+[profile.ci.package.'*']
+opt-level = 0
+
+[profile.dev]
+[profile.dev.package]
+[profile.dev.package.'*']
+opt-level = 2
+
 [profile.release]
 codegen-units = 1
 lto = true
 opt-level = 's'
 panic = 'abort'
 strip = true
-
-[profile.dev.package."*"]
-opt-level = 2
-
-[profile.ci]
-inherits = "dev"
-
-[profile.ci.package."*"]
-opt-level = 0
