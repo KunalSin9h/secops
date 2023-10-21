@@ -9,8 +9,16 @@ pub struct Application {
 
 #[tauri::command]
 pub async fn close_loading(window: Window) {
-  // Close loading splashscreen
-  window.get_window("loading").expect("no window labeled 'loading' found").close().unwrap();
-  // Show main window
-  window.get_window("main").expect("no window labeled 'main' found").show().unwrap();
+    // Close loading splashscreen
+    window
+        .get_window("loading")
+        .expect("no window labeled 'loading' found")
+        .close()
+        .unwrap();
+    // Show main window
+    window
+        .get_window("main")
+        .expect("no window labeled 'main' found")
+        .show()
+        .unwrap();
 }

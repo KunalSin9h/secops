@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.10.0"
+    "version": "0.11.0"
   },
   "tauri": {
     "allowlist": {
@@ -16,7 +16,10 @@
       "fs": {
         "readDir": true,
         "readFile": true,
-        "scope": ["$HOME/.secops/*", "$HOME/.secops/state/*"],
+        "scope": [
+          "$HOME/.secops/*",
+          "$HOME/.secops/state/*"
+        ],
         "writeFile": true
       },
       "shell": {
@@ -32,7 +35,9 @@
       "category": "Utility",
       "copyright": "Kunal Singh \u003ckunal@kunalsin9h.com\u003e",
       "deb": {
-        "depends": ["policykit-1"],
+        "depends": [
+          "policykit-1"
+        ],
         "desktopTemplate": "../assets/deb/secops.desktop"
       },
       "icon": [
@@ -62,18 +67,18 @@
         "resizable": true,
         "title": "Secops",
         "transparent": false,
-        "width": 1600,
-        "visible": false
+        "visible": false,
+        "width": 1600
       },
       {
         "center": true,
-        "width": 200,
-        "height": 200,
         "decorations": false,
+        "height": 350,
+        "label": "loading",
         "resizable": false,
         "title": "Secops | Loading...",
         "url": "loading.html",
-        "label": "loading"
+        "width": 300
       }
     ]
   }
