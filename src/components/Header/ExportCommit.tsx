@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api";
+import { copyFile, BaseDirectory } from "@tauri-apps/api/fs";
+import { save } from "@tauri-apps/api/dialog";
 import {
   Sheet,
   SheetContent,
@@ -24,7 +26,7 @@ import {
   commitSettings,
   CommitStatus,
 } from "@/lib/settings";
-import toastError, { toastInfoReload } from "@/lib/toastError";
+import toastError, { toastInfo, toastInfoReload } from "@/lib/toastError";
 
 export default function ExportCommit() {
   return (
@@ -40,10 +42,12 @@ export default function ExportCommit() {
       </SheetTrigger>
       <SheetContent className="w-2/3 xl:w-1/3 overflow-y-scroll">
         <SheetHeader>
-          <SheetTitle>Commit Settings!</SheetTitle>
+          <SheetTitle>Commit or Export Settings!</SheetTitle>
           <SheetDescription>
             Commit takes snapshot of settings and configs, so that you can revet
             back and apply backups.
+            <br />
+            Exported files can be applied to replicated settings.
           </SheetDescription>
         </SheetHeader>
         <div className="px-2 xl:px-4 py-4 xl:py-8">
@@ -96,65 +100,62 @@ function CommitBox({
     <div className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8">
       <span className="text-md font-bold">{data.message}</span>
       <div className="flex items-center gap-4">
-        <div className="flex gap-2 items-center">
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger
-              className={`${
-                status ? "pointer-events-none cursor-not-allowed" : ""
-              }
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger
+            className={`${
+              status ? "pointer-events-none cursor-not-allowed" : ""
+            }
               `}
-            >
-              <div
-                className={`${
-                  status ? "bg-green-100" : "bg-green-300"
-                } text-black 
-                  "hover:bg-green-400/50"
+          >
+            <div
+              className={`${
+                status ? "bg-green-100" : "bg-green-200"
+              } text-black 
+                  hover:bg-green-500/50
                    px-3 py-2 rounded-md `}
-              >
-                <span className="text-xs uppercase font-bold">
-                  {status ? "All Good" : "Commit"}
-                </span>
-              </div>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Commit current settings</DialogTitle>
-              </DialogHeader>
-              <div>
-                <Input
-                  placeholder="Commit message..."
-                  onChange={(e) => {
+            >
+              <span className="text-xs uppercase font-bold">
+                {status ? "All Good" : "Commit"}
+              </span>
+            </div>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Commit current settings</DialogTitle>
+            </DialogHeader>
+            <div>
+              <Input
+                placeholder="Commit message..."
+                onChange={(e) => {
+                  e.preventDefault();
+                  setCommitMessage(e.target.value);
+                }}
+              />
+              <div className="mt-4 flex items-center gap-2 justify-end">
+                <Button
+                  variant={"secondary"}
+                  onClick={async (e) => {
                     e.preventDefault();
-                    setCommitMessage(e.target.value);
+                    setOpen(false);
                   }}
-                />
-                <div className="mt-4 flex items-center gap-2 justify-end">
-                  <Button
-                    variant={"secondary"}
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      setOpen(false);
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      await commitSettings(commitMessage.trim());
-                      const status = await getCommitStatus();
-                      statusUpdater(status);
-                      setOpen(false);
-                    }}
-                  >
-                    Commit
-                  </Button>
-                </div>
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await commitSettings(commitMessage.trim());
+                    const status = await getCommitStatus();
+                    statusUpdater(status);
+                    setOpen(false);
+                  }}
+                >
+                  Commit
+                </Button>
               </div>
-            </DialogContent>
-          </Dialog>
-          <ExportBox fileName={data.fileName} />
-        </div>
+            </div>
+          </DialogContent>
+        </Dialog>
         <span className="opacity-60 text-xs">{data.time}</span>
       </div>
     </div>
@@ -179,7 +180,7 @@ function RevertBox({
           <div className="flex gap-4 items-center">
             <div className="flex gap-2 items-center">
               <div
-                className="bg-black/10 text-black hover:bg-black/20 px-3 py-2 rounded-md cursor-pointer"
+                className="bg-secondary text-secondary-foreground hover:bg-secondary/50 px-3 py-2 rounded-md cursor-pointer"
                 onClick={async (e) => {
                   e.preventDefault();
                   if (!commit) {
@@ -213,10 +214,35 @@ function RevertBox({
 function ExportBox({ fileName }: { fileName: string }) {
   return (
     <div
-      className="border text-black hover:underline underline-offset-4 px-3 py-2 rounded-md cursor-pointer"
-      onClick={(e) => {
+      className="border border-input bg-background hover:bg-accent hover:text-accent-foreground px-3 py-2 rounded-md cursor-pointer"
+      onClick={async (e) => {
         e.preventDefault();
-        toastError(fileName);
+        const fileToSave = fileName.split("_").slice(1).join("_");
+
+        const filePath = await save({
+          filters: [
+            {
+              name: "JSON",
+              extensions: ["json"],
+            },
+          ],
+          defaultPath: fileToSave,
+          title: "Secops",
+        });
+
+        if (filePath) {
+          try {
+            await copyFile(`.secops/state/${fileName}`, filePath, {
+              dir: BaseDirectory.Home,
+            });
+            toastInfo({
+              title: "State file saved",
+              desc: `Location: ${filePath}`,
+            });
+          } catch (e) {
+            toastError(e);
+          }
+        }
       }}
     >
       <span className="text-xs uppercase font-bold">Export</span>
