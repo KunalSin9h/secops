@@ -4,16 +4,14 @@ import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Import from "./Import";
-import Export from "./Export";
-import Commit from "./Commit";
+import ExportCommit from "./ExportCommit";
 
 export default function Header() {
   return (
     <div className="h-12 xl:h-16 px-2 xl:px-4 flex justify-between items-center">
       <div className="flex gap-2 xl:gap-4 w-full">
         <Import />
-        <Export />
-        <Commit />
+        <ExportCommit />
       </div>
       <div className="flex gap-2 xl:gap-4 items-center justify-around">
         <Input type="text" placeholder="Search" />
