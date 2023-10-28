@@ -8,12 +8,16 @@
   },
   "package": {
     "productName": "Secops",
-    "version": "0.11.1"
+    "version": "0.12.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
+      "dialog": {
+        "save": true
+      },
       "fs": {
+        "copyFile": true,
         "readDir": true,
         "readFile": true,
         "scope": [
@@ -24,7 +28,7 @@
       },
       "shell": {
         "all": false,
-        "open": false
+        "open": true
       }
     },
     "bundle": {
