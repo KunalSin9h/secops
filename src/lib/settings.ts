@@ -1,3 +1,4 @@
+import { invoke } from "@tauri-apps/api";
 import {
   readTextFile,
   BaseDirectory,
@@ -143,7 +144,6 @@ export async function commitSettings(message: string) {
       },
     );
 
-    // TODO: may get time from rust
     stateFileData.time = `${new Date().toISOString()} +05:30`;
 
     stateFileData.message = "Current settings";
@@ -164,4 +164,38 @@ function getValidDate(currentDateString: string) {
   const time = new Date(currentDateString.split(" +")[0]);
 
   return time;
+}
+export function getFileName(filePath: string): string {
+  const tokens = filePath.split("/");
+
+  return tokens[tokens.length - 1];
+}
+
+export async function importSettings(filePath: string) {
+  try {
+    const stateFile = await readTextFile(filePath, {
+      dir: BaseDirectory.Home,
+    });
+    const stateFileData = JSON.parse(stateFile) as StateFile;
+
+    stateFileData.message = `Import: ${stateFileData.message}`;
+
+    const time = getValidDate(stateFileData.time);
+    const newFileName = `${time.getTime()}_${getFileName(filePath)}`;
+
+    await writeTextFile(
+      `${stateFileDirectory}/${newFileName}`,
+      JSON.stringify(stateFileData, null, 4),
+      {
+        dir: BaseDirectory.Home,
+      },
+    );
+
+    await invoke("revert_commit", {
+      file: newFileName,
+      prefix: "Import",
+    });
+  } catch (err) {
+    throw new Error(err as string);
+  }
 }

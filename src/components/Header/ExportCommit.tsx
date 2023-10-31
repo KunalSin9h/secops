@@ -189,6 +189,7 @@ function RevertBox({
                   }
                   invoke("revert_commit", {
                     file: value.fileName,
+                    prefix: "Revert",
                   })
                     .then(() =>
                       toastInfoReload({

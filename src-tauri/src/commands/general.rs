@@ -134,11 +134,12 @@ fn disable_camera_command() -> AppCommand {
 #[tauri::command(async)]
 pub async fn revert_commit(
     file: String,
+    prefix: String,
     app: tauri::AppHandle,
     state: tauri::State<'_, Application>,
 ) -> Result<(), rspc::Error> {
     let home_dir = state.home_dir.lock().unwrap().clone();
-    revert_state(&app, &home_dir, &file).map_err(RspcError::internal_server_error)?;
+    revert_state(&app, &home_dir, &file, &prefix).map_err(RspcError::internal_server_error)?;
 
     Ok(())
 }
