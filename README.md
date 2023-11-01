@@ -14,7 +14,7 @@
 </p>
 
 <p align="center">
-    <img src="https://tiddi.kunalsin9h.com/dJvf_yk" alt="Secops Dashboard Image" style="border-radius: 10%;" />
+    <img src="https://tiddi.kunalsin9h.com/8EdXzyK" alt="Secops Dashboard Image" style="border-radius: 10%;" />
 </p>
 
 ## Download
