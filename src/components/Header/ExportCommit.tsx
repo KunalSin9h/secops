@@ -109,13 +109,13 @@ function CommitBox({
           >
             <div
               className={`${
-                status ? "bg-green-100" : "bg-green-200"
+                status ? "bg-green-100" : "bg-green-300"
               } text-black 
                   hover:bg-green-500/50
                    px-3 py-2 rounded-md `}
             >
               <span className="text-xs uppercase font-bold">
-                {status ? "All Good" : "Commit"}
+                {status ? "All Good" : "Commit..."}
               </span>
             </div>
           </DialogTrigger>
@@ -174,7 +174,7 @@ function RevertBox({
       {states.map((value, index) => (
         <div
           key={index}
-          className="flex flex-col gap-4 px-4 xl:px-8 my-4 xl:my-8"
+          className="flex flex-col gap-2 px-4 xl:px-8 my-4 xl:my-8 border-t pt-2 xl:pt-4"
         >
           <span className="text-md font-bold">{value.message}</span>
           <div className="flex gap-4 items-center">
