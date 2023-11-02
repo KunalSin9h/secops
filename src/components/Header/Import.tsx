@@ -59,7 +59,7 @@ function Import() {
     <div>
       <div
         className={`h-36 w-full p-4 flex justify-center items-center rounded-xl border border-2 ${
-          selectedFile ? "border-green-200" : ""
+          selectedFile ? "border-green-400 border-dashed border-4" : ""
         }`}
       >
         <div className="flex flex-col gap-4 items-center">
@@ -93,7 +93,9 @@ function Import() {
       </div>
       <div className="mt-4">
         <Button
-          className={`${processing ? "opacity-60 cursor-wait" : ""}`}
+          className={`${
+            processing ? "opacity-60 cursor-wait pointer-events-none" : ""
+          }`}
           variant={"default"}
           onClick={async (e) => {
             e.preventDefault();
@@ -102,10 +104,12 @@ function Import() {
               toastError(
                 "Commit the current settings first before applying new settings!",
               );
+              setProcessing(false);
               return;
             }
             if (!selectedFile) {
               toastError("No file selected");
+              setProcessing(false);
               return;
             }
 
@@ -115,13 +119,13 @@ function Import() {
                 title: "Settings Imported successfully",
                 desc: "Reload the window to update UI",
               });
-            } catch (err) {
-              toastError(err);
+            } catch (e) {
+              toastError(e);
             }
             setProcessing(false);
           }}
         >
-          {processing ? "Applying" : "Apply"}
+          {processing ? "Applying..." : "Apply"}
         </Button>
       </div>
     </div>
