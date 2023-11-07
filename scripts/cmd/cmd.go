@@ -6,10 +6,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// func init() {
-// 	RootCmd.AddCommand(version.VersionCmd)
-// }
-
 func NewCLI() *cobra.Command {
 	var rootCmd = &cobra.Command{
 		Use:   "secops",
