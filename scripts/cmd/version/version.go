@@ -9,50 +9,52 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func init() {
-	VersionCmd.AddCommand(versionUpdateCmd)
-}
-
 // Command to check the application version
-var VersionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Get version App Desktop Version",
-	RunE: func(cmd *cobra.Command, args []string) error {
+func Version() *cobra.Command {
+	var versionCmd = &cobra.Command{
+		Use:   "version",
+		Short: "Get version App Desktop Version",
+		RunE: func(cmd *cobra.Command, args []string) error {
 
-		packageJson, err := config.ReadConfigJson(config.PackageJsonFile)
+			packageJson, err := config.ReadConfigJson(config.PackageJsonFile)
 
-		if err != nil {
-			return err
-		}
+			if err != nil {
+				return err
+			}
 
-		packageJsonVersion := packageJson["version"]
+			packageJsonVersion := packageJson["version"]
 
-		cargoToml, err := config.ReadconfigToml(config.CargoTomlFile)
+			cargoToml, err := config.ReadconfigToml(config.CargoTomlFile)
 
-		if err != nil {
-			return err
-		}
+			if err != nil {
+				return err
+			}
 
-		cargoTomlVersion := cargoToml["package"].(map[string]any)["version"]
+			cargoTomlVersion := cargoToml["package"].(map[string]any)["version"]
 
-		tauriConfJson, err := config.ReadConfigJson(config.TauriConfFile)
+			tauriConfJson, err := config.ReadConfigJson(config.TauriConfFile)
 
-		if err != nil {
-			return err
-		}
+			if err != nil {
+				return err
+			}
 
-		tauriConfJsonVersion := tauriConfJson["package"].(map[string]any)["version"]
+			tauriConfJsonVersion := tauriConfJson["package"].(map[string]any)["version"]
 
-		if !(packageJsonVersion == cargoTomlVersion && cargoTomlVersion == tauriConfJsonVersion) {
-			color.HiRed("Error:")
-			fmt.Printf("package.json    -> %s\n", packageJsonVersion)
-			fmt.Printf("Cargo.Toml      -> %s\n", cargoTomlVersion)
-			fmt.Printf("tauri.conf.json -> %s\n", tauriConfJsonVersion)
-			return errors.New("Version is inconsistent between package.json, Cargo.tom and tauri.conf.json")
-		} else {
-			color.HiYellow("Secops v%s", tauriConfJsonVersion)
-		}
+			if !(packageJsonVersion == cargoTomlVersion && cargoTomlVersion == tauriConfJsonVersion) {
+				color.HiRed("Error:")
+				fmt.Printf("package.json    -> %s\n", packageJsonVersion)
+				fmt.Printf("Cargo.Toml      -> %s\n", cargoTomlVersion)
+				fmt.Printf("tauri.conf.json -> %s\n", tauriConfJsonVersion)
+				return errors.New("Version is inconsistent between package.json, Cargo.tom and tauri.conf.json")
+			} else {
+				color.HiYellow("Secops v%s", tauriConfJsonVersion)
+			}
 
-		return nil
-	},
+			return nil
+		},
+	}
+
+	versionCmd.AddCommand(versionUpdate())
+
+	return versionCmd
 }
