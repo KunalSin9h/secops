@@ -23,6 +23,9 @@
     <img src="https://tiddi.kunalsin9h.com/8EdXzyK" alt="Secops Dashboard Image" style="border-radius: 10%;" />
 </p>
 
+> [!IMPORTANT]
+> More Security Settings need to be added, you can request one in [issues](https://github.com/KunalSin9h/Secops/issues)
+
 ## Download
 ```bash
 # To download latest version, run 
