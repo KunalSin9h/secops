@@ -26,6 +26,12 @@
 > [!IMPORTANT]
 > More Security Settings need to be added, you can request one in [issues](https://github.com/KunalSin9h/Secops/issues)
 
+## Stack
+
+- [Tauri](https://tauri.app/)
+- React + Vite
+- TailwindCSS
+
 ## Download
 ```bash
 # To download latest version, run 
