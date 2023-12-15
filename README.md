@@ -20,8 +20,10 @@
 </p>
 
 <p align="center">
-    <img src="https://tiddi.kunalsin9h.com/8EdXzyK" alt="Secops Dashboard Image" style="border-radius: 10%;" />
+    <img src="https://github.com/KunalSin9h/secops/assets/82411321/d3bea124-b7e9-42b1-af4b-b4a20f725dd6" alt="Secops Dashboard Image" style="border-radius: 10%;" />
 </p>
+
+
 
 > [!IMPORTANT]
 > More Security Settings need to be added, you can request one in [issues](https://github.com/KunalSin9h/Secops/issues)
