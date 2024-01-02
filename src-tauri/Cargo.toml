@@ -5,6 +5,7 @@ version = '1.4'
 
 [dependencies]
 chrono = '0.4.31'
+devtools = "0.2.5"
 env_logger = '0.10.0'
 log = '0.4.20'
 serde_json = '1.0'
@@ -18,8 +19,8 @@ features = ['derive']
 version = '1.0'
 
 [dependencies.tauri]
-features = ['dialog-open', 'fs-copy-file', 'dialog-save', 'shell-open', 'fs-write-file', 'fs-read-dir', 'fs-read-file']
-version = '1.4'
+features = ['dialog-open', 'fs-copy-file', 'dialog-save', 'shell-open', 'fs-write-file', 'fs-read-dir', 'fs-read-file', 'tracing']
+version = '1.5'
 
 [dependencies.tokio]
 features = ['full']
