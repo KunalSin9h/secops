@@ -28,7 +28,7 @@ async fn main() -> tauri::Result<()> {
     #[cfg(debug_assertions)]
     let builder = builder.plugin(devtools);
 
-    builder 
+    builder
         .manage(state)
         .invoke_handler(tauri::generate_handler![
             version,
