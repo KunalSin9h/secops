@@ -66,7 +66,7 @@ pub async fn get_distro() -> Result<String, rspc::Error> {
         "cat",
         false,
         true,
-        vec!["/etc/lsb-release"],
+        vec!["/etc/*-release"],
     )
     .exec(None)
     {
