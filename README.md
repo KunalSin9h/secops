@@ -58,10 +58,11 @@ git clone https://github.com/KunalSin9h/secops
 
 ### Requirements
 
-#### Download All requirements on Ubuntu for developing the project.
+#### Download All requirements on OS for developing the project.
 
 ```bash
 cd secops # go to project directory
+
 cmake .
 cd build
 make run_script
