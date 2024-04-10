@@ -62,8 +62,9 @@ git clone https://github.com/KunalSin9h/secops
 
 ```bash
 cd secops # go to project directory
-
-bash ./scripts/setup_host.sh
+cmake .
+cd build
+make run_script
 ```
 
 Download Dependencies
