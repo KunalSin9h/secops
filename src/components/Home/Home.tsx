@@ -1,13 +1,18 @@
+import { useContext } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import General from "./General";
 import AllServices from "./Services";
-import Ubuntu from './UbuntuBranding.tsx'
 import Update from "./Update";
-import {useContext} from 'react';
-import {DistroContext} from '../context/Distro.jsx'
+
+import { DistroContext } from "../../context/Distro.tsx";
+import DistroBranding from "./DistroBranding.tsx";
+
 export default function Home() {
-  const distrocontext = useContext(DistroContext);
-  const imageSrc = distrocontext.distro === "arch" ? "/arch.png" : "/ubuntu.png";
+  const distroContext = useContext(DistroContext);
+
+  const imageSrc =
+    distroContext?.distro === "arch" ? "/arch.png" : "/ubuntu.png";
+
   return (
     <div className="flex gap-2 xl:gap-4 h-[84vh]">
       <div className="w-1/3 flex flex-col gap-2 xl:gap-4">
@@ -15,10 +20,10 @@ export default function Home() {
           <div className="flex gap-2 xl:gap-4 items-center">
             <img
               src={imageSrc}
-              alt=  {distrocontext.distro + "Desktop Logo"}
+              alt={distroContext?.distro + "Desktop Logo"}
               className="h-14 xl:h-24 w-14 xl:w-24"
             />
-            <Ubuntu />
+            <DistroBranding />
           </div>
         </div>
         <ScrollArea className="border rounded shadow p-1 xl:p-2 h-full">
