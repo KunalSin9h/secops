@@ -3,7 +3,6 @@ import { ScrollArea } from "../ui/scroll-area";
 import General from "./General";
 import AllServices from "./Services";
 import Update from "./Update";
-
 import { DistroContext } from "../../context/Distro.tsx";
 import DistroBranding from "./DistroBranding.tsx";
 
