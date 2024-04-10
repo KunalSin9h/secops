@@ -11,6 +11,7 @@ import TOR from "./components/TOR";
 import Settings from "./components/Settings";
 import Help from "./components/Help";
 import Firewall from "./components/Firewall";
+import {DistroProvider} from './components/context/Distro.jsx'
 
 const router = createBrowserRouter([
   {
@@ -39,8 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ReactDom.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
+    <DistroProvider>
     <RspcProvider>
       <RouterProvider router={router} />
     </RspcProvider>
+      </DistroProvider>
   </React.StrictMode>,
 );
