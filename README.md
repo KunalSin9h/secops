@@ -4,7 +4,7 @@
         <h1>Secops</h1>
     </p>
     <p align="center">
-        <h3>Ubuntu Security Made Easy</h3>
+        <h3>Linux Desktop Security Made Easy</h3>
     </p>
 </div>
 
@@ -28,11 +28,18 @@
 > [!IMPORTANT]
 > More Security Settings need to be added, you can request one in [issues](https://github.com/KunalSin9h/Secops/issues)
 
+## Supported OS
+
+- [x] Ubuntu
+- [ ] Arch Linux (Next Up)
+- [ ] Pop OS  (After Arch Linux)
+
 ## Stack
 
 - [Tauri](https://tauri.app/)
 - React + Vite
 - TailwindCSS
+- Cmake (required)
 
 ## Download
 ```bash
@@ -76,6 +83,4 @@ Run the development app
 pnpm tauri dev
 ```
 
-Debian Package (**.deb**) will be build by GitHub Action
-
-
+---
