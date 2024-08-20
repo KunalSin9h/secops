@@ -1,10 +1,10 @@
 <div align="center"> 
-    <img alt="MeltCD Logo" height="200px" src="https://github.com/KunalSin9h/Secops/assets/82411321/f5480df3-a1d4-461d-bf54-4092a75dda49">
+    <img alt="Secops Logo" height="200px" src="https://github.com/KunalSin9h/Secops/assets/82411321/f5480df3-a1d4-461d-bf54-4092a75dda49">
     <p align="center">
         <h1>Secops</h1>
     </p>
     <p align="center">
-        <h3>Linux Desktop Security Made Easy</h3>
+        <h3>Ubuntu Desktop Security Made Easy</h3>
     </p>
 </div>
 
@@ -23,16 +23,10 @@
     <img src="https://github.com/KunalSin9h/secops/assets/82411321/d3bea124-b7e9-42b1-af4b-b4a20f725dd6" alt="Secops Dashboard Image" style="border-radius: 10%;" />
 </p>
 
-
-
 > [!IMPORTANT]
 > More Security Settings need to be added, you can request one in [issues](https://github.com/KunalSin9h/Secops/issues)
 
-## Supported OS
-
-- [x] Ubuntu
-- [ ] Arch Linux (Next Up)
-- [ ] Pop OS  (After Arch Linux)
+Secops, short for *Secure Operations* is a friendly GUI application for ubuntu operating system.
 
 ## Stack
 
@@ -42,11 +36,8 @@
 - Cmake (required)
 
 ## Download
-```bash
-# To download latest version, run 
-sh <(curl https://store.singh.software/secops)
-```
-Alternatively download from [release page](https://github.com/KunalSin9h/Secops/releases)
+
+Download from [release page](https://github.com/KunalSin9h/Secops/releases)
 
 ## Local Setup
 
