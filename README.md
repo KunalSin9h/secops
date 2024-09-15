@@ -55,7 +55,6 @@ git clone https://github.com/KunalSin9h/secops
 cd secops # go to project directory
 
 cmake .
-cd build
 make run_script
 ```
 
