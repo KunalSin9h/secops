@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22)
 project(RunScript)
 
 if(UNIX AND NOT APPLE)
@@ -27,7 +27,7 @@ if(UNIX AND NOT APPLE)
       message(STATUS "Detected Debian Linux")
       set(DISTRO "Debian Linux")
 	      add_custom_target(run_script
-	      COMMAND   sudo apt-get install libwebkit2gtk-4.0-dev build-essential  curl wget file  libssl-dev  libgtk-3-dev  patchelf  libappindicator3-dev  librsvg2-dev -y
+	      COMMAND sudo apt-get install libwebkit2gtk-4.0-dev build-essential curl wget file libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev -y
 	      COMMENT "Running script on Debian Linux"
       )
 
@@ -35,7 +35,7 @@ if(UNIX AND NOT APPLE)
       message(STATUS "Detected ${LINUX_ID}-like Linux distribution")
       set(DISTRO "${LINUX_ID}-like Linux")
       add_custom_target(run_script
-	      COMMAND   sudo apt-get install libwebkit2gtk-4.0-dev build-essential  curl wget file  libssl-dev  libgtk-3-dev  patchelf  libappindicator3-dev  librsvg2-dev -y
+	      COMMAND sudo apt-get install libwebkit2gtk-4.0-dev build-essential curl wget file libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev -y
 	      COMMENT "Running script on Debian Linux"
 	      )
 

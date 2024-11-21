@@ -9,16 +9,13 @@ import DistroBranding from "./DistroBranding.tsx";
 export default function Home() {
   const distroContext = useContext(DistroContext);
 
-  const imageSrc =
-    distroContext?.distro === "arch" ? "/arch.png" : "/ubuntu.png";
-
   return (
     <div className="flex gap-2 xl:gap-4 h-[84vh]">
       <div className="w-1/3 flex flex-col gap-2 xl:gap-4">
         <div className="h-24 xl:h-36 border rounded shadow p-1 xl:p-2 flex items-center justify-center">
           <div className="flex gap-2 xl:gap-4 items-center">
             <img
-              src={imageSrc}
+              src={"/ubuntu.png"}
               alt={distroContext?.distro + "Desktop Logo"}
               className="h-14 xl:h-24 w-14 xl:w-24"
             />

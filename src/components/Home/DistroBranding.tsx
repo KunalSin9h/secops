@@ -23,14 +23,11 @@ export default function LinuxDistribution() {
   }
 
   const info = data.split("\n");
-  const release = info[2].replace(
-    /PRETTY_NAME=("|')(.*?)\1|DISTRIB_CODENAME=("|')(.*?)\3/g,
-    "$2$4",
-  );
+  const release = info[2].replace('DISTRIB_CODENAME=', "");
+
   const distro_name = info[3]
     .replace('DISTRIB_DESCRIPTION="', "")
-    .replace('"', "")
-    .replace("ID=", "");
+    .replace('"', "");
 
   distroContext?.setDistro(distro_name);
 
